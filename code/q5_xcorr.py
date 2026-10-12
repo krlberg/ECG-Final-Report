@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.signal as ss
 
-from ecg_data import ECG_COLOR, FIG_DIR, FS, INK, INK_2, load, style
+from ecg_data import ECG_COLOR, FIG_DIR, FS, INK, load, style
 from filters import filtered_F
 
 T0, T1 = 36.5, 41.5  # s, same window as Phase 2
@@ -49,19 +49,15 @@ print("ACF filtered sig-F:", ", ".join(f"{a[k]:.3f} at {lag[k]:.3f} s" for k in 
 print(f"  mean period: {np.mean(np.diff(lag[i])):.3f} s")
 
 fig, ax = plt.subplots(figsize=(4.2, 2.4))
-ax.plot(lag, r_raw, color=INK_2, lw=0.6, ls="--", alpha=0.6, label="raw sig-F (Phase 2)")
-ax.plot(lag, r, color=ECG_COLOR, lw=0.7, label="filtered sig-F")
+# same style as the auto-correlation figure: Phase 2 drawn on top (dashed)
+ax.plot(lag, r, color=ECG_COLOR, lw=1.0, label="filtered")
+ax.plot(lag, r_raw, color=INK, lw=0.6, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
 ax.set_xlim(lag[0], lag[-1])
 ax.set_ylim(-0.3, 0.3)
 ax.set_xlabel("lag [s]")
-ax.set_ylabel(r"normalised $R_{PF}$")
-# mark the maxima next to zero lag: one beat before and after
-for lo, hi, dx, ha in [(-0.5, 0.0, -4, "right"), (0.3, 0.6, 4, "left")]:
-    m = (lag > lo) & (lag < hi)
-    i = np.flatnonzero(m)[np.argmax(r[m])]
-    ax.plot(lag[i], r[i], "o", ms=3, color=INK)
-    ax.annotate(f"{r[i]:.2f} at {lag[i]:+.2f} s".replace("-", "−"), (lag[i], r[i]), xytext=(dx, 4),
-                textcoords="offset points", fontsize=7.5, color=INK_2, ha=ha)
-ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.0), fontsize=7.5, frameon=False, ncol=2)
+ax.set_ylabel(r"normalised $R_{PF}[n]$")
+leg = ax.legend(loc="lower left", bbox_to_anchor=(0, 1), ncol=2, fontsize=8, frameon=False,
+                borderaxespad=0.2, handlelength=2.0, columnspacing=1.2)
+leg.get_lines()[0].set_linewidth(1.5)
 fig.savefig(FIG_DIR / "xcorr_filtered.pdf")
 plt.close(fig)

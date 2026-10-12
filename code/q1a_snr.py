@@ -9,6 +9,7 @@ import numpy as np
 from ecg_data import CHANNELS, ECG_COLOR, FIG_DIR, FS, INK_2, load, style
 
 BAND = (0.5, 40.0)  # Hz, signal band: above most drift, below the 50 Hz mains
+NOISE_COLOR = "#a3a29e"  # grey
 
 
 def power_spectrum(x):
@@ -51,14 +52,17 @@ if __name__ == "__main__":
     P_s, P_n = band_powers(f, P)
     lo, hi = BAND
     fig, ax = plt.subplots(figsize=(4.2, 2.4))
-    ax.axvspan(lo, hi, color=ECG_COLOR, alpha=0.12, lw=0)
-    ax.loglog(f[1:], P[1:], color=ECG_COLOR, lw=0.4)
+    inside = (f >= lo) & (f <= hi)
+    out = np.where(inside, np.nan, P)  # noise bins (outside B_s)
+    out[np.flatnonzero(inside)[[0, -1]] + [-1, 1]] = P[np.flatnonzero(inside)[[0, -1]] + [-1, 1]]
+    ax.loglog(f[1:], out[1:], color=NOISE_COLOR, lw=0.5)
+    ax.loglog(f[inside], P[inside], color=ECG_COLOR, lw=0.5)
     ax.set_xlim(f[1], FS / 2)
     ax.set_xlabel("f [Hz]")
     ax.set_ylabel(r"$P[k]$ [$\mu$V$^2$]")
     ax.text(np.sqrt(lo * hi), 0.98, f"signal\n{sci(P_s)} $\\mu$V$^2$", transform=ax.get_xaxis_transform(),
-            ha="center", va="top", fontsize=7.5, color=INK_2)
+            ha="center", va="top", fontsize=8, color=ECG_COLOR)
     ax.text(0.03, 0.06, f"noise\n{sci(P_n)} $\\mu$V$^2$", transform=ax.transAxes,
-            ha="left", va="bottom", fontsize=7.5, color=INK_2)
+            ha="left", va="bottom", fontsize=8, color=INK_2)
     fig.savefig(FIG_DIR / "snr_F.pdf")
     plt.close(fig)

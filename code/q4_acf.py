@@ -43,12 +43,14 @@ print(f"power filtered/unfiltered: {ratio:.3f}; unfiltered first side peak / rat
       f"{acf['unfiltered'][np.argmin(abs(lag - 0.72))] / ratio:.2f}")
 
 fig, ax = plt.subplots(figsize=(4.2, 2.4))
-# R_xx is symmetric, so only positive lags are shown; unfiltered drawn on top (dashed)
-ax.plot(lag, acf["filtered"], color=ECG_COLOR, lw=0.9, label="filtered")
+# R_xx is symmetric, so only positive lags are shown; Phase 2 drawn on top (dashed) so the difference stays visible
+ax.plot(lag, acf["filtered"], color=ECG_COLOR, lw=1.0, label="filtered")
 ax.plot(lag, acf["unfiltered"], color=INK, lw=0.6, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
 ax.set_xlim(0, 5.0)
 ax.set_xlabel("lag [s]")
 ax.set_ylabel(r"$R_{xx}[n]/R_{xx}[0]$")
-ax.legend(fontsize=7.5, frameon=False, loc="upper right")
+leg = ax.legend(loc="lower left", bbox_to_anchor=(0, 1), ncol=2, fontsize=8, frameon=False,
+                borderaxespad=0.2, handlelength=2.0, columnspacing=1.2)
+leg.get_lines()[0].set_linewidth(1.5)
 fig.savefig(FIG_DIR / "acf_filtered.pdf")
 plt.close(fig)
