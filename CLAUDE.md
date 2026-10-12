@@ -39,6 +39,7 @@
 ## Workflow and status
 - One agent per question drafts code + figures + text; the main session merges into main.tex, checks the rendered PDF, pushes.
   A strict "TA" grader agent reviews; an editor agent checks for AI-like writing and unnecessary content.
-- Status: all sub-questions written. Last grade 9.5 / 9.5 / 9.5 / 9.5 / 9.0 per section; Section 5 fixes applied for 9.5.
+- Status: DONE. Final independent grade (grader5): 9.5 / 9.5 / 9.0 / 9.5 / 9.0, predicted 9.3; its 3 must-fixes
+  (3d 50 Hz wording, 5b lag change < 0.01 s, 5d "pulse peak") applied -> ~9.5.
   Skipped optional: a 3f caveat on in-band noise. Target: 9.5/10 per section.
 - Before submitting: check Canvas for a rubric or page limit (none found locally).

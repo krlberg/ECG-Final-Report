@@ -87,7 +87,7 @@ Order 2 is enough to suppress the drift (Figure~\ref{fig:hp-response}). The bili
   H(z) = 0.99783\,\frac{1 - 2z^{-1} + z^{-2}}{1 - 1.99566\,z^{-1} + 0.99567\,z^{-2}}.
 \]
 The phase of this filter is non-linear (one pass shifts $f_\mathrm{HR}$ by $30^\circ$), so it is applied forward and backward. The total impulse response $h[n]\otimes h[-n]$ is then symmetric and
-the phase is zero. This is non-causal, which is fine for recorded data. It keeps the ECG
+the phase is zero. This is non-causal, which is acceptable for recorded data. It keeps the ECG
 shape and the correlation lags of Sections~\ref{sec:acf}--\ref{sec:xcorr} unchanged. The two
 passes square the magnitude response, so the effective response at $f_c$ is $-6$~dB.
 
@@ -183,7 +183,7 @@ $-0.7$~dB at 35~Hz, $-6$~dB at $f_c = 40$~Hz and $-53.5$~dB at 50~Hz.
 \paragraph{(d)} In the time domain (Figure~\ref{fig:lp-time}) the fast noise on the baseline is
 gone. The P, QRS and T waves keep their shape and timing, but the R peaks are about 12\% lower,
 because the QRS complex has some content above 40~Hz. In the spectrum (Figure~\ref{fig:lp-freq})
-nothing changes up to 32~Hz, and everything above 48~Hz, including the 50~Hz line, drops by more
+nothing changes up to 32~Hz, and everything from 50~Hz upwards, including the 50~Hz line, drops by more
 than 50~dB. The drift below 0.5~Hz was already removed by the high-pass filter.
 
 \begin{figure}[!htb]
@@ -226,7 +226,7 @@ signal band is gone.
 % Manual 2.3.4a Calculate and plot the auto-correlations of the filtered signal. Comment on
 % your observations in 2-3 sentences.
 \paragraph{(a)} Figure~\ref{fig:acf-filt} shows the normalised auto-correlation
-$R_{xx}[n]/R_{xx}[0]$ of the filtered sig-F, calculated as in Phase 2 over $t = 36.5$--41.5~s
+$R_{xx}[n]/R_{xx}[0]$ of the filtered sig-F (high- and low-pass), calculated as in Phase 2 over $t = 36.5$--41.5~s
 with the mean removed. It has narrow peaks at multiples of the heartbeat period of 0.72~s, which
 drop from 0.73 at 0.72~s to 0.28 at 3.58~s because fewer samples overlap. Next to each peak are
 dips down to $-0.17$ at $\pm 0.075$~s, and between the beats the curve stays close to zero.
@@ -265,7 +265,7 @@ over the same window as in Phase 2 ($t = 36.5$--41.5~s, mean removed). The filte
 
 % Manual 2.3.5b Compare your new correlation result with the unfiltered case in Phase 2.
 \paragraph{(b)} The result is close to that of Phase 2. The maxima are 0.22 at $-0.25$~s
-and 0.20 at $+0.42$~s (Phase 2: 0.22 and 0.19 at $-0.25$ and $+0.41$~s). The lags do not change because both filters have zero phase, so the pulse still
+and 0.20 at $+0.42$~s (Phase 2: 0.22 and 0.19 at $-0.25$ and $+0.41$~s). The lags change by less than 0.01~s because both filters have zero phase, so the pulse still
 follows the ECG spike by about 0.4~s. These two maxima change by less than 0.01, because filtering removes only 6\% of the power of sig-F in this window, and this noise was not correlated with sig-P. The outer maxima and the minima grow by up to 0.03, because the high-pass filter removes the slow drift.
 
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
@@ -284,8 +284,7 @@ harmonics. The filters remove the drift below 0.5~Hz, the 50~Hz line and the noi
 (Figure~\ref{fig:lp-signal}), which raises the SNR of sig-F from $-0.4$ to 22.7~dB
 (Table~\ref{tab:snr}). The auto-correlation shows the same rhythm in the time domain, with a
 period of 0.72~s (1.39~Hz). Its side peak rises because the removed noise was different in
-every beat. The cross-correlation has the same period and shows that the pulse arrives about
-0.4~s after the ECG spike. This delay is unchanged because both filters have zero phase and sig-P has 96\% of its power between 0.5 and 7~Hz, where the filters hardly change sig-F. Filtering raises the SNR of
+every beat. The cross-correlation has the same period and shows that the pulse peak follows the ECG spike by about 0.4~s. This delay is unchanged because both filters have zero phase and sig-P has 96\% of its power between 0.5 and 7~Hz, where the filters hardly change sig-F. Filtering raises the SNR of
 sig-F but does not change its heart rate or its delay to the pulse.
 
 
