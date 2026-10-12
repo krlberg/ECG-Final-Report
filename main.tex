@@ -26,19 +26,22 @@
 \paragraph{(a)} The SNR is the ratio of signal power to noise power. It is calculated from the
 spectrum of the whole recording ($N = 46648$). After removing the mean, the power per frequency
 bin is $P[k] = 2|X[k]|^2/N^2$, so that $\sum_k P[k]$ is the mean power (Parseval). Power inside
-the heartbeat band $B_s$ (0.5--40~Hz for the ECG, 0.5--10~Hz for sig-P) is signal; all other power
-(drift, 50~Hz, high-frequency noise) is noise (Figure~\ref{fig:snr}):
+the band $B_s$ = 0.5--40~Hz is signal; all other power (drift, 50~Hz, high-frequency noise) is noise
+(Figure~\ref{fig:snr}). $B_s$ lies above most of the drift and below the 50~Hz mains, and contains
+the heart rate of 1.4~Hz and its harmonics:
 \[
   \mathrm{SNR} = 10\log_{10}\frac{\sum_{k \in B_s} P[k]}{\sum_{k \notin B_s} P[k]}.
 \]
+Unlike the Learning Task, the noise is not extrapolated from a signal-free band: that assumes
+white noise, while the noise here is mainly drift below 0.5~Hz, which would then count as signal.
 Table~\ref{tab:snr} gives the results. sig-F has the highest SNR of the three ECG signals and is
 used in the rest of this report.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.65\textwidth]{snr_F}
-  \caption{Power per bin $P[k]$ of sig-F. Power in the shaded band counts as signal, the rest as
-  noise.}
+  \caption{Power per bin $P[k]$ of sig-F (whole recording). Power in the shaded band counts as
+  signal, the rest as noise.}
   \label{fig:snr}
 \end{figure}
 
@@ -62,10 +65,12 @@ Points to pay attention to:
 \begin{itemize}
   \item The SNR depends on the chosen signal band, so the same band must be used in every
         comparison.
-  \item Noise inside the signal band is counted as signal, so the SNR is overestimated.
+  \item Noise inside the band counts as signal and ECG content outside it (e.g.\ QRS above
+        40~Hz) counts as noise, so the SNR is only an estimate.
   \item The mean (DC offset) must be removed, otherwise it counts as power.
-  \item Baseline drift dominates the ECG noise and varies in time, so the SNR depends on the time
-        window: for sig-F it ranges from 3.5 to 9.7~dB between 10~s windows.
+  \item The SNR depends on the length of the recording: for 10~s windows of sig-F it is
+        3.5--9.7~dB, higher than for the whole recording, because a short window with its mean
+        removed contains less slow drift.
 \end{itemize}
 
 % =====================================================================
