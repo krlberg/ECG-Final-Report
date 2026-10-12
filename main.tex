@@ -86,11 +86,17 @@ $f_\mathrm{HR} = 1.40$~Hz (Phase 2), so the cut-off is placed between them at $f
 lower edge of the signal band $B_s$. An IIR filter is used, because an FIR filter needs a
 resolution $\Delta f = f_s/K$ below 0.5~Hz, i.e.\ $K > 2000$ taps at $f_s = 1024$~Hz, while an IIR
 filter needs only a few coefficients. A Butterworth type is chosen for its flat passband (no ripple
-on the ECG), and order 2 is enough to suppress the drift (Figure~\ref{fig:hp-response}). The IIR
-filter has a non-linear phase, so it is applied forward and backward (zero phase); the reader does
-not use this, but for offline data it avoids phase distortion of the ECG shape and of the
-correlation lags in Sections~\ref{sec:acf}--\ref{sec:xcorr}. This squares the magnitude response,
-so the effective response is $-6$~dB at $f_c$.
+on the ECG), and order 2 is enough to suppress the drift (Figure~\ref{fig:hp-response}). It is
+designed with the bilinear transform (\texttt{scipy.signal.butter}):
+\[
+  H(z) = 0.99783\,\frac{1 - 2z^{-1} + z^{-2}}{1 - 1.99566\,z^{-1} + 0.99567\,z^{-2}}.
+\]
+The IIR filter has a non-linear phase (one pass shifts the 1.4~Hz component by $30^\circ$), so it
+is applied forward and backward: the total impulse response $h[n]*h[-n]$ is symmetric, so the
+phase is zero. This is non-causal and not used in the reader (\S12.4), but it is allowed for
+offline data and keeps the ECG shape and the correlation lags of
+Sections~\ref{sec:acf}--\ref{sec:xcorr} unchanged. It squares the magnitude response, so the
+effective response is $-6$~dB at $f_c$.
 
 % Manual 2.3.2b Present the filter characteristics in an annotated graph in the frequency
 % domain.
@@ -146,7 +152,8 @@ signal band is almost unchanged. For $f_c$ = 0.3, 0.5 and 0.7~Hz the SNR is 9.4,
 10.6~dB at order 2 and 9.2, 10.7 and 10.7~dB at order 4. A cut-off below 0.5~Hz leaves drift
 between $f_c$ and 0.5~Hz, which counts as noise; above 0.5~Hz the SNR hardly increases, because 95\%
 of the remaining noise lies above 40~Hz (50~Hz mains and high-frequency noise), which a high-pass
-filter cannot remove.
+filter cannot remove. Order 4 changes the SNR by at most 0.2~dB, since order 2 already
+suppresses the drift.
 
 % =====================================================================
 \section{Design and application of low-pass filter}\label{sec:lp}
@@ -159,10 +166,11 @@ filter cannot remove.
 the ECG, the filter is a linear-phase FIR, $y[n] = \sum_{i=0}^{K-1} h[i]\,x[n-i]$ with symmetric
 $h[n]$: all frequencies are delayed by the same $(K-1)/2$ samples. It is designed with the window
 method and a Hamming window, $w[n] = 0.54 - 0.46\cos\bigl(2\pi n/(K-1)\bigr)$, whose low side lobes
-give about 53~dB stop-band attenuation. Its transition width is $\Delta f \approx 3.3 f_s/K$;
-$K = 201$ taps (odd) gives $\Delta f \approx 17$~Hz, so the gain falls from 0~dB at 32~Hz to the
+give about 53~dB stop-band attenuation. The window widens the transition band to about
+$3.3\,\Delta f = 3.3 f_s/K$; $K = 201$ taps (odd, so the delay is a whole number of samples) gives
+17~Hz, so the gain falls from 0~dB at 32~Hz to the
 stop band at 48~Hz, just below the 50~Hz line. The delay of $(K-1)/2 = 100$ samples is removed by
-applying the filter as a centred convolution.
+applying the filter as a centred convolution, so it has zero phase.
 
 \begin{figure}[!htb]
   \centering
@@ -174,7 +182,7 @@ applying the filter as a centred convolution.
 
 % Manual 2.3.3b Present the filter characteristics in an annotated graph in the frequency
 % domain.
-\paragraph{(b)} Figure~\ref{fig:lp-response} shows the magnitude response: 0~dB up to 30~Hz,
+\paragraph{(b)} Figure~\ref{fig:lp-response} shows the magnitude response: 0~dB up to 32~Hz,
 $-0.7$~dB at 35~Hz, $-6$~dB at $f_c = 40$~Hz and $-53.5$~dB at 50~Hz.
 
 % Manual 2.3.3c Apply the filter on your high-pass filtered signal.
@@ -186,9 +194,9 @@ back by 100 samples, so it is aligned with the input.
 % signals.
 \paragraph{(d)} Figure~\ref{fig:lp-signal} compares the three signals. In the time domain the
 fast noise on the base line is removed, while the P, QRS and T waves keep their shape and timing;
-only the R peaks are about 10\,\% lower, because the QRS complex has some content above 40~Hz.
-In the frequency domain the spectrum is unchanged up to 35~Hz and everything above 40~Hz, including
-the 50~Hz line, drops by 50--80~dB; the drift below 0.5~Hz was already removed by the high-pass
+only the R peaks are about 12\,\% lower, because the QRS complex has some content above 40~Hz.
+In the frequency domain the spectrum is unchanged up to 32~Hz and everything above 48~Hz, including
+the 50~Hz line, drops by more than 50~dB; the drift below 0.5~Hz was already removed by the high-pass
 filter.
 
 \begin{figure}[!htb]
