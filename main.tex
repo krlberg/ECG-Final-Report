@@ -10,7 +10,7 @@
 \title{Measurement and Analysis of Pulse-oxi and ECG Signals\\
        \large Final report}
 \author{Kirill Rybkov, Malek Galal Hamed Mohamed Ghanem}
-\date{}
+\date{16 October 2026}
 
 \begin{document}
 \maketitle
@@ -219,12 +219,7 @@ filter.
 
 % Manual 2.3.3e Why are you allowed to apply the high-pass filter and the low-pass filter in two
 % successive steps? Would a single band-pass filter give you advantage in performance?
-\paragraph{(e)} Both filters are linear and time-invariant, so applying them in turn is a
-convolution with $h_\mathrm{HP}[n] * h_\mathrm{LP}[n]$. Convolution is commutative and associative,
-so the order does not matter and the two steps equal one band-pass filter with
-$H(f) = H_\mathrm{HP}(f)\,H_\mathrm{LP}(f)$. A single band-pass filter therefore gives no better
-response; it only saves one filtering pass, and as an FIR it would need
-$K \approx f_s/0.5~\mathrm{Hz} > 2000$ taps for the 0.5~Hz edge.
+\paragraph{(e)}
 
 % Manual 2.3.3f Calculate the SNR of the low-pass filtered signal and append to your SNR table.
 % Compare your new SNR to the unfiltered and high-pass filtered SNR values.
@@ -288,23 +283,10 @@ and the removed drift, 50~Hz and high-frequency noise did not match sig-P anyway
 
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
-\paragraph{(c)} Like the auto-correlation of the filtered sig-F (Section~\ref{sec:acf}), the
-cross-correlation repeats every 0.72~s, but it is not symmetric, has broad peaks and stays far
-below the first auto-correlation side peak (0.22 against 0.73). New beyond Phase 2 is that
-filtering raises the auto-correlation side peak from 0.69 to 0.73 but leaves the
-cross-correlation almost unchanged. So its low value is caused by the different shapes of the
-ECG and pulse waveforms, not by noise, and the 0.4~s delay does not depend on the noise either.
+\paragraph{(c)}
 
 % Manual 2.3.5d Conclude with a combined interpretation of the Fourier transform,
 % auto-correlation and cross-correlation results.
-\paragraph{(d)} The spectrum shows the heartbeat at $f_\mathrm{HR} = 1.40$~Hz with its
-harmonics, and the filters remove the drift below 0.5~Hz, the 50~Hz line and the noise above
-40~Hz (Figure~\ref{fig:lp-signal}), which raises the SNR of sig-F from $-0.4$ to 22.7~dB
-(Table~\ref{tab:snr}). The auto-correlation gives the same rhythm in the time domain, a period
-of 0.72~s ($1/0.72 = 1.39$~Hz), and its side peak rises from 0.69 to 0.73 because the removed
-noise was different every beat. The cross-correlation has the same period and shows that the
-pulse arrives about 0.4~s after the ECG spike, almost as before filtering, because sig-P has most
-of its power below 7~Hz (Phase 2), where the filters pass sig-F nearly unchanged. Together, filtering
-cleans the ECG without changing its heart rate or its timing relative to the pulse.
+\paragraph{(d)}
 
 \end{document}
