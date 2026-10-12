@@ -7,23 +7,13 @@
 
 \graphicspath{{figures/}}
 
-% Placeholder box for figures that do not exist yet; replace with \includegraphics.
-\newcommand{\figplaceholder}[1]{%
-  \fbox{\parbox[c][0.25\textheight][c]{0.9\linewidth}{\centering\textit{#1}}}}
-
 \title{Measurement and Analysis of Pulse-oxi and ECG Signals\\
        \large Final report}
 \author{Kirill Rybkov, Malek Galal Hamed Mohamed Ghanem}
-\date{} % TODO: submission date
+\date{}
 
 \begin{document}
 \maketitle
-
-% The manual (2.3): "The report should consist of 5 sections following the 5 sections of the
-% assignment." Sections and (a), (b), ... paragraphs below mirror manual 2.3.1-2.3.5.
-% The submitted intermediate report (Phase 2) is kept in intermediate-report/main.tex for reference.
-% Notation follows the reader: x[n], f_s = 1/T_s, Omega = 2 pi f / f_s, DFT X[k] (eq. 11.1),
-% correlation R_xy[n] = sum_m x[m] y[m-n] (eq. 10.21), FIR length K taps, H(z), b_i / a_j.
 
 % =====================================================================
 \section{SNR of raw data}\label{sec:snr}
@@ -34,40 +24,6 @@
 % Manual 2.3.1a Calculate the SNR for all four signals and tabulate them. Show using a figure
 % how you calculated SNR. Comment on the important points to pay attention in calculating SNR.
 \paragraph{(a)}
-% TODO: SNR definition (Canvas learning task), in dB: 10 log10(P_s/P_n).
-% Power per band from the DFT via Parseval (reader eq. 8.23-8.24, discrete Parseval p. 189).
-% Same window as Phase 2 (t = 35-45 s) or justify another one.
-% Figure: spectrum (or time trace) with signal and noise regions marked.
-% Points to pay attention to: DC/mean removal, choice of signal and noise band edges, noise
-% that overlaps the signal band, drift and 50 Hz, window length and stationarity, power vs
-% amplitude ratio (10 vs 20 log10), sig-P noise (75 Hz lines) differs from the ECG noise.
-% Conclude which ECG channel has the highest SNR (used in Sections 2-5).
-
-\begin{figure}[!htb]
-  \centering
-  \figplaceholder{Figure: how the SNR is calculated (signal and noise regions marked)}
-  \caption{TODO}
-  \label{fig:snr-method}
-\end{figure}
-
-\begin{table}[!htb]
-  \centering
-  \caption{SNR of the raw and filtered signals.}
-  \label{tab:snr}
-  \begin{tabular}{lc}
-    \toprule
-    Signal & SNR (dB) \\
-    \midrule
-    sig-P (raw)                        & -- \\
-    sig-R (raw)                        & -- \\
-    sig-L (raw)                        & -- \\
-    sig-F (raw)                        & -- \\
-    \midrule
-    sig-? high-pass filtered (2.3.2e)  & -- \\
-    sig-? high- + low-pass filtered (2.3.3f) & -- \\
-    \bottomrule
-  \end{tabular}
-\end{table}
 
 % =====================================================================
 \section{Design and application of high-pass filter}\label{sec:hp}
@@ -75,58 +31,22 @@
 % Manual 2.3.2a Design a high-pass filter to straighten the base line of the raw ECG signal
 % with the highest SNR. Clearly motivate the choices you made in the design of the filter.
 \paragraph{(a)}
-% TODO: selected channel (highest SNR from Table tab:snr).
-% Criteria from the spectrum: drift below ~0.3 Hz, heart rate f_HR = 1.40 Hz must pass.
-% Specify pass-band, stop-band, transition band, cut-off (reader 12.3, p. 202-205).
-% FIR vs IIR: FIR resolution Delta f = f_s/K, run-in K samples, delay (K-1)/2 samples (p. 202-205)
-% -> a sub-Hz FIR edge at f_s = 1024 Hz needs K > 2000 taps. IIR: pole-zero HP (eq. 14.5) or
-% Butterworth via bilinear transform (14.3); poles inside unit circle -> stable.
-% Phase: causal vs zero-phase (forward-backward, p. 205-206); if used, justify (offline data)
-% and note the magnitude response is squared.
 
 % Manual 2.3.2b Present the filter characteristics in an annotated graph in the frequency
 % domain.
 \paragraph{(b)}
-% TODO: 20 log10|H(f)| (log f axis), mark f_c (-3 dB), pass-band, stop-band, transition band,
-% attenuation; optionally overlay on the signal spectrum and add phase.
-
-\begin{figure}[!htb]
-  \centering
-  \figplaceholder{Figure: high-pass filter frequency response, annotated}
-  \caption{TODO}
-  \label{fig:hp-response}
-\end{figure}
 
 % Manual 2.3.2c Apply the filter on your selected ECG signal.
 \paragraph{(c)}
-% TODO: how it was applied (function, causal / zero-phase, run-in samples removed).
 
 % Manual 2.3.2d Present the filtered signal in the time-domain as well as in the frequency
 % domain. Comment on the changes you observe with respect to unfiltered signal.
 \paragraph{(d)}
-% TODO: before/after in time and frequency; flat baseline, removed low-frequency content,
-% any distortion or delay.
-
-\begin{figure}[!htb]
-  \centering
-  \begin{subfigure}{0.49\textwidth}\centering
-    \figplaceholder{Time domain: raw vs high-pass filtered}
-    \caption{Time domain}\label{fig:hp-time}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.49\textwidth}\centering
-    \figplaceholder{Frequency domain: raw vs high-pass filtered}
-    \caption{Frequency domain}\label{fig:hp-freq}
-  \end{subfigure}
-  \caption{TODO}
-  \label{fig:hp-signal}
-\end{figure}
 
 % Manual 2.3.2e Calculate the SNR of the filtered signal and append them to your previous SNR
 % table. How does the SNR change after filtering? Comment on the influence of filter parameters
 % to the changes in the SNR.
 \paragraph{(e)}
-% TODO: SNR into Table tab:snr. Influence of cut-off and order (small sweep?): drift removal
-% vs loss of low-frequency ECG content.
 
 % =====================================================================
 \section{Design and application of low-pass filter}\label{sec:lp}
@@ -135,59 +55,26 @@
 % Carefully choose your parameters in such a way as not to modify the shape of the relevant
 % signals too much. Clearly motivate the choices you made in the design of the filter.
 \paragraph{(a)}
-% TODO: criteria from the spectrum: keep QRS content (ECG harmonics up to ~30 Hz in Phase 2),
-% suppress 50 Hz and broadband noise. Shape preservation -> linear phase: symmetric FIR
-% (reader 12.4, p. 205), odd K (p. 200), window (12.6, Table 12.2), K vs steepness and delay
-% (Fig. 12.8). Or IIR (Butterworth/Chebyshev/elliptic, Problem 14.11) + phase discussion (p. 237).
 
 % Manual 2.3.3b Present the filter characteristics in an annotated graph in the frequency
 % domain.
 \paragraph{(b)}
-% TODO: annotated 20 log10|H(f)|, as for the high-pass filter.
-
-\begin{figure}[!htb]
-  \centering
-  \figplaceholder{Figure: low-pass filter frequency response, annotated}
-  \caption{TODO}
-  \label{fig:lp-response}
-\end{figure}
 
 % Manual 2.3.3c Apply the filter on your high-pass filtered signal.
 \paragraph{(c)}
-% TODO: how it was applied (delay compensation / zero-phase, run-in).
 
 % Manual 2.3.3d Present the filtered signal in the time-domain as well as in the frequency
 % domain. Comment on the changes you observe with respect to unfiltered and high-pass filtered
 % signals.
 \paragraph{(d)}
-% TODO: compare raw, high-pass and high- + low-pass in time and frequency.
-
-\begin{figure}[!htb]
-  \centering
-  \begin{subfigure}{0.49\textwidth}\centering
-    \figplaceholder{Time domain: raw, high-pass, high- + low-pass}
-    \caption{Time domain}\label{fig:lp-time}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.49\textwidth}\centering
-    \figplaceholder{Frequency domain: raw, high-pass, high- + low-pass}
-    \caption{Frequency domain}\label{fig:lp-freq}
-  \end{subfigure}
-  \caption{TODO}
-  \label{fig:lp-signal}
-\end{figure}
 
 % Manual 2.3.3e Why are you allowed to apply the high-pass filter and the low-pass filter in two
 % successive steps? Would a single band-pass filter give you advantage in performance?
 \paragraph{(e)}
-% TODO: LTI: convolution is commutative/associative (reader 9.23-9.25), cascade multiplies
-% responses H = H_HP H_LP (dB add, phases add; eq. 5.2-5.5, 13.10). Band-pass trade-off: one
-% pass and one run-in vs a single FIR K sets the same Delta f = f_s/K at both edges; cascaded
-% low-order sections are more stable (p. 233).
 
 % Manual 2.3.3f Calculate the SNR of the low-pass filtered signal and append to your SNR table.
 % Compare your new SNR to the unfiltered and high-pass filtered SNR values.
 \paragraph{(f)}
-% TODO: SNR into Table tab:snr; compare raw -> HP -> HP+LP.
 
 % =====================================================================
 \section{Auto-correlation}\label{sec:acf}
@@ -195,46 +82,25 @@
 % Manual 2.3.4a Calculate and plot the auto-correlations of the filtered signal. Comment on
 % your observations in 2-3 sentences.
 \paragraph{(a)}
-% TODO: normalised R_xx[n]/R_xx[0], same 5 s window as Phase 2 (t = 36.5-41.5 s). 2-3 sentences.
-
-\begin{figure}[!htb]
-  \centering
-  \figplaceholder{Figure: auto-correlation of the filtered signal (with Phase 2 unfiltered for comparison)}
-  \caption{TODO}
-  \label{fig:acf-filt}
-\end{figure}
 
 % Manual 2.3.4b Compare your new correlation result with the unfiltered case in Phase 2.
 \paragraph{(b)}
-% TODO: Phase 2 first side peaks at 0.72 s: P 0.80, R 0.62, L 0.66, F 0.69.
 
 % =====================================================================
 \section{Cross-correlation}\label{sec:xcorr}
 % =====================================================================
 % Manual 2.3.5a Calculate and plot the cross-correlation between sig-P and the filtered signal.
 \paragraph{(a)}
-% TODO: normalised R_PX[n]/sqrt(R_PP[0] R_XX[0]), same window. Account for filter delay
-% (causal FIR: (K-1)/2 samples) or use zero-phase filtering so the lag stays physical.
-
-\begin{figure}[!htb]
-  \centering
-  \figplaceholder{Figure: cross-correlation of sig-P and the filtered signal (with Phase 2 for comparison)}
-  \caption{TODO}
-  \label{fig:xcorr-filt}
-\end{figure}
 
 % Manual 2.3.5b Compare your new correlation result with the unfiltered case in Phase 2.
 \paragraph{(b)}
-% TODO: Phase 2 (sig-P vs sig-F): maxima 0.19 at +0.41 s and 0.22 at -0.25 s, delay ~0.4 s.
 
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
 \paragraph{(c)}
-% TODO
 
 % Manual 2.3.5d Conclude with a combined interpretation of the Fourier transform,
 % auto-correlation and cross-correlation results.
 \paragraph{(d)}
-% TODO: spectra (raw, HP, HP+LP), ACF period, XCF delay -> one consistent picture.
 
 \end{document}
