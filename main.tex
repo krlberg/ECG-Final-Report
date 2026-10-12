@@ -26,13 +26,12 @@
 \paragraph{(a)} We calculate the SNR from the spectrum of the whole recording ($N = 46648$).
 After removing the mean, the power per frequency bin is $P[k] = 2|X[k]|^2/N^2$. Power in the band
 $B_s$ = 0.5--40~Hz counts as signal and all other power as noise (Figure~\ref{fig:snr}). This band
-contains the heart rate (1.4~Hz) and its harmonics, and leaves out most of the drift and the
+contains the heart rate (1.40~Hz) and its harmonics, and leaves out most of the drift and the
 50~Hz mains:
 \[
   \mathrm{SNR} = 10\log_{10}\frac{\sum_{k \in B_s} P[k]}{\sum_{k \notin B_s} P[k]}.
 \]
-Table~\ref{tab:snr} gives the results. sig-F has the highest SNR of the three ECG signals, so we
-use it in the rest of this report.
+Table~\ref{tab:snr} gives the results. Of the three ECG signals sig-F has the highest SNR, so we use it in the rest of this report.
 
 \begin{figure}[!htb]
   \centering
@@ -66,7 +65,7 @@ Points to pay attention to:
   \item The SNR depends on the chosen band, so every comparison must use the same band. Noise
         inside the band counts as signal and ECG content outside it (e.g.\ QRS above 40~Hz)
         counts as noise, so the SNR is only an estimate.
-  \item The mean (DC offset) must be removed, otherwise it counts as power.
+  \item The mean (DC offset, about 4700~$\mu$V in sig-F) must be removed, otherwise it counts as noise and is far larger than the drift.
   \item We do not estimate the noise from a signal-free band as in the Learning Task. That
         assumes white noise, but here the noise is mainly drift below 0.5~Hz.
   \item The SNR depends on the length of the recording. For 10~s windows of sig-F it is
@@ -88,8 +87,8 @@ to the ECG, and order 2 because it is enough to suppress the drift
 \[
   H(z) = 0.99783\,\frac{1 - 2z^{-1} + z^{-2}}{1 - 1.99566\,z^{-1} + 0.99567\,z^{-2}}.
 \]
-The phase of this filter is non-linear (one pass shifts the 1.4~Hz component by $30^\circ$), so
-we apply it forward and backward. The total impulse response $h[n]*h[-n]$ is then symmetric and
+The phase of this filter is non-linear (one pass shifts $f_\mathrm{HR}$ by $30^\circ$), so
+we apply it forward and backward. The total impulse response $h[n]\otimes h[-n]$ is then symmetric and
 the phase is zero. This is non-causal, which is fine for recorded data, and it keeps the ECG
 shape and the correlation lags of Sections~\ref{sec:acf}--\ref{sec:xcorr} unchanged. The two
 passes square the magnitude response, so the effective response at $f_c$ is $-6$~dB.
@@ -187,7 +186,7 @@ by 100 samples, so it lines up with the input.
 % domain. Comment on the changes you observe with respect to unfiltered and high-pass filtered
 % signals.
 \paragraph{(d)} In the time domain (Figure~\ref{fig:lp-time}) the fast noise on the baseline is
-gone. The P, QRS and T waves keep their shape and timing, but the R peaks are about 12\,\% lower,
+gone. The P, QRS and T waves keep their shape and timing, but the R peaks are about 12\% lower,
 because the QRS complex has some content above 40~Hz. In the spectrum (Figure~\ref{fig:lp-freq})
 nothing changes up to 32~Hz, and everything above 48~Hz, including the 50~Hz line, drops by more
 than 50~dB. The drift below 0.5~Hz was already removed by the high-pass filter.
@@ -254,8 +253,7 @@ normalised peaks ($0.69/0.94 = 0.73$).
 % Manual 2.3.5a Calculate and plot the cross-correlation between sig-P and the filtered signal.
 \paragraph{(a)} Figure~\ref{fig:xcorr-filt} shows the normalised cross-correlation
 $R_{PF}[n]/\sqrt{R_{PP}[0]\,R_{FF}[0]}$ between the unfiltered sig-P and the filtered sig-F,
-over the same window as in Phase 2 ($t = 36.5$--41.5~s, mean removed). sig-F is filtered over
-the whole recording before the window is cut, so the filter start-up transients fall outside it.
+over the same window as in Phase 2 ($t = 36.5$--41.5~s, mean removed). We filter sig-F over the whole recording before cutting the window, so the filter start-up transients fall outside it.
 
 \begin{figure}[!htb]
   \centering
@@ -267,8 +265,7 @@ the whole recording before the window is cut, so the filter start-up transients 
 
 % Manual 2.3.5b Compare your new correlation result with the unfiltered case in Phase 2.
 \paragraph{(b)} The result is almost the same as in Phase 2. The maxima are 0.22 at $-0.25$~s
-and 0.20 at $+0.42$~s (Phase 2: 0.22 and 0.19 at $-0.25$ and $+0.41$~s), and the period is
-still 0.72~s. The lags do not change because both filters have zero phase, so the pulse still
+and 0.20 at $+0.42$~s (Phase 2: 0.22 and 0.19 at $-0.25$ and $+0.41$~s). The lags do not change because both filters have zero phase, so the pulse still
 follows the ECG spike by about 0.4~s. The values hardly rise, because filtering removes only
 6\% of the power of sig-F in this window, and this noise was not correlated with sig-P.
 
