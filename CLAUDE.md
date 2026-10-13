@@ -71,4 +71,9 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   observations beyond Phase 2 explicitly (filtering vs shape; pulse starts rising ~0.2 s and peaks ~0.4 s after R);
   Fig. 2 marks 0.3 Hz / -18.8 dB. Checks in `code/q5_timing.py`. Note: regenerating figures here can shift the bbox by
   1-2 px (matplotlib version); only commit figures that actually changed.
+- Regrade on that version: both 9.3 (9.5 / 9.5 / 9.5 / 9.0 / 9.0). Applied their must-fixes for 2.3.4/2.3.5: 4a says why the
+  ACF peaks are narrow and that -0.17 is only the zero-lag dip (side-peak dips -0.11..-0.14); 5b describes the T-wave test
+  (sig-F zeroed 0.10-0.45 s after each R) and is shortened; 5c links -0.46 s (0.26 s after R) to the measured pulse
+  minimum 0.22 s / maximum 0.41 s after R (removing the T wave does NOT move the xcorr minimum, so no T-wave claim there);
+  3a: -44 dB at 48 Hz, -53.5 dB at 50 Hz (48 Hz is not yet the stop band); Fig. 1 caption "vertical lines".
 - Before submitting: check Canvas for a rubric or page limit (none found locally).
