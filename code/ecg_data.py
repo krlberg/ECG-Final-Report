@@ -40,6 +40,7 @@ def load():
 def style():
     """Matplotlib settings for half-width subfigures in the report."""
     matplotlib.rcParams.update({
+        "font.family": "DejaVu Sans",  # pinned so all figures use the same font on any machine
         "font.size": 9,
         "axes.labelsize": 9,
         "xtick.labelsize": 8,

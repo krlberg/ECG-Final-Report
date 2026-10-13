@@ -55,4 +55,11 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 - Status: DONE. Final independent grade (grader5): 9.5 / 9.5 / 9.0 / 9.5 / 9.0, predicted 9.3; its 3 must-fixes
   (3d 50 Hz wording, 5b lag change < 0.01 s, 5d "pulse peak") applied -> ~9.5.
   Skipped optional: a 3f caveat on in-band noise. Target: 9.5/10 per section.
+- 13 Oct 2026 grading round (3 independent graders, after the Phase 2 feedback fixes): A (strict TA) 9.2, B (technical,
+  re-ran all numbers) 9.0, C (completeness/conciseness) 9.2. Applied, all verified against the data: 2a drift lies mainly
+  below 0.5 Hz (not 0.3), 2b 32 dB at 0.2 Hz, 5b rewritten (removed drift slightly correlated with sig-P cancels the 3%
+  normalisation gain at the maxima; lags change <= 0.005 s; -0.25 s max = 0.47 s after previous R), 5c explains the
+  -0.28 minimum at -0.46 s (pulse-wave minimum ~0.25 s after R), Fig. 1 shows B_s edges and the SNR value, 1a why sig-P
+  is highest (4% vs 49% power below 0.5 Hz), 3d K = 201 motivated (K = 401/45 Hz gains only ~2 points of R-peak loss),
+  3e H = |H_HP|^2 H_LP, captions of Fig. 2/4 say zero phase, cuts in 3f/5d. Figure font pinned to DejaVu Sans.
 - Before submitting: check Canvas for a rubric or page limit (none found locally).

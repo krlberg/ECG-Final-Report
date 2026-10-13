@@ -31,13 +31,13 @@ contains the heart rate (1.40~Hz) and its harmonics, and leaves out most of the 
 \[
   \mathrm{SNR} = 10\log_{10}\frac{\sum_{k \in B_s} P[k]}{\sum_{k \notin B_s} P[k]}.
 \]
-Table~\ref{tab:snr} gives the results. Of the three ECG signals sig-F has the highest SNR, so it is used in the rest of this report.
+Table~\ref{tab:snr} gives the results. The highest SNR is that of sig-P, because the optical pulse signal has little drift (4\% of its power lies below 0.5~Hz, against 49\% for sig-F). Of the three ECG signals sig-F has the highest SNR, so it is used in the rest of this report.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.65\textwidth]{snr_F}
-  \caption{Power per bin $P[k]$ of sig-F (whole recording). Bins inside $B_s$ count as signal,
-  the rest as noise.}
+  \caption{Power per bin $P[k]$ of sig-F (whole recording). Bins inside $B_s$ (dashed lines) count as
+  signal, the rest as noise.}
   \label{fig:snr}
 \end{figure}
 
@@ -77,9 +77,8 @@ Points to pay attention to:
 % =====================================================================
 % Manual 2.3.2a Design a high-pass filter to straighten the base line of the raw ECG signal
 % with the highest SNR. Clearly motivate the choices you made in the design of the filter.
-\paragraph{(a)} The baseline drift of sig-F, caused by breathing and electrode movement, lies below about 0.3~Hz and the heart rate is
-$f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed between them at $f_c = 0.5$~Hz, the
-lower edge of $B_s$. An FIR filter would need $\Delta f = f_s/K < 0.5$~Hz, which means
+\paragraph{(a)} The baseline drift of sig-F, caused by breathing and electrode movement, lies mainly below 0.5~Hz and the heart rate is
+$f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed at $f_c = 0.5$~Hz, the lower edge of $B_s$. An FIR filter would need $\Delta f = f_s/K < 0.5$~Hz, which means
 $K > 2000$ taps at $f_s = 1024$~Hz. An IIR filter needs only a few coefficients and is used
 instead. A Butterworth filter is chosen because its flat passband adds no ripple to the ECG.
 Order 2 is enough to suppress the drift (Figure~\ref{fig:hp-response}). The bilinear transform (\texttt{scipy.signal.butter}) gives
@@ -94,14 +93,14 @@ passes square the magnitude response, so the effective response at $f_c$ is $-6$
 % Manual 2.3.2b Present the filter characteristics in an annotated graph in the frequency
 % domain.
 \paragraph{(b)} Figure~\ref{fig:hp-response} shows the effective magnitude response
-$|H(f)|^2$. The drift region is attenuated by 18.8~dB at 0.3~Hz and more below, and $f_\mathrm{HR}$
+$|H(f)|^2$. The drift region is attenuated by 18.8~dB at 0.3~Hz and 32~dB at 0.2~Hz, and $f_\mathrm{HR}$
 passes with $-0.1$~dB.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.65\textwidth]{hp_response}
   \caption{Effective magnitude response $|H(f)|^2$ of the high-pass filter (Butterworth, order 2,
-  $f_c = 0.5$~Hz, applied forward and backward).}
+  $f_c = 0.5$~Hz, applied forward and backward). The phase is zero, so only the magnitude is shown.}
   \label{fig:hp-response}
 \end{figure}
 
@@ -165,7 +164,7 @@ gives the filter zero phase.
   \centering
   \includegraphics[width=0.65\textwidth]{lp_response}
   \caption{Magnitude response of the low-pass FIR filter (Hamming window, $K = 201$,
-  $f_c = 40$~Hz).}
+  $f_c = 40$~Hz). The delay is removed, so the phase is zero and only the magnitude is shown.}
   \label{fig:lp-response}
 \end{figure}
 
@@ -182,7 +181,7 @@ $-0.7$~dB at 35~Hz, $-6$~dB at $f_c = 40$~Hz and $-53.5$~dB at 50~Hz.
 % signals.
 \paragraph{(d)} In the time domain (Figure~\ref{fig:lp-time}) the fast noise on the baseline is
 gone. The P, QRS and T waves keep their shape and timing, but the R peaks are about 12\% lower,
-because the QRS complex has some content above 40~Hz. This is accepted, because with $K = 201$ a higher cut-off would no longer suppress the 50~Hz line. In the spectrum (Figure~\ref{fig:lp-freq})
+because the QRS complex has some content above 40~Hz. This is accepted, because a higher cut-off needs a longer filter to still suppress the 50~Hz line, and $K = 401$ with $f_c = 45$~Hz lowers this loss by only about 2 percentage points. In the spectrum (Figure~\ref{fig:lp-freq})
 nothing changes up to 32~Hz, and everything from 50~Hz upwards, including the 50~Hz line, drops by more
 than 50~dB. The drift below 0.5~Hz was already removed by the high-pass filter.
 
@@ -207,9 +206,9 @@ than 50~dB. The drift below 0.5~Hz was already removed by the high-pass filter.
 % Manual 2.3.3e Why are you allowed to apply the high-pass filter and the low-pass filter in two
 % successive steps? Would a single band-pass filter give you advantage in performance?
 \paragraph{(e)} Both filters are linear and time-invariant, so applying them in turn is a
-convolution with $h_\mathrm{HP}[n] \otimes h_\mathrm{LP}[n]$. Because convolution is commutative
+convolution with $h_\mathrm{HP}[n] \otimes h_\mathrm{HP}[-n] \otimes h_\mathrm{LP}[n]$. Because convolution is commutative
 and associative, the order does not matter and the two steps are equal to one band-pass filter
-with $H(f) = H_\mathrm{HP}(f)\,H_\mathrm{LP}(f)$. A band-pass filter with this $H(f)$ gives the same output, so it has no advantage in performance. It only saves one filtering pass, and as
+with $H(f) = |H_\mathrm{HP}(f)|^2\,H_\mathrm{LP}(f)$. A band-pass filter with this $H(f)$ gives the same output, so it has no advantage in performance. It only saves one filtering pass, and as
 an FIR filter it would need $K > 2000$ taps for the 0.5~Hz edge.
 
 
@@ -217,8 +216,7 @@ an FIR filter it would need $K > 2000$ taps for the 0.5~Hz edge.
 % Compare your new SNR to the unfiltered and high-pass filtered SNR values.
 \paragraph{(f)} After both filters the SNR of sig-F is 22.7~dB (Table~\ref{tab:snr}), against
 $-0.4$~dB raw and 10.5~dB after the high-pass filter. The low-pass filter removes the 50~Hz mains
-and the noise above 40~Hz that the high-pass filter left in. Almost all power outside the
-signal band is gone.
+and the noise above 40~Hz that the high-pass filter left in.
 
 % =====================================================================
 \section{Auto-correlation}\label{sec:acf}
@@ -266,8 +264,7 @@ over $t = 36.5$--41.5~s with the mean removed. The filters are applied to the wh
 
 % Manual 2.3.5b Compare your new correlation result with the unfiltered case in Phase 2.
 \paragraph{(b)} The result is close to that of Phase 2. The maxima are 0.22 at $-0.25$~s
-and 0.20 at $+0.42$~s (Phase 2: 0.22 and 0.19 at $-0.25$ and $+0.41$~s). The maximum at $-0.25$~s is the pulse of the previous beat ($0.42 - 0.72 \approx -0.3$~s), since a pulse cannot come before its own heartbeat. The lags change by less than 0.01~s because both filters have zero phase, so the pulse still
-follows the ECG spike by about 0.4~s. These two maxima change by less than 0.01, because filtering removes only 6\% of the power of sig-F in this window, and this noise was not correlated with sig-P. The outer maxima and the minima grow by up to 0.03, because the high-pass filter removes the slow drift.
+and 0.20 at $+0.42$~s (Phase 2: 0.22 and 0.19 at $-0.25$ and $+0.41$~s). The maximum at $-0.25$~s is the pulse of the previous beat ($0.72 - 0.25 = 0.47$~s after the previous R peak, close to 0.42~s), since a pulse cannot come before its own heartbeat. The lags change by at most 0.005~s because both filters have zero phase. Filtering removes 6\% of the power of sig-F in this window, which raises all normalised values by about 3\%. At the two maxima this is cancelled, because the removed drift was slightly correlated with sig-P, so they change by less than 0.01. The outer maxima and the minima grow by up to 0.03.
 
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
@@ -277,20 +274,19 @@ without a shift, while the pressure wave of each beat needs time to travel from 
 finger, so the pulse peak follows the ECG spike by about 0.4~s. The auto-correlation peaks are
 narrow and clearly visible, because the sharp QRS spikes only line up at whole periods. The
 cross-correlation peaks are broad and low (0.22 against 0.73), because the smooth pulse wave has
-a different shape from the ECG. The new observation beyond Phase 2 is that filtering raises the
+a different shape from the ECG. The deepest point ($-0.28$ at $-0.46$~s) is where the R peaks line up with the minimum of the pulse wave, about 0.25~s after the previous R peak. The new observation beyond Phase 2 is that filtering raises the
 auto-correlation side peak from 0.69 to 0.73, while the main cross-correlation maxima change by
 less than 0.01. The low cross-correlation is therefore caused by the different shapes, not by noise.
 
 
 % Manual 2.3.5d Conclude with a combined interpretation of the Fourier transform,
 % auto-correlation and cross-correlation results.
-\paragraph{(d)} The strong spectral peaks between 1 and 10~Hz are the heart rate
+\paragraph{(d)} The strong spectral peaks between 1 and 10~Hz (Figure~\ref{fig:hp-freq}) are the heart rate
 $f_\mathrm{HR} = 1.40$~Hz and its harmonics, which together form the repeating P, QRS and T waves. The filters remove the drift below 0.5~Hz, the 50~Hz line and the noise above 40~Hz
 (Figure~\ref{fig:lp-signal}), which raises the SNR of sig-F from $-0.4$ to 22.7~dB
 (Table~\ref{tab:snr}). The auto-correlation shows the same rhythm in the time domain, with a
 period of 0.72~s (1.39~Hz). Its side peak rises because the removed noise was different in
-every beat. The cross-correlation has the same period and shows that the pulse peak follows the ECG spike by about 0.4~s. This delay is unchanged because both filters have zero phase and sig-P has 96\% of its power between 0.5 and 7~Hz, where the filters hardly change sig-F. Filtering raises the SNR of
-sig-F but does not change its heart rate or its delay to the pulse.
+every beat. The cross-correlation has the same period and shows that the pulse peak follows the ECG spike by about 0.4~s. This delay is unchanged because both filters have zero phase and sig-P has 96\% of its power between 0.5 and 7~Hz, where the filters hardly change sig-F.
 
 
 \end{document}

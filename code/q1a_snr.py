@@ -64,5 +64,9 @@ if __name__ == "__main__":
             ha="center", va="top", fontsize=8, color=ECG_COLOR)
     ax.text(0.03, 0.06, f"noise\n{sci(P_n)} $\\mu$V$^2$", transform=ax.transAxes,
             ha="left", va="bottom", fontsize=8, color=INK_2)
+    for edge in BAND:  # band edges of B_s
+        ax.axvline(edge, color=INK_2, lw=0.6, ls=(0, (3, 2)))
+    ax.text(0.97, 0.06, f"SNR = 10 log$_{{10}}$(P$_s$/P$_n$) = {10 * np.log10(P_s / P_n):.1f} dB",
+            transform=ax.transAxes, ha="right", va="bottom", fontsize=8, color=INK_2)
     fig.savefig(FIG_DIR / "snr_F.pdf")
     plt.close(fig)
