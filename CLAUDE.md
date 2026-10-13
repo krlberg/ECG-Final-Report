@@ -20,7 +20,7 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   so the pulse peak follows the ECG spike by ~0.4 s; 5b: the maximum at -0.25 s is the pulse of the previous beat.
 - "Visibility of peaks in acorr vs xcorr?" -> 5c: acorr peaks narrow and clear (sharp QRS), xcorr peaks broad and
   low (smooth pulse wave, different shape).
-- Same check applied elsewhere (TA-style review): drift source (2a), noise source above 40 Hz (3a), why the 12% lower
+- Same check applied elsewhere (TA-style review): drift source (2a), noise source above 40 Hz (3a), why the 11-13% lower
   R peak is accepted (3d), cause of the dips at +-0.075 s (4a), why the dips deepen after filtering (4b).
 
 ## Repo
@@ -62,4 +62,7 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   -0.28 minimum at -0.46 s (pulse-wave minimum ~0.25 s after R), Fig. 1 shows B_s edges and the SNR value, 1a why sig-P
   is highest (4% vs 49% power below 0.5 Hz), 3d K = 201 motivated (K = 401/45 Hz gains only ~2 points of R-peak loss),
   3e H = |H_HP|^2 H_LP, captions of Fig. 2/4 say zero phase, cuts in 3f/5d. Figure font pinned to DejaVu Sans.
+- Confirmation round on the fixed report: 2 fresh graders, both 9.2 (9.0 / 9.5 / 9.0 / 9.5 / 9.0), no wrong numbers.
+  Applied: 5b quotes 3-decimal values (rounded ones seemed to contradict "<= 0.005 s" / "< 0.01"), 3a "clearly visible
+  up to about 30 Hz", 3d R-peak loss 11-13% (median 13% over 64 beats), 3f now has the in-band-noise caveat.
 - Before submitting: check Canvas for a rubric or page limit (none found locally).

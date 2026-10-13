@@ -152,7 +152,7 @@ suppresses the drift.
 % Manual 2.3.3a Design a low-pass filter to suppress the noise in the high-pass filtered signal.
 % Carefully choose your parameters in such a way as not to modify the shape of the relevant
 % signals too much. Clearly motivate the choices you made in the design of the filter.
-\paragraph{(a)} The ECG harmonics of sig-F reach about 30~Hz and the noise is the
+\paragraph{(a)} The ECG harmonics of sig-F are clearly visible up to about 30~Hz and the noise is the
 50~Hz mains and broadband noise above it (e.g.\ muscle activity), so the cut-off is set to $f_c = 40$~Hz. To keep the shape of the ECG, a linear-phase FIR filter is used, $y[n] = \sum_{i=0}^{K-1} h[i]\,x[n-i]$ with symmetric $h[n]$,
 which delays all frequencies by the same $(K-1)/2$ samples. It is designed with the window method and a Hamming window, because its low side lobes give about 53~dB stop-band attenuation. The window
 widens the transition band to about $3.3 f_s/K$, which is 17~Hz for $K = 201$ taps. The gain
@@ -180,7 +180,7 @@ $-0.7$~dB at 35~Hz, $-6$~dB at $f_c = 40$~Hz and $-53.5$~dB at 50~Hz.
 % domain. Comment on the changes you observe with respect to unfiltered and high-pass filtered
 % signals.
 \paragraph{(d)} In the time domain (Figure~\ref{fig:lp-time}) the fast noise on the baseline is
-gone. The P, QRS and T waves keep their shape and timing, but the R peaks are about 12\% lower,
+gone. The P, QRS and T waves keep their shape and timing, but the R peaks are 11--13\% lower,
 because the QRS complex has some content above 40~Hz. This is accepted, because a higher cut-off needs a longer filter to still suppress the 50~Hz line, and $K = 401$ with $f_c = 45$~Hz lowers this loss by only about 2 percentage points. In the spectrum (Figure~\ref{fig:lp-freq})
 nothing changes up to 32~Hz, and everything from 50~Hz upwards, including the 50~Hz line, drops by more
 than 50~dB. The drift below 0.5~Hz was already removed by the high-pass filter.
@@ -216,7 +216,7 @@ an FIR filter it would need $K > 2000$ taps for the 0.5~Hz edge.
 % Compare your new SNR to the unfiltered and high-pass filtered SNR values.
 \paragraph{(f)} After both filters the SNR of sig-F is 22.7~dB (Table~\ref{tab:snr}), against
 $-0.4$~dB raw and 10.5~dB after the high-pass filter. The low-pass filter removes the 50~Hz mains
-and the noise above 40~Hz that the high-pass filter left in.
+and the noise above 40~Hz that the high-pass filter left in. The value is an upper estimate, because noise inside 0.5--40~Hz counts as signal and is not reduced by either filter.
 
 % =====================================================================
 \section{Auto-correlation}\label{sec:acf}
@@ -263,8 +263,8 @@ over $t = 36.5$--41.5~s with the mean removed. The filters are applied to the wh
 \end{figure}
 
 % Manual 2.3.5b Compare your new correlation result with the unfiltered case in Phase 2.
-\paragraph{(b)} The result is close to that of Phase 2. The maxima are 0.22 at $-0.25$~s
-and 0.20 at $+0.42$~s (Phase 2: 0.22 and 0.19 at $-0.25$ and $+0.41$~s). The maximum at $-0.25$~s is the pulse of the previous beat ($0.72 - 0.25 = 0.47$~s after the previous R peak, close to 0.42~s), since a pulse cannot come before its own heartbeat. The lags change by at most 0.005~s because both filters have zero phase. Filtering removes 6\% of the power of sig-F in this window, which raises all normalised values by about 3\%. At the two maxima this is cancelled, because the removed drift was slightly correlated with sig-P, so they change by less than 0.01. The outer maxima and the minima grow by up to 0.03.
+\paragraph{(b)} The result is close to that of Phase 2. The maxima are 0.222 at $-0.249$~s
+and 0.198 at $+0.417$~s (Phase 2: 0.223 at $-0.246$~s and 0.194 at $+0.412$~s). The maximum at $-0.25$~s is the pulse of the previous beat ($0.72 - 0.25 = 0.47$~s after the previous R peak, close to 0.42~s), since a pulse cannot come before its own heartbeat. The lags change by at most 0.005~s because both filters have zero phase. Filtering removes 6\% of the power of sig-F in this window, which raises all normalised values by about 3\%. At the two maxima this is cancelled, because the removed drift was slightly correlated with sig-P, so they change by less than 0.01. The outer maxima and the minima grow by up to 0.03.
 
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
