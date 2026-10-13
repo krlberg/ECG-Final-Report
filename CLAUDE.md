@@ -9,9 +9,19 @@
 - No page limit is given (neither the manual nor Canvas). The only length rule is "2-3 sentences" in 2.3.4a.
 - Use the course reader's notation: x[n], f_s, DFT X[k] (eq. 11.1), R_xy[n] = sum_m x[m] y[m-n] (eq. 10.21), FIR length K taps, convolution symbol \otimes.
 - Do not mention the Learning Tasks in the report. Mention Phase 2 only where the manual asks for it (2.3.4b, 2.3.5b, 2.3.5c).
-- Phase 2 TA feedback (32/35) deducted only for missing interpretation ("what could the 1-10 Hz peaks represent?",
-  "why is the xcorr peak shifted? visibility of peaks in acorr vs xcorr?"): always explain *why*, not only *what*.
 - Report date: 16 October 2026. Authors: Kirill Rybkov, Malek Galal Hamed Mohamed Ghanem (one submission per group).
+
+## Mistakes to avoid (from the Phase 2 TA feedback, 32/35)
+The TA never deducted for numbers, only for observations stated without their meaning or cause.
+Always explain *why* / *what it represents*, not only *what* is seen. Do not remove these fixes:
+- "Strong peaks in range 1-10 Hz, what could it represent?" -> 5d: heart rate (1.40 Hz) and its harmonics,
+  which together form the P, QRS and T waves.
+- "Why is the central (xcorr) peak shifted?" -> 5c: the pressure wave needs time to travel from heart to finger,
+  so the pulse peak follows the ECG spike by ~0.4 s; 5b: the maximum at -0.25 s is the pulse of the previous beat.
+- "Visibility of peaks in acorr vs xcorr?" -> 5c: acorr peaks narrow and clear (sharp QRS), xcorr peaks broad and
+  low (smooth pulse wave, different shape).
+- Same check applied elsewhere (TA-style review): drift source (2a), noise source above 40 Hz (3a), why the 12% lower
+  R peak is accepted (3d), cause of the dips at +-0.075 s (4a), why the dips deepen after filtering (4b).
 
 ## Repo
 - This repo (https://github.com/krlberg/ECG-Final-Report, private) is synced with Overleaf: `main.tex` at the root is the report.
