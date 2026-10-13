@@ -52,7 +52,7 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 ## Workflow and status
 - One agent per question drafts code + figures + text; the main session merges into main.tex, checks the rendered PDF, pushes.
   A strict "TA" grader agent reviews; an editor agent checks for AI-like writing and unnecessary content.
-- Status: DONE. Final independent grade (grader5): 9.5 / 9.5 / 9.0 / 9.5 / 9.0, predicted 9.3; its 3 must-fixes
+- Status: DONE (see the latest round below). Earlier independent grade (grader5): 9.5 / 9.5 / 9.0 / 9.5 / 9.0, predicted 9.3; its 3 must-fixes
   (3d 50 Hz wording, 5b lag change < 0.01 s, 5d "pulse peak") applied -> ~9.5.
   Skipped optional: a 3f caveat on in-band noise. Target: 9.5/10 per section.
 - 13 Oct 2026 grading round (3 independent graders, after the Phase 2 feedback fixes): A (strict TA) 9.2, B (technical,
@@ -76,4 +76,8 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   (sig-F zeroed 0.10-0.45 s after each R) and is shortened; 5c links -0.46 s (0.26 s after R) to the measured pulse
   minimum 0.22 s / maximum 0.41 s after R (removing the T wave does NOT move the xcorr minimum, so no T-wave claim there);
   3a: -44 dB at 48 Hz, -53.5 dB at 50 Hz (48 Hz is not yet the stop band); Fig. 1 caption "vertical lines".
+- Confirmation round on that version: strict TA 9.5 (9.5 in every section, no must-fixes), lecturer 9.4 (9.5 except
+  2.3.5 at 9.0 only for the dense 5b). Then applied: 5b split into short sentences + paragraph break (lags / amplitudes),
+  5c "broader and much lower", 5d "period of 0.72 s, which matches f_HR". Expected grade ~9.5.
+  Unapplied nice-to-haves: mark maxima/minimum in Fig. 7; motivate K in 3a (now in 3d).
 - Before submitting: check Canvas for a rubric or page limit (none found locally).
