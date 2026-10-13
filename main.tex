@@ -24,9 +24,10 @@
 % Manual 2.3.1a Calculate the SNR for all four signals and tabulate them. Show using a figure
 % how you calculated SNR. Comment on the important points to pay attention in calculating SNR.
 \paragraph{(a)} The SNR is calculated from the spectrum of the whole recording ($N = 46648$).
-With the mean removed, the power per frequency bin is $P[k] = 2|X[k]|^2/N^2$. Power in the band
+With the mean removed, the power per frequency bin is $P[k] = 2|X[k]|^2/N^2$, so the power in a
+frequency band is the sum of $P[k]$ over its bins, as in the Learning Task. Power in the band
 $B_s$ = 0.5--40~Hz counts as signal and all other power as noise (Figure~\ref{fig:snr}). This band
-contains the heart rate (1.40~Hz) and its harmonics, and leaves out most of the drift and the
+contains the heart rate (1.40~Hz, found in the intermediate report of Phase~2) and its harmonics, and leaves out most of the drift and the
 50~Hz mains. The SNR is
 \[
   \mathrm{SNR} = 10\log_{10}\frac{\sum_{k \in B_s} P[k]}{\sum_{k \notin B_s} P[k]}.
@@ -66,10 +67,10 @@ Points to pay attention to:
         only an estimate, because noise inside the band counts as signal and ECG content outside
         it (e.g.\ QRS above 40~Hz) counts as noise.
   \item The mean (DC offset, about 4700~$\mu$V in sig-F) must be removed, otherwise it counts as noise and is far larger than the drift.
-  \item The noise is not estimated from a signal-free band as in the Learning Task. That
-        assumes white noise, but here the noise is mainly drift below 0.5~Hz.
-  \item The SNR depends on the length of the recording. For 10~s windows of sig-F it is
-        3.5--9.7~dB, because a short window with its mean removed contains less slow drift.
+  \item The SNR depends on the length and position of the analysed segment. For 10~s windows of
+        sig-F it is 3.5--9.7~dB, because removing the mean of a short window also removes part of
+        the slow drift. The whole recording is therefore used, so the result does not depend on
+        the choice of window.
 \end{itemize}
 
 % =====================================================================
@@ -78,7 +79,7 @@ Points to pay attention to:
 % Manual 2.3.2a Design a high-pass filter to straighten the base line of the raw ECG signal
 % with the highest SNR. Clearly motivate the choices you made in the design of the filter.
 \paragraph{(a)} The baseline drift of sig-F lies below about 0.3~Hz and the heart rate is
-$f_\mathrm{HR} = 1.40$~Hz (Phase 2), so the cut-off is placed between them at $f_c = 0.5$~Hz, the
+$f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed between them at $f_c = 0.5$~Hz, the
 lower edge of $B_s$. An FIR filter would need $\Delta f = f_s/K < 0.5$~Hz, which means
 $K > 2000$ taps at $f_s = 1024$~Hz. An IIR filter needs only a few coefficients and is used
 instead. A Butterworth filter is chosen because its flat passband adds no ripple to the ECG.
