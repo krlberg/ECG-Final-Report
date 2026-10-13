@@ -8,6 +8,9 @@
   The manual question sits as a LaTeX comment ("% Manual 2.3.x") above each paragraph; keep all 19 of these lines.
 - No page limit is given (neither the manual nor Canvas). The only length rule is "2-3 sentences" in 2.3.4a.
 - Use the course reader's notation: x[n], f_s, DFT X[k] (eq. 11.1), R_xy[n] = sum_m x[m] y[m-n] (eq. 10.21), FIR length K taps, convolution symbol \otimes.
+- Do not mention the Learning Tasks in the report. Mention Phase 2 only where the manual asks for it (2.3.4b, 2.3.5b, 2.3.5c).
+- Phase 2 TA feedback (32/35) deducted only for missing interpretation ("what could the 1-10 Hz peaks represent?",
+  "why is the xcorr peak shifted? visibility of peaks in acorr vs xcorr?"): always explain *why*, not only *what*.
 - Report date: 16 October 2026. Authors: Kirill Rybkov, Malek Galal Hamed Mohamed Ghanem (one submission per group).
 
 ## Repo
@@ -29,7 +32,7 @@
 ## Decisions
 - 1a SNR (`code/q1a_snr.py`): whole recording (N = 46648), mean removed, P[k] = 2|X[k]|^2/N^2; power in 0.5-40 Hz
   (all four signals) = signal, all other power = noise, SNR = 10 log10(P_s/P_n). Deviates from LT3's noise extrapolation
-  because the noise is not white (mainly drift). Results: P 13.6 dB, R -1.3, L -5.6, F -0.4 -> sig-F is filtered.
+  because the noise is not white (mainly drift); the report does not discuss this (user's choice). Results: P 13.6 dB, R -1.3, L -5.6, F -0.4 -> sig-F is filtered.
 - Filters (`code/filters.py`, shared by Q2-Q5): HP = 2nd-order Butterworth IIR, 0.5 Hz, SOS, zero-phase (sosfiltfilt);
   LP = Hamming-window FIR, K = 201, 40 Hz (-6 dB), centred convolution (delay removed, zero phase).
   sig-F SNR: raw -0.4 dB, HP 10.5 dB, HP+LP 22.7 dB.

@@ -24,8 +24,7 @@
 % Manual 2.3.1a Calculate the SNR for all four signals and tabulate them. Show using a figure
 % how you calculated SNR. Comment on the important points to pay attention in calculating SNR.
 \paragraph{(a)} The SNR is calculated from the spectrum of the whole recording ($N = 46648$).
-With the mean removed, the power per frequency bin is $P[k] = 2|X[k]|^2/N^2$, so the power in a
-frequency band is the sum of $P[k]$ over its bins, as in the Learning Task. Power in the band
+With the mean removed, the power per frequency bin is $P[k] = 2|X[k]|^2/N^2$. Power in the band
 $B_s$ = 0.5--40~Hz counts as signal and all other power as noise (Figure~\ref{fig:snr}). This band
 contains the heart rate (1.40~Hz) and its harmonics, and leaves out most of the drift and the
 50~Hz mains. The SNR is
@@ -272,16 +271,20 @@ follows the ECG spike by about 0.4~s. These two maxima change by less than 0.01,
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
 \paragraph{(c)} Like the auto-correlation (Section~\ref{sec:acf}), the cross-correlation
-repeats with the heartbeat. It is not symmetric and has broad peaks. Its maximum (0.22) is
-below the first auto-correlation side peak (0.73). The new observation beyond Phase 2 is
-that filtering raises the auto-correlation side peak from 0.69 to 0.73, while the main cross-correlation maxima change by less than 0.01. The low cross-correlation is caused by the different shapes of the
-ECG and pulse waveforms, since removing noise does not raise it. 
+repeats with the heartbeat, but its main peak is not at zero lag. A signal matches itself best
+without a shift, while the pressure wave of each beat needs time to travel from the heart to the
+finger, so the pulse peak follows the ECG spike by about 0.4~s. The auto-correlation peaks are
+narrow and clearly visible, because the sharp QRS spikes only line up at whole periods. The
+cross-correlation peaks are broad and low (0.22 against 0.73), because the smooth pulse wave has
+a different shape from the ECG. The new observation beyond Phase 2 is that filtering raises the
+auto-correlation side peak from 0.69 to 0.73, while the main cross-correlation maxima change by
+less than 0.01. The low cross-correlation is therefore caused by the different shapes, not by noise.
 
 
 % Manual 2.3.5d Conclude with a combined interpretation of the Fourier transform,
 % auto-correlation and cross-correlation results.
-\paragraph{(d)} The spectrum shows the heartbeat at $f_\mathrm{HR} = 1.40$~Hz with its
-harmonics. The filters remove the drift below 0.5~Hz, the 50~Hz line and the noise above 40~Hz
+\paragraph{(d)} The strong spectral peaks between 1 and 10~Hz are the heart rate
+$f_\mathrm{HR} = 1.40$~Hz and its harmonics, which together form the repeating P, QRS and T waves. The filters remove the drift below 0.5~Hz, the 50~Hz line and the noise above 40~Hz
 (Figure~\ref{fig:lp-signal}), which raises the SNR of sig-F from $-0.4$ to 22.7~dB
 (Table~\ref{tab:snr}). The auto-correlation shows the same rhythm in the time domain, with a
 period of 0.72~s (1.39~Hz). Its side peak rises because the removed noise was different in
