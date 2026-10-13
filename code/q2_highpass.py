@@ -41,12 +41,14 @@ f = np.logspace(-2, np.log10(100), 2000)
 _, h = ss.sosfreqz(HP_SOS, worN=f, fs=FS)
 G = 2 * 20 * np.log10(np.abs(h))  # dB of |H|^2 (forward-backward)
 G_hr = 2 * 20 * np.log10(np.abs(ss.sosfreqz(HP_SOS, worN=[F_HR], fs=FS)[1][0]))
+G_03 = 2 * 20 * np.log10(np.abs(ss.sosfreqz(HP_SOS, worN=[0.3], fs=FS)[1][0]))  # drift region, quoted in 2b
 
 fig, ax = plt.subplots(figsize=(4.2, 2.4))
 ax.semilogx(f, G, color=ECG_COLOR, lw=1.2)
 for f0, g0, text, xy, ha, va in [(HP_FC, -6, rf"$f_c$ = {HP_FC} Hz, $-6$ dB", (-6, 0), "right", "center"),
                                  (F_HR, G_hr, rf"$f_\mathrm{{HR}}$ = {F_HR:.2f} Hz, ${G_hr:.1f}$ dB", (4, -6),
-                                  "left", "top")]:
+                                  "left", "top"),
+                                 (0.3, G_03, rf"0.3 Hz, ${G_03:.1f}$ dB", (6, 0), "left", "center")]:
     ax.plot(f0, g0, "o", ms=3.5, color=INK, zorder=3)
     ax.annotate(text, (f0, g0), xytext=xy, textcoords="offset points", fontsize=8, color=INK, ha=ha, va=va)
 ax.set_xlim(0.02, 50)

@@ -27,7 +27,7 @@
 With the mean removed, the power per frequency bin is $P[k] = 2|X[k]|^2/N^2$. Power in the band
 $B_s$ = 0.5--40~Hz counts as signal and all other power as noise (Figure~\ref{fig:snr}). This band
 contains the heart rate (1.40~Hz) and its harmonics, and leaves out most of the drift and the
-50~Hz mains. The SNR is
+50~Hz mains. The same band is used for sig-P, whose pulse content lies below 7~Hz: only 0.2\% of its power lies between 7 and 40~Hz, so the upper edge does not affect its SNR. The SNR is
 \[
   \mathrm{SNR} = 10\log_{10}\frac{\sum_{k \in B_s} P[k]}{\sum_{k \notin B_s} P[k]}.
 \]
@@ -264,7 +264,7 @@ over $t = 36.5$--41.5~s with the mean removed. The filters are applied to the wh
 
 % Manual 2.3.5b Compare your new correlation result with the unfiltered case in Phase 2.
 \paragraph{(b)} The result is close to that of Phase 2. The maxima are 0.222 at $-0.249$~s
-and 0.198 at $+0.417$~s (Phase 2: 0.223 at $-0.246$~s and 0.194 at $+0.412$~s). The maximum at $-0.25$~s is the pulse of the previous beat ($0.72 - 0.25 = 0.47$~s after the previous R peak, close to 0.42~s), since a pulse cannot come before its own heartbeat. The lags change by at most 0.005~s because both filters have zero phase. Filtering removes 6\% of the power of sig-F in this window, which raises all normalised values by about 3\%. At the two maxima this is cancelled, because the removed drift was slightly correlated with sig-P, so they change by less than 0.01. The outer maxima and the minima grow by up to 0.03.
+and 0.198 at $+0.417$~s (Phase 2: 0.223 at $-0.246$~s and 0.194 at $+0.412$~s). The maximum at $-0.25$~s is the pulse of the previous beat, since a pulse cannot come before its own heartbeat. The two maxima are 0.67~s apart instead of one period (0.72~s), because the smooth pulse wave also lines up with the slow T wave after the QRS complex. With the T wave left out of sig-F, they lie at $-0.31$ and $+0.40$~s. The lags change by at most 0.005~s because both filters have zero phase. Filtering removes 6\% of the power of sig-F in this window, which raises all normalised values by about 3\%. At the two maxima this is cancelled, because the removed drift was slightly correlated with sig-P, so they change by less than 0.01. The outer maxima and the minima grow by up to 0.03.
 
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
@@ -274,9 +274,11 @@ without a shift, while the pressure wave of each beat needs time to travel from 
 finger, so the pulse peak follows the ECG spike by about 0.4~s. The auto-correlation peaks are
 narrow and clearly visible, because the sharp QRS spikes only line up at whole periods. The
 cross-correlation peaks are broad and low (0.22 against 0.73), because the smooth pulse wave has
-a different shape from the ECG. The deepest point ($-0.28$ at $-0.46$~s) is where the R peaks line up with the minimum of the pulse wave, about 0.25~s after the previous R peak. The new observation beyond Phase 2 is that filtering raises the
-auto-correlation side peak from 0.69 to 0.73, while the main cross-correlation maxima change by
-less than 0.01. The low cross-correlation is therefore caused by the different shapes, not by noise.
+a different shape from the ECG. Two observations are new beyond Phase 2. First, filtering raises the auto-correlation side
+peak from 0.69 to 0.73, while the main cross-correlation maxima change by less than 0.01, so the
+low cross-correlation is caused by the different shapes and not by noise. Second, the deepest point
+($-0.28$ at $-0.46$~s) comes from the minimum of the pulse wave just before it rises: the pulse
+starts to rise about 0.2~s after the R peak and reaches its maximum about 0.4~s after it.
 
 
 % Manual 2.3.5d Conclude with a combined interpretation of the Fourier transform,

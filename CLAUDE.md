@@ -65,4 +65,10 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 - Confirmation round on the fixed report: 2 fresh graders, both 9.2 (9.0 / 9.5 / 9.0 / 9.5 / 9.0), no wrong numbers.
   Applied: 5b quotes 3-decimal values (rounded ones seemed to contradict "<= 0.005 s" / "< 0.01"), 3a "clearly visible
   up to about 30 Hz", 3d R-peak loss 11-13% (median 13% over 64 beats), 3f now has the in-band-noise caveat.
+- Push to 9.5 (after the 9.2 rounds): 1a justifies the 0.5-40 Hz band for sig-P (0.17% of its power in 7-40 Hz, SNR same
+  for 0.5-10 Hz); 5b explains why the xcorr maxima are 0.67 s apart (pulse wave also lines up with the T wave; without
+  the T-wave region they lie at -0.31/+0.40 s; NOT a varying beat interval, RR is 0.70-0.725 s); 5c lists the two new
+  observations beyond Phase 2 explicitly (filtering vs shape; pulse starts rising ~0.2 s and peaks ~0.4 s after R);
+  Fig. 2 marks 0.3 Hz / -18.8 dB. Checks in `code/q5_timing.py`. Note: regenerating figures here can shift the bbox by
+  1-2 px (matplotlib version); only commit figures that actually changed.
 - Before submitting: check Canvas for a rubric or page limit (none found locally).
