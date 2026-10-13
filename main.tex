@@ -27,7 +27,7 @@
 With the mean removed, the power per frequency bin is $P[k] = 2|X[k]|^2/N^2$, so the power in a
 frequency band is the sum of $P[k]$ over its bins, as in the Learning Task. Power in the band
 $B_s$ = 0.5--40~Hz counts as signal and all other power as noise (Figure~\ref{fig:snr}). This band
-contains the heart rate (1.40~Hz, found in the intermediate report of Phase~2) and its harmonics, and leaves out most of the drift and the
+contains the heart rate (1.40~Hz) and its harmonics, and leaves out most of the drift and the
 50~Hz mains. The SNR is
 \[
   \mathrm{SNR} = 10\log_{10}\frac{\sum_{k \in B_s} P[k]}{\sum_{k \notin B_s} P[k]}.
@@ -154,7 +154,7 @@ suppresses the drift.
 % Manual 2.3.3a Design a low-pass filter to suppress the noise in the high-pass filtered signal.
 % Carefully choose your parameters in such a way as not to modify the shape of the relevant
 % signals too much. Clearly motivate the choices you made in the design of the filter.
-\paragraph{(a)} The ECG harmonics of sig-F reach about 30~Hz (Phase~2) and the noise is the
+\paragraph{(a)} The ECG harmonics of sig-F reach about 30~Hz and the noise is the
 50~Hz mains and broadband noise above it, so the cut-off is set to $f_c = 40$~Hz. To keep the shape of the ECG, a linear-phase FIR filter is used, $y[n] = \sum_{i=0}^{K-1} h[i]\,x[n-i]$ with symmetric $h[n]$,
 which delays all frequencies by the same $(K-1)/2$ samples. It is designed with the window method and a Hamming window, because its low side lobes give about 53~dB stop-band attenuation. The window
 widens the transition band to about $3.3 f_s/K$, which is 17~Hz for $K = 201$ taps. The gain
@@ -227,7 +227,7 @@ signal band is gone.
 % Manual 2.3.4a Calculate and plot the auto-correlations of the filtered signal. Comment on
 % your observations in 2-3 sentences.
 \paragraph{(a)} Figure~\ref{fig:acf-filt} shows the normalised auto-correlation
-$R_{xx}[n]/R_{xx}[0]$ of the filtered sig-F (high- and low-pass), calculated as in Phase 2 over $t = 36.5$--41.5~s
+$R_{xx}[n]/R_{xx}[0]$ of the filtered sig-F (high- and low-pass), calculated over $t = 36.5$--41.5~s
 with the mean removed. It has narrow peaks at multiples of the heartbeat period of 0.72~s, which
 drop from 0.73 at 0.72~s to 0.28 at 3.58~s because fewer samples overlap. Next to each peak are
 dips down to $-0.17$ at $\pm 0.075$~s, and between the beats the curve stays close to zero.
@@ -254,7 +254,7 @@ normalised peaks ($0.69/0.94 = 0.73$).
 % Manual 2.3.5a Calculate and plot the cross-correlation between sig-P and the filtered signal.
 \paragraph{(a)} Figure~\ref{fig:xcorr-filt} shows the normalised cross-correlation
 $R_{PF}[n]/\sqrt{R_{PP}[0]\,R_{FF}[0]}$ between the unfiltered sig-P and the filtered sig-F,
-over the same window as in Phase 2 ($t = 36.5$--41.5~s, mean removed). The filters are applied to the whole recording before the window is cut, so the start-up transients fall outside it.
+over $t = 36.5$--41.5~s with the mean removed. The filters are applied to the whole recording before the window is cut, so the start-up transients fall outside it.
 
 \begin{figure}[!htb]
   \centering
