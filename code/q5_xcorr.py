@@ -62,8 +62,8 @@ for k, xy, ha, va in [(k_neg, (-6, 4), "right", "bottom"), (k_pos, (6, 4), "left
                 fontsize=7, color=INK, ha=ha, va=va)
 ax.set_xlim(lag[0], lag[-1])
 ax.set_ylim(-0.4, 0.3)
-ax.set_xlabel("lag [s]")
-ax.set_ylabel(r"normalised $R_{PF}[n]$")
+ax.set_xlabel("delay [s]")
+ax.set_ylabel(r"normalised $R_{P,F}[n]$")
 leg = ax.legend(loc="lower left", bbox_to_anchor=(0, 1), ncol=2, fontsize=8, frameon=False,
                 borderaxespad=0.2, handlelength=2.0, columnspacing=1.2)
 leg.get_lines()[0].set_linewidth(1.5)

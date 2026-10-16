@@ -242,18 +242,20 @@ edge of the high-pass filter.}
 % =====================================================================
 % Manual 2.3.4a Calculate and plot the auto-correlations of the filtered signal. Comment on
 % your observations in 2-3 sentences.
-\paragraph{(a)} \chg{Figure~\ref{fig:acf-filt} shows the normalised auto-correlation
-$R_{xx}[n]/R_{xx}[0]$ of the filtered sig-F over $t = 36.5$--41.5~s. It has narrow peaks at
-multiples of the heartbeat period of 0.72~s, because the sharp peaks of the heartbeats only line
-up at whole periods, and these peaks drop from 0.73 to 0.28 because fewer samples overlap.
-The dips 0.075~s on both sides of each peak (down to $-0.17$ beside the zero-lag peak) appear where each
-heartbeat peak lines up with the negative dips just before and after it.}
+\paragraph{(a)} \chg{Figure~\ref{fig:acf-filt} shows the auto-correlation $R_{x,x}[n]$ of the filtered
+sig-F over $t = 36.5$--41.5~s (a 5~s part with little baseline drift, as the manual advises),
+divided by $R_{x,x}[0]$ so that it is 1 at zero delay. It has
+narrow peaks at delays of whole heartbeat periods (0.72~s), because the sharp peaks of the
+heartbeats only line up after a shift of a whole period, and these peaks drop from 0.73 to 0.28
+because fewer samples overlap at larger delays. The dips 0.075~s on both sides of each peak (down
+to $-0.17$ beside the peak at zero delay) appear where each heartbeat peak lines up with the
+negative dips just before and after it.}
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.65\textwidth]{acf_filtered}
   \caption{Normalised auto-correlation of the filtered and unfiltered sig-F,
-  $t = 36.5$--41.5~s. $R_{xx}$ is symmetric, so only positive lags are shown.}
+  $t = 36.5$--41.5~s. \chg{$R_{x,x}$ is symmetric, so only positive delays are shown.}}
   \label{fig:acf-filt}
 \end{figure}
 
@@ -262,16 +264,16 @@ heartbeat peak lines up with the negative dips just before and after it.}
 because the window was chosen to have little drift. After filtering, the side peaks are
 higher (the first rises from 0.69 to 0.73) and the dips deeper ($-0.14$ to $-0.17$). The
 filters remove 6\% of the power in the window (drift and high-frequency noise). This noise is
-different in every beat, so removing it lowers $R_{xx}[0]$ but not the side peaks, and the
+different in every beat, so removing it lowers \chg{$R_{x,x}[0]$} but not the side peaks, and the
 normalised side peaks rise ($0.69/0.94 = 0.73$). The dips deepen further because the drift was
-almost constant over 0.075~s, so it added a positive term at short lags.
+almost constant over 0.075~s, so it added a positive term at short \chg{delays}.
 
 % =====================================================================
 \section{Cross-correlation}\label{sec:xcorr}
 % =====================================================================
 % Manual 2.3.5a Calculate and plot the cross-correlation between sig-P and the filtered signal.
 \paragraph{(a)} Figure~\ref{fig:xcorr-filt} shows the normalised cross-correlation
-$R_{PF}[n]/\sqrt{R_{PP}[0]\,R_{FF}[0]}$ between the unfiltered sig-P and the filtered sig-F,
+\chg{$R_{P,F}[n]/\sqrt{R_{P,P}[0]\,R_{F,F}[0]}$} between the unfiltered sig-P and the filtered sig-F,
 over $t = 36.5$--41.5~s with the mean removed. The filters are applied to the whole recording
 before the window is cut, so their run-in \chg{at the edges} falls outside the window.
 
@@ -279,7 +281,7 @@ before the window is cut, so their run-in \chg{at the edges} falls outside the w
   \centering
   \includegraphics[width=0.65\textwidth]{xcorr_filtered}
   \caption{Normalised cross-correlation between sig-P and the filtered sig-F (solid), with the
-  Phase 2 result for the raw sig-F (dashed), $t = 36.5$--41.5~s. A positive lag means sig-P is
+  Phase 2 result for the raw sig-F (dashed), $t = 36.5$--41.5~s. A positive \chg{delay} means sig-P is
   delayed. Dots: the maxima and minimum quoted in (b).}
   \label{fig:xcorr-filt}
 \end{figure}
@@ -287,8 +289,8 @@ before the window is cut, so their run-in \chg{at the edges} falls outside the w
 % Manual 2.3.5b Compare your new correlation result with the unfiltered case in Phase 2.
 \paragraph{(b)} \chg{The result is close to that of Phase 2. The two largest maxima are 0.22 at
 $-0.25$~s and 0.20 at $+0.42$~s (Phase 2: 0.22 at $-0.25$~s and 0.19 at $+0.41$~s). The maximum at
-negative lag is the pulse of the previous beat, since a pulse cannot come before its own
-heartbeat. The lags change by less than 0.01~s, because both filters have zero phase. The heights
+negative \chg{delay} is the pulse of the previous beat, since a pulse cannot come before its own
+heartbeat. The \chg{delays} change by less than 0.01~s, because both filters have zero phase. The heights
 of these maxima change by less than 0.01, because filtering removes only 6\% of the power of sig-F
 in the window. Only the outer maxima and the minimum grow, by up to 0.03 (minimum $-0.25$ to
 $-0.28$ at $-0.46$~s), because the slow drift, which shifted the curve up or down, is removed.}
@@ -296,14 +298,14 @@ $-0.28$ at $-0.46$~s), because the slow drift, which shifted the curve up or dow
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
 \paragraph{(c)} Like the auto-correlation (Section~\ref{sec:acf}), the cross-correlation
-repeats with the heartbeat, but its main peak is not at zero lag. A signal matches itself best
+repeats with the heartbeat, but its main peak is not at zero \chg{delay}. A signal matches itself best
 without a shift, while the pressure wave of each beat needs time to travel from the heart to the
 finger, so the pulse peak follows \chg{the highest ECG peak} by about 0.4~s. The auto-correlation peaks are narrow, because the \chg{sharp ECG peaks} only line
 up at whole periods. The cross-correlation peaks are broader and much lower (\chg{0.22} against 0.73),
 because the smooth \chg{pulse signal (sig-P)} has a different shape from the ECG. Two observations are new
 beyond Phase 2. \chg{First, filtering raises the auto-correlation side peak (0.69 to 0.73) but
 leaves the main cross-correlation maxima unchanged, so their low value is caused by the different
-shapes and not by noise. Second, the lags do not change, because both filters have zero phase, so
+shapes and not by noise. Second, the \chg{delays} do not change, because both filters have zero phase, so
 the delay of about 0.4~s between ECG and pulse comes from the signals and not from the
 processing.}
 
