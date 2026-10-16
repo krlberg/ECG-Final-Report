@@ -56,6 +56,9 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 - Figures: one style (blue = filtered, grey = unfiltered, no arrows, legend above the plot, only required annotations).
 
 ## Workflow and status
+- User rules (16 Oct 2026): commit AND push after every change (check `latexmk` first). Mark every text change
+  in main.tex with `\chg{...}` (blue, macro in the preamble) so it can be reviewed in Overleaf; before submission
+  switch the macro to `\newcommand{\chg}[1]{#1}` (or remove the wrappers).
 - One agent per question drafts code + figures + text; the main session merges into main.tex, checks the rendered PDF, pushes.
   A strict "TA" grader agent reviews; an editor agent checks for AI-like writing and unnecessary content.
 - Status: DONE (see the latest round below). Earlier independent grade (grader5): 9.5 / 9.5 / 9.0 / 9.5 / 9.0, predicted 9.3; its 3 must-fixes

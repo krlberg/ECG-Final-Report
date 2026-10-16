@@ -4,6 +4,11 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{booktabs}
+\usepackage{xcolor}
+
+% Changed text is shown in blue for review. Before submitting, use:
+% \newcommand{\chg}[1]{#1}
+\newcommand{\chg}[1]{{\color{blue}#1}}
 
 \graphicspath{{figures/}}
 
@@ -23,28 +28,32 @@
 
 % Manual 2.3.1a Calculate the SNR for all four signals and tabulate them. Show using a figure
 % how you calculated SNR. Comment on the important points to pay attention in calculating SNR.
-\paragraph{(a)} The SNR of each signal is calculated from the spectrum of the whole recording
+\paragraph{(a)} \chg{The SNR of each signal is calculated from the spectrum of the whole recording
 ($N = 46648$ samples) in four steps (Figure~\ref{fig:snr}):
 \begin{enumerate}
-  \item The mean is removed and the DFT $X[k]$ is calculated.
-  \item The power in frequency bin $k$ (at $f = k f_s/N$, so the bins are 0.022~Hz apart) is
-        $P[k] = 2|X[k]|^2/N^2$. Summed over all bins this gives the total power of the signal.
+  \item The mean is removed, so the DC offset does not count as noise. The DFT $X[k]$ then
+        splits the recording into frequency bins: bin $k$ lies at $f = k f_s/N$, so the bins are
+        $f_s/N = 0.022$~Hz wide.
+  \item The power in bin $k$ is $P[k] = 2|X[k]|^2/N^2$. Summed over all bins this gives the total
+        power of the signal.
   \item Bins inside the band $B_s$ = 0.5--40~Hz count as signal, all other bins as noise.
   \item The SNR is the ratio of the two sums in dB:
         \[
           \mathrm{SNR} = 10\log_{10}\frac{\sum_{k \in B_s} P[k]}{\sum_{k \notin B_s} P[k]}.
         \]
 \end{enumerate}
-The band follows from the spectra. The lower edge lies above most of the baseline drift and
-below the heart rate (1.40~Hz). The upper edge lies above the ECG harmonics, which are visible up
-to about 30~Hz, and below the 50~Hz mains. For sig-P only 0.2\% of the power lies in 7--40~Hz,
-so the same band can be used.
+The band edges are chosen from the spectra. Below 0.5~Hz the power is mainly baseline drift,
+caused by breathing and electrode movement, while the heart rate lies at 1.40~Hz, so 0.5~Hz
+separates the drift from the heartbeat. The harmonics of the heart rate, which together form the
+P, QRS and T waves, are visible up to about 30~Hz. Above them lies mostly noise, including the
+50~Hz mains, so 40~Hz separates the ECG from the 50~Hz line. For sig-P only 0.2\% of the power lies in 7--40~Hz,
+so the same band can be used.}
 
 Table~\ref{tab:snr} gives the results. The highest SNR is that of sig-P, because the optical
 pulse signal has little drift (4\% of its power lies below 0.5~Hz, against 49\% for sig-F). Of the
 three ECG signals sig-F has the highest SNR, so it is used in the rest of this report.
 
-Important points when calculating the SNR:
+\chg{Important points when calculating the SNR:
 \begin{itemize}
   \item \textbf{Band.} The SNR depends on the chosen band, so all signals use the same one. It is
         an estimate: noise inside the band counts as signal, and ECG content outside it (e.g.\
@@ -54,14 +63,14 @@ Important points when calculating the SNR:
   \item \textbf{Segment length.} For 10~s windows of sig-F the SNR is 3.5--9.7~dB, because
         removing the mean of a short window also removes part of the slow drift. The whole
         recording is therefore used.
-\end{itemize}
+\end{itemize}}
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{snr_all}
-  \caption{Power per bin $P[k]$ of the four raw signals (whole recording). Bins inside $B_s$
+  \caption{\chg{Power per bin $P[k]$ of the four raw signals (whole recording). Bins inside $B_s$
   (between the dashed lines, blue) count as signal, the rest (grey) as noise. Totals in
-  $\mu$V$^2$ (sig-P: a.u.$^2$).}
+  $\mu$V$^2$ (sig-P: a.u.$^2$).}}
   \label{fig:snr}
 \end{figure}
 
