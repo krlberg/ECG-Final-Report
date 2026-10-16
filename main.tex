@@ -29,7 +29,7 @@
 
 % Manual 2.3.1a Calculate the SNR for all four signals and tabulate them. Show using a figure
 % how you calculated SNR. Comment on the important points to pay attention in calculating SNR.
-\paragraph{(a)} \chg{The SNR of each signal is calculated from the spectrum of the whole recording
+\paragraph{(a)} The SNR of each signal is calculated from the spectrum of the whole recording
 ($N = 46648$ samples) in four steps (Figure~\ref{fig:snr}):
 \begin{enumerate}
   \item The mean is removed, so the DC offset does not count as noise. The DFT $X[k]$ then
@@ -49,26 +49,26 @@ caused by breathing and electrode movement, while the heart rate lies at 1.40~Hz
 separates the drift from the heartbeat. The harmonics of the heart rate, which together form the
 P, QRS and T waves, are visible up to about 30~Hz. Above them lies mostly noise, including the
 50~Hz mains, so 40~Hz separates the ECG from the 50~Hz line. sig-P has almost no power above 7~Hz
-(Figure~\ref{fig:snr}), so the same band can be used.}
+(Figure~\ref{fig:snr}), so the same band can be used.
 
 Table~\ref{tab:snr} gives the results. The highest SNR is that of sig-P, because the optical
-pulse signal has \chg{much less drift below 0.5~Hz than the ECG leads (Figure~\ref{fig:snr}).}
-\chg{The filters are designed for the ECG signal with the highest SNR. sig-P is the pulse-oxi
+pulse signal has much less drift below 0.5~Hz than the ECG leads (Figure~\ref{fig:snr}).
+The filters are designed for the ECG signal with the highest SNR. sig-P is the pulse-oxi
 signal and not an ECG lead; of the three ECG leads sig-F has the highest SNR, so it is used in the
-rest of this report.}
+rest of this report.
 
-\chg{Besides removing the mean (step 1), two points need attention. The SNR depends on the
+Besides removing the mean (step 1), two points need attention. The SNR depends on the
 chosen band, so the same band is used for all signals, and it is only an estimate: noise inside
 the band counts as signal, and ECG content outside it counts as noise. The SNR also depends on the length of the segment: for 10~s windows of sig-F it is
 3.5--9.7~dB, because removing the mean of a short window also removes part of the slow drift.
-The whole recording is therefore used.}
+The whole recording is therefore used.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{snr_all}
-  \caption{\chg{Power per bin $P[k]$ of the four raw signals (whole recording). Bins inside $B_s$
+  \caption{Power per bin $P[k]$ of the four raw signals (whole recording). Bins inside $B_s$
   (between the dashed lines, blue) count as signal, the rest (grey) as noise. Totals in
-  $\mu$V$^2$ (sig-P: a.u.$^2$).}}
+  $\mu$V$^2$ (sig-P: a.u.$^2$).}
   \label{fig:snr}
 \end{figure}
 

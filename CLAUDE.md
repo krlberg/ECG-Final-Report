@@ -64,6 +64,7 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   1. `git sync` before editing; commit after every change (the hook pushes to GitHub and Overleaf).
   2. EVERYTHING Claude adds or changes in main.tex goes in blue: wrap it in `\chg{...}` (macro in the preamble),
      including captions and table entries. Keep existing `\chg` marks until the user says the review is done.
+     Review status: Section 1 reviewed by the user (blue removed 16 Oct); new changes there go in blue again.
      Before submission switch the macro to `\newcommand{\chg}[1]{#1}` (or remove the wrappers).
 - One agent per question drafts code + figures + text; the main session merges into main.tex, checks the rendered PDF, pushes.
   A strict "TA" grader agent reviews; an editor agent checks for AI-like writing and unnecessary content.
