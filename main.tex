@@ -97,9 +97,11 @@ The whole recording is therefore used.
 % with the highest SNR. Clearly motivate the choices you made in the design of the filter.
 \paragraph{(a)} \chg{The baseline drift of sig-F lies mainly below 0.5~Hz
 (Section~\ref{sec:snr})} and the heart rate is $f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed
-at $f_c = 0.5$~Hz, the lower edge of $B_s$. An FIR filter would need a resolution
-$\Delta f = f_s/K$ below 0.5~Hz, so $K > 2000$ taps. An IIR filter needs only a few
-coefficients and is used instead. \chg{A Butterworth filter is chosen, because its pass band is
+at $f_c = 0.5$~Hz, the lower edge of $B_s$. \chg{An FIR filter with $K$ taps (coefficients)
+has a frequency resolution of $\Delta f = f_s/K$. To separate the drift from the heartbeat this
+must be at most 0.5~Hz, so $K \geq 1024/0.5 = 2048$ taps: a filter 2~s long, with a run-in of
+2~s and 2048 multiplications per output sample. An IIR filter reuses its previous outputs and
+needs only a few coefficients, so it is used instead.} \chg{A Butterworth filter is chosen, because its pass band is
 flat. The analogue second-order Butterworth high-pass filter with
 $\omega_c = 2\pi f_c = 3.14$~rad/s is
 \[
