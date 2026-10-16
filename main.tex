@@ -242,7 +242,7 @@ edge of the high-pass filter.}
 % =====================================================================
 % Manual 2.3.4a Calculate and plot the auto-correlations of the filtered signal. Comment on
 % your observations in 2-3 sentences.
-\paragraph{(a)} \chg{Figure~\ref{fig:acf-filt} shows the auto-correlation $R_{x,x}[n]$ of the filtered
+\paragraph{(a)} \chg{Figure~\ref{fig:acf-filt} shows the auto-correlation $R_{x,x}[n] = \sum_m x[m]\,x[m-n]$ of the filtered
 sig-F over $t = 36.5$--41.5~s (a 5~s part with little baseline drift ),
 divided by $R_{x,x}[0] = \sum_m x[m]^2$, the energy of the signal in the window, so that it is 1
 at zero delay. It has
@@ -281,8 +281,8 @@ before the window is cut, so their run-in \chg{at the edges} falls outside the w
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.65\textwidth]{xcorr_filtered}
-  \caption{Normalised cross-correlation between sig-P and the filtered sig-F (solid), with the
-  Phase 2 result for the raw sig-F (dashed), $t = 36.5$--41.5~s. A positive \chg{delay} means sig-P is
+  \caption{Normalised cross-correlation between sig-P and the filtered sig-F \chg{(blue)}, with the
+  Phase 2 result for the raw sig-F \chg{(grey)}, $t = 36.5$--41.5~s. A positive \chg{delay} means sig-P is
   delayed. Dots: the maxima and minimum quoted in (b).}
   \label{fig:xcorr-filt}
 \end{figure}
