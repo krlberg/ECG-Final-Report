@@ -20,12 +20,16 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   so the pulse peak follows the ECG spike by ~0.4 s; 5b: the maximum at -0.25 s is the pulse of the previous beat.
 - "Visibility of peaks in acorr vs xcorr?" -> 5c: acorr peaks narrow and clear (sharp QRS), xcorr peaks broad and
   low (smooth pulse wave, different shape).
-- Same check applied elsewhere (TA-style review): drift source (2a), noise source above 40 Hz (3a), why the 11-13% lower
+- Same check applied elsewhere (TA-style review): drift source (1a band paragraph; 2a refers to Section 1), noise source above 40 Hz (3a), why the 11-13% lower
   R peak is accepted (3d), cause of the dips at +-0.075 s (4a), why the dips deepen after filtering (4b).
 
 ## Repo
 - This repo (https://github.com/krlberg/ECG-Final-Report, private) is synced with Overleaf: `main.tex` at the root is the report.
-  After pushing, the user pulls in Overleaf via Menu > GitHub. Always check `latexmk -pdf main.tex` compiles before pushing.
+  Two remotes: `origin` (GitHub) and `overleaf` (Overleaf git, https://git.overleaf.com/6ac16274b1b29fb31b659c5c,
+  branch `main`; token in the macOS keychain, never write it into files). Local setup on the user's Mac: a
+  `.git/hooks/post-commit` hook pushes every commit to both remotes, and `git sync` pulls Overleaf + GitHub and pushes
+  to both. Run `git sync` BEFORE editing (the user may edit in Overleaf). No need for Overleaf's Menu > GitHub any more.
+  Cloud sessions have no Overleaf remote: push to GitHub only. Always check `latexmk -pdf main.tex` compiles first.
 - `code/` scripts write figures to `figures/`. Run from anywhere: `python3 code/q2_highpass.py` etc. Needs numpy, pandas, matplotlib, scipy.
 - `intermediate-report/`: the submitted Phase 2 report (do not change). Phase 2 numbers used for comparison come from it.
 
@@ -43,22 +47,26 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 - 1a SNR (`code/q1a_snr.py`): whole recording (N = 46648), mean removed, P[k] = 2|X[k]|^2/N^2; power in 0.5-40 Hz
   (all four signals) = signal, all other power = noise, SNR = 10 log10(P_s/P_n). Deviates from LT3's noise extrapolation
   because the noise is not white (mainly drift); the report does not discuss this (user's choice). Results: P 13.6 dB, R -1.3, L -5.6, F -0.4 -> sig-F is filtered.
-- Filters (`code/filters.py`, shared by Q2-Q5): HP = 2nd-order Butterworth IIR (bilinear transform), 0.5 Hz,
-  applied ONCE causally (lfilter) after removing the mean. No forward-backward/zero-phase filtering: the reader
-  (12.4) says the course does not use it (changed 16 Oct 2026). LP = Hamming-window FIR, K = 201, 40 Hz (-6 dB),
-  output shifted back by (K-1)/2 = 100 samples (centred convolution, reader eq. 12.8).
-  sig-F SNR: raw -0.4 dB, HP 10.0 dB, HP+LP 17.2 dB. The HP phase (30 deg = 60 ms at f_HR) shifts the xcorr maxima
-  to -0.21/+0.51 s (Phase 2: -0.25/+0.41 s), now one period apart, so the old T-wave explanation of the 0.67 s
-  spacing is dropped. The averaged pulse wave (max 0.41 s after R) confirms the true delay. ACF unaffected.
+- Filters (`code/filters.py`, shared by Q2-Q5), since 16 Oct 2026 BOTH linear-phase FIR, window method, Hamming:
+  HP K = 4097, f_c = 0.5 Hz (-6 dB): -50 dB at 0.1 Hz, -17.6 dB at 0.3 Hz, 0 dB at f_HR. LP K = 201, f_c = 40 Hz.
+  Both applied to the mean-removed signal as centred convolution (delay (K-1)/2 removed, reader eq. 12.8), so zero
+  phase. Why not IIR (argued in 2a): a 2nd-order Butterworth needs 5 coefficients but its non-linear phase shifts
+  the slow ECG parts (60 ms at f_HR) and moved the xcorr maxima to -0.21/+0.51 s. Why K = 4097: K = 2049 only
+  -10.5 dB at 0.3 Hz; K = 6145 adds only +0.1 dB SNR. No forward-backward filtering (reader 12.4: not in course).
+  sig-F SNR: raw -0.4, HP 10.6, HP+LP 22.5 dB. Xcorr maxima 0.22 at -0.25 s, 0.20 at +0.42 s (Phase 2: 0.22/0.19,
+  same lags), minimum -0.25 -> -0.28 at -0.46 s. ACF: 0.69 -> 0.73, dips -0.14 -> -0.17. R peaks ~12% lower.
 - Reader level: keep explanations to what the reader covers (no window side-lobe/transition formulas, no SOS,
   no impulse-response symmetry arguments, no zero-phase filtering).
 - Correlations (`code/q4_acf.py`, `code/q5_xcorr.py`): same window (36.5-41.5 s) and normalisation as Phase 2; sig-P unfiltered.
 - Figures: one style (blue = filtered, grey = unfiltered, no arrows, legend above the plot, only required annotations).
 
 ## Workflow and status
-- User rules (16 Oct 2026): commit AND push after every change (check `latexmk` first). Mark every text change
-  in main.tex with `\chg{...}` (blue, macro in the preamble) so it can be reviewed in Overleaf; before submission
-  switch the macro to `\newcommand{\chg}[1]{#1}` (or remove the wrappers).
+- User rules (16 Oct 2026), ALWAYS follow:
+  1. `git sync` before editing; commit after every change (the hook pushes to GitHub and Overleaf).
+  2. EVERYTHING Claude adds or changes in main.tex goes in blue: wrap it in `\chg{...}` (macro in the preamble),
+     including captions and table entries. Keep existing `\chg` marks until the user says the review is done.
+     Review status: Sections 1 and 2 reviewed by the user (blue removed 16 Oct); new changes there go in blue again.
+     Before submission switch the macro to `\newcommand{\chg}[1]{#1}` (or remove the wrappers).
 - One agent per question drafts code + figures + text; the main session merges into main.tex, checks the rendered PDF, pushes.
   A strict "TA" grader agent reviews; an editor agent checks for AI-like writing and unnecessary content.
 - Status: DONE (see the latest round below). Earlier independent grade (grader5): 9.5 / 9.5 / 9.0 / 9.5 / 9.0, predicted 9.3; its 3 must-fixes

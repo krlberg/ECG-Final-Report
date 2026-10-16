@@ -1,15 +1,15 @@
 """Question 2 (manual 2.3.2): high-pass filter of sig-F (design in filters.py).
 
-Response: magnitude |H(f)| and phase of the causal filter (applied once).
+Response: magnitude |H(f)| of the FIR filter (delay removed, so zero phase).
 Signal: raw vs high-pass sig-F, 35-45 s and power spectra of the whole recording.
-SNR: same method as q1a, plus a small sweep of f_c and order.
+SNR: same method as q1a, plus a small sweep of f_c and K.
 """
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.signal as ss
 
 from ecg_data import ECG_COLOR, FIG_DIR, FS, INK, style
-from filters import HP_A, HP_B, HP_FC, HP_ORDER, filtered_F
+from filters import HP_FC, HP_H, HP_K, filtered_F
 from q1a_snr import power_spectrum, snr_db
 
 F_HR = 1.40  # Hz, heart rate from Phase 2
@@ -30,49 +30,32 @@ t, raw, hp, _ = filtered_F()
 # ---- SNR ------------------------------------------------------------------------------------
 print(f"sig-F raw:       SNR = {snr_db(*power_spectrum(raw)):.1f} dB")
 print(f"sig-F high-pass: SNR = {snr_db(*power_spectrum(hp)):.1f} dB")
-for order in (2, 4):
+for K in (2049, 4097, 6145):
     for fc in (0.3, 0.5, 0.7):
-        sos = ss.butter(order, fc, "highpass", fs=FS, output="sos")
-        y = ss.sosfilt(sos, raw - raw.mean())  # causal, as the main filter (sos only for numerical safety at order 4)
-        print(f"  order {order}, f_c = {fc} Hz: SNR = {snr_db(*power_spectrum(y)):.1f} dB")
+        h = ss.firwin(K, fc, pass_zero=False, window="hamming", fs=FS)
+        y = np.convolve(raw - raw.mean(), h, mode="same")
+        print(f"  K = {K}, f_c = {fc} Hz: SNR = {snr_db(*power_spectrum(y)):.1f} dB")
 
 # ---- (b) magnitude response |H| -------------------------------------------------------------
-f = np.logspace(-2, np.log10(100), 2000)
-_, h = ss.freqz(HP_B, HP_A, worN=f, fs=FS)
-G = 20 * np.log10(np.abs(h))
-h_hr = ss.freqz(HP_B, HP_A, worN=[F_HR], fs=FS)[1][0]
-G_hr = 20 * np.log10(np.abs(h_hr))
-at = lambda f0: 20 * np.log10(np.abs(ss.freqz(HP_B, HP_A, worN=[f0], fs=FS)[1][0]))
-print(f"b = {np.round(HP_B, 5)}, a = {np.round(HP_A, 5)}")
-print(f"|H| at 0.1 Hz {at(0.1):.1f} dB, 0.2 Hz {at(0.2):.1f} dB, 0.3 Hz {at(0.3):.1f} dB, f_c {at(HP_FC):.1f} dB, "
-      f"f_HR {G_hr:.2f} dB, phase at f_HR {np.degrees(np.angle(h_hr)):.0f} deg "
-      f"({np.angle(h_hr) / (2 * np.pi * F_HR) * 1e3:.0f} ms), phase at 10 Hz "
-      f"{np.degrees(np.angle(ss.freqz(HP_B, HP_A, worN=[10.0], fs=FS)[1][0])):.1f} deg")
+f = np.logspace(-2, np.log10(100), 4000)
+_, h = ss.freqz(HP_H, 1, worN=f, fs=FS)
+G = 20 * np.log10(np.abs(h) + 1e-12)
+at = lambda f0: 20 * np.log10(np.abs(ss.freqz(HP_H, 1, worN=[f0], fs=FS)[1][0]))
+print(f"K = {HP_K}: |H| at 0.1 Hz {at(0.1):.1f} dB, 0.2 Hz {at(0.2):.1f} dB, 0.3 Hz {at(0.3):.1f} dB, "
+      f"f_c {at(HP_FC):.1f} dB, 0.8 Hz {at(0.8):.2f} dB, f_HR {at(F_HR):.2f} dB")
 
-fig, (ax, axp) = plt.subplots(2, 1, figsize=(4.2, 3.4), sharex=True, gridspec_kw={"height_ratios": [3, 2]})
+fig, ax = plt.subplots(figsize=(4.2, 2.4))
 ax.semilogx(f, G, color=ECG_COLOR, lw=1.2)
-for f0, g0, text, xy, ha, va in [(HP_FC, at(HP_FC), rf"$f_c$ = {HP_FC} Hz, ${at(HP_FC):.0f}$ dB", (-6, 0), "right", "center"),
-                                 (F_HR, G_hr, rf"$f_\mathrm{{HR}}$ = {F_HR:.2f} Hz, ${G_hr:.1f}$ dB", (4, -6),
-                                  "left", "top"),
-                                 (0.3, at(0.3), rf"0.3 Hz, ${at(0.3):.1f}$ dB", (6, -2), "left", "top")]:
-    ax.plot(f0, g0, "o", ms=3.5, color=INK, zorder=3)
-    ax.annotate(text, (f0, g0), xytext=xy, textcoords="offset points", fontsize=8, color=INK, ha=ha, va=va)
+for f0, text, xy, ha, va in [(HP_FC, rf"$f_c$ = {HP_FC} Hz, ${at(HP_FC):.0f}$ dB", (-6, 2), "right", "bottom"),
+                             (F_HR, rf"$f_\mathrm{{HR}}$ = {F_HR:.2f} Hz, ${abs(at(F_HR)):.1f}$ dB", (4, -6), "left", "top"),
+                             (0.3, rf"0.3 Hz, ${at(0.3):.1f}$ dB", (6, -2), "left", "top"),
+                             (0.1, rf"0.1 Hz, ${at(0.1):.0f}$ dB", (6, -2), "left", "top")]:
+    ax.plot(f0, at(f0), "o", ms=3.5, color=INK, zorder=3)
+    ax.annotate(text, (f0, at(f0)), xytext=xy, textcoords="offset points", fontsize=8, color=INK, ha=ha, va=va)
 ax.set_xlim(0.02, 50)
-ax.set_ylim(-60, 5)
+ax.set_ylim(-80, 5)
+ax.set_xlabel("f [Hz]")
 ax.set_ylabel(r"$|H(f)|$ [dB]")
-
-# phase: non-linear, large near f_c, small well above it (quoted in 2a)
-phi = np.degrees(np.angle(h))
-axp.semilogx(f, phi, color=ECG_COLOR, lw=1.2)
-for f0 in (F_HR, 10.0):
-    p0 = np.degrees(np.angle(ss.freqz(HP_B, HP_A, worN=[f0], fs=FS)[1][0]))
-    axp.plot(f0, p0, "o", ms=3.5, color=INK, zorder=3)
-    axp.annotate(rf"${p0:.0f}^\circ$", (f0, p0), xytext=(4, 4), textcoords="offset points", fontsize=8,
-                 color=INK, ha="left", va="bottom")
-axp.set_ylim(0, 190)
-axp.set_yticks([0, 90, 180])
-axp.set_xlabel("f [Hz]")
-axp.set_ylabel(r"phase [$^\circ$]")
 fig.savefig(FIG_DIR / "hp_response.pdf")
 plt.close(fig)
 
