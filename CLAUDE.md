@@ -89,4 +89,7 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 - 16 Oct 2026 (local session): switched to the causal HP, reran Q2-Q5, simplified text to reader level, merged with
   the 13 Oct rounds above (their explanations kept, numbers updated: 2b, 3d R-peak loss ~13% median over 59 beats,
   K = 401/45 Hz gives 10.6%; 5b/5c/5d rewritten for the HP phase shift). Earlier grades were for the zero-phase version.
+  Grader on the merged version: 9.5 / 9.3 / 9.5 / 9.5 / 9.0 (~9.35); applied its must-fixes (2e +0.5 dB, 5b cause of
+  lower maxima / deeper minimum = frequency-dependent HP phase changes the slow ECG shape) and optional 5c/5d/3d/2b wording.
+  Not done (optional): phase panel for the HP response, markers in Fig. 7.
 - Before submitting: check Canvas for a rubric or page limit (none found locally).
