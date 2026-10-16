@@ -222,12 +222,13 @@ also gone: the power below 0.5~Hz stays as low as after the high-pass filter.}
 
 % Manual 2.3.3e Why are you allowed to apply the high-pass filter and the low-pass filter in two
 % successive steps? Would a single band-pass filter give you advantage in performance?
-\paragraph{(e)} Both filters are linear and time-invariant, and convolution is commutative and
-associative. \chg{The two steps are therefore equal to one FIR band-pass filter with
+\paragraph{(e)} \chg{The high-pass and the low-pass filter may be applied in two successive steps,
+because both filters are linear and time-invariant, and convolution is commutative and
+associative. The two steps therefore give the same output as one FIR band-pass filter with
 $h[n] = h_\mathrm{HP}[n] \otimes h_\mathrm{LP}[n]$ ($4097 + 201 - 1 = 4297$ taps), or
-$H(f) = H_\mathrm{HP}(f)\,H_\mathrm{LP}(f)$, in either order. A single band-pass filter gives the
-same output and takes about the same number of multiplications, so it has no advantage in
-performance.}
+$H(f) = H_\mathrm{HP}(f)\,H_\mathrm{LP}(f)$, and the order of the two steps does not matter.
+A single band-pass filter does not give an advantage in performance, because it gives the same
+output and takes about the same number of multiplications.}
 
 % Manual 2.3.3f Calculate the SNR of the low-pass filtered signal and append to your SNR table.
 % Compare your new SNR to the unfiltered and high-pass filtered SNR values.
