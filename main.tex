@@ -95,7 +95,7 @@ The whole recording is therefore used.
 % =====================================================================
 % Manual 2.3.2a Design a high-pass filter to straighten the base line of the raw ECG signal
 % with the highest SNR. Clearly motivate the choices you made in the design of the filter.
-\paragraph{(a)} \chg{The high-pass filter is designed for sig-F, the ECG signal with the highest SNR
+\paragraph{(a)} The high-pass filter is designed for sig-F, the ECG signal with the highest SNR
 (Section~\ref{sec:snr}). The cut-off is $f_c = 0.5$~Hz, between the baseline drift below 0.5~Hz
 and the heart rate $f_\mathrm{HR} = 1.40$~Hz. A linear-phase FIR filter is used, because it delays
 all frequencies by the same $(K-1)/2$ samples, so the ECG keeps its shape and this delay is removed
@@ -103,31 +103,31 @@ afterwards. An IIR filter would need fewer coefficients, but its non-linear phas
 the shape of the slow ECG waves. The filter is designed with the window method and a Hamming
 window. The number of taps sets the steepness of the edge ($\Delta f = f_s/K$): with $K = 4097$
 the drift at 0.3~Hz is attenuated by 17.6~dB while $f_\mathrm{HR}$ passes unchanged, whereas
-$K = 2049$ gives only 10.5~dB.}
+$K = 2049$ gives only 10.5~dB.
 
 % Manual 2.3.2b Present the filter characteristics in an annotated graph in the frequency
 % domain.
-\paragraph{(b)} \chg{Figure~\ref{fig:hp-response} shows the magnitude response: $-50$~dB at 0.1~Hz,
-$-17.6$~dB at 0.3~Hz, $-6$~dB at $f_c$ and 0~dB at $f_\mathrm{HR}$.}
+\paragraph{(b)} Figure~\ref{fig:hp-response} shows the magnitude response: $-50$~dB at 0.1~Hz,
+$-17.6$~dB at 0.3~Hz, $-6$~dB at $f_c$ and 0~dB at $f_\mathrm{HR}$.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.65\textwidth]{hp_response}
-  \caption{\chg{Magnitude response of the high-pass FIR filter (Hamming window, $K = 4097$,
-  $f_c = 0.5$~Hz).}}
+  \caption{Magnitude response of the high-pass FIR filter (Hamming window, $K = 4097$,
+  $f_c = 0.5$~Hz).}
   \label{fig:hp-response}
 \end{figure}
 
 % Manual 2.3.2c Apply the filter on your selected ECG signal.
-\paragraph{(c)} \chg{The mean of sig-F is removed, the signal is convolved with $h[n]$ and the
-result is shifted back by $(K-1)/2 = 2048$ samples. The results are shown in (d) and (e).}
+\paragraph{(c)} The mean of sig-F is removed, the signal is convolved with $h[n]$ and the
+result is shifted back by $(K-1)/2 = 2048$ samples. The results are shown in (d) and (e).
 
 % Manual 2.3.2d Present the filtered signal in the time-domain as well as in the frequency
 % domain. Comment on the changes you observe with respect to unfiltered signal.
-\paragraph{(d)} \chg{In the time domain (Figure~\ref{fig:hp-time}) the slow baseline drift of more
+\paragraph{(d)} In the time domain (Figure~\ref{fig:hp-time}) the slow baseline drift of more
 than 200~$\mu$V is removed, while the QRS complexes keep their shape and amplitude. In the spectrum
 (Figure~\ref{fig:hp-freq}) the drift below 0.5~Hz drops by 14 to 40~dB, while everything above
-1~Hz, including the heart-rate peaks and the 50~Hz line, is unchanged.}
+1~Hz, including the heart-rate peaks and the 50~Hz line, is unchanged.
 
 \begin{figure}[!htb]
   \centering
@@ -151,10 +151,10 @@ than 200~$\mu$V is removed, while the QRS complexes keep their shape and amplitu
 % Manual 2.3.2e Calculate the SNR of the filtered signal and append them to your previous SNR
 % table. How does the SNR change after filtering? Comment on the influence of filter parameters
 % to the changes in the SNR.
-\paragraph{(e)} \chg{The SNR of sig-F rises from $-0.4$~dB to 10.6~dB (Table~\ref{tab:snr}),
+\paragraph{(e)} The SNR of sig-F rises from $-0.4$~dB to 10.6~dB (Table~\ref{tab:snr}),
 because the drift was most of the noise power. A lower cut-off (0.3~Hz) or a shorter filter
 ($K = 2049$) gives about 9~dB, because more drift passes. A higher cut-off or a longer filter
-adds at most 0.2~dB, because the remaining noise lies mainly above 40~Hz.}
+adds at most 0.2~dB, because the remaining noise lies mainly above 40~Hz.
 
 % =====================================================================
 \section{Design and application of low-pass filter}\label{sec:lp}
@@ -162,13 +162,14 @@ adds at most 0.2~dB, because the remaining noise lies mainly above 40~Hz.}
 % Manual 2.3.3a Design a low-pass filter to suppress the noise in the high-pass filtered signal.
 % Carefully choose your parameters in such a way as not to modify the shape of the relevant
 % signals too much. Clearly motivate the choices you made in the design of the filter.
-\paragraph{(a)} The ECG harmonics of sig-F are clearly visible up to about 30~Hz and the noise
-is the 50~Hz mains and broadband noise above it (e.g.\ muscle activity), so the cut-off is set
-to $f_c = 40$~Hz. To keep the shape of the ECG, a linear-phase FIR filter is used, which
-delays all frequencies by the same $(K-1)/2$ samples. \chg{It is designed with the
-window method and a Hamming window to reduce the ripple.} The
-number of taps sets the steepness ($\Delta f = f_s/K$); $K = 201$ gives $-53.5$~dB at the
-50~Hz line.
+\paragraph{(a)} \chg{The low-pass filter is designed for the high-pass filtered sig-F. The cut-off
+is $f_c = 40$~Hz, between the ECG harmonics, which are clearly visible up to about 30~Hz, and the
+noise above it: the 50~Hz mains and broadband noise (e.g.\ muscle activity). As for the high-pass
+filter (Section~\ref{sec:hp}), a linear-phase FIR filter is used, because it delays all
+frequencies by the same $(K-1)/2$ samples, so the ECG keeps its shape and this delay is removed
+afterwards. The filter is designed with the window method and a Hamming window to reduce the
+ripple. The number of taps sets the steepness of the edge ($\Delta f = f_s/K$): with $K = 201$
+the 50~Hz line is attenuated by 53.5~dB while the ECG up to 32~Hz passes unchanged.}
 
 \begin{figure}[!htb]
   \centering
