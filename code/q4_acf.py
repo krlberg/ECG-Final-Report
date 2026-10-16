@@ -42,15 +42,32 @@ ratio = power["filtered"] / power["unfiltered"]
 print(f"power filtered/unfiltered: {ratio:.3f}; unfiltered first side peak / ratio: "
       f"{acf['unfiltered'][np.argmin(abs(lag - 0.72))] / ratio:.2f}")
 
-fig, ax = plt.subplots(figsize=(4.2, 2.4))
-# R_xx is symmetric, so only positive lags are shown; Phase 2 drawn on top (dashed) so the difference stays visible
-ax.plot(lag, acf["filtered"], color=ECG_COLOR, lw=1.0, label="filtered")
-ax.plot(lag, acf["unfiltered"], color=INK, lw=0.6, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
+fig, (ax, az) = plt.subplots(1, 2, figsize=(6.4, 2.4), gridspec_kw={"width_ratios": [1.6, 1]})
+# R_xx is symmetric, so only positive delays are shown; Phase 2 drawn on top (dashed) so the difference stays visible
+for a in (ax, az):
+    a.plot(lag, acf["filtered"], color=ECG_COLOR, lw=1.0, label="filtered")
+    a.plot(lag, acf["unfiltered"], color=INK, lw=0.6, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
+    a.set_xlabel("delay [s]")
 ax.set_xlim(0, 5.0)
-ax.set_xlabel("delay [s]")
 ax.set_ylabel(r"$R_{x,x}[n]/R_{x,x}[0]$")
+# zoom on the first period: dot on the values quoted in 4b (dip next to zero delay, first side peak)
+az.set_xlim(0, 0.9)
+az.set_ylim(-0.3, 1.02)
+az.set_title("zoom, 0–0.9 s", fontsize=8)
+for name, c in [("filtered", ECG_COLOR), ("unfiltered", INK)]:
+    r = acf[name]
+    d = (lag > 0) & (lag < 0.3)
+    i = np.flatnonzero(d)[np.argmin(r[d])]
+    k = np.flatnonzero((lag > 0.6) & (lag < 0.85))
+    k = k[np.argmax(r[k])]
+    f = name == "filtered"
+    for j, xy in [(i, (7, -9) if f else (7, 1)), (k, (6, 2) if f else (-6, 2))]:
+        az.plot(lag[j], r[j], "o", color=c, ms=3)
+        az.annotate(f"{r[j]:.2f}", (lag[j], r[j]), xytext=xy, textcoords="offset points",
+                    fontsize=7, color=c, ha="left" if xy[0] > 0 else "right")
 leg = ax.legend(loc="lower left", bbox_to_anchor=(0, 1), ncol=2, fontsize=8, frameon=False,
                 borderaxespad=0.2, handlelength=2.0, columnspacing=1.2)
 leg.get_lines()[0].set_linewidth(1.5)
+fig.tight_layout()
 fig.savefig(FIG_DIR / "acf_filtered.pdf")
 plt.close(fig)

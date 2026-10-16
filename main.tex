@@ -253,9 +253,9 @@ negative dips just before and after it.}
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=0.65\textwidth]{acf_filtered}
+  \includegraphics[width=\textwidth]{acf_filtered}
   \caption{Normalised auto-correlation of the filtered and unfiltered sig-F,
-  $t = 36.5$--41.5~s. \chg{$R_{x,x}$ is symmetric, so only positive delays are shown.}}
+  $t = 36.5$--41.5~s. \chg{$R_{x,x}$ is symmetric, so only positive delays are shown. Right: zoom on the first period with the values quoted in Section~\ref{sec:acf}(b).}}
   \label{fig:acf-filt}
 \end{figure}
 
@@ -264,7 +264,7 @@ negative dips just before and after it.}
 because the window was chosen to have little drift. After filtering, the side peaks are
 higher (the first rises from 0.69 to 0.73) and the dips deeper ($-0.14$ to $-0.17$). The
 filters remove 6\% of the power in the window (drift and high-frequency noise). This noise is
-different in every beat, so removing it lowers \chg{$R_{x,x}[0]$} but not the side peaks, and the
+different in every beat, so removing it lowers \chg{$R_{x,x}[0] = \sum_m x[m]^2$, the energy of the signal in the window,} but not the side peaks, and the
 normalised side peaks rise ($0.69/0.94 = 0.73$). The dips deepen further because the drift was
 almost constant over 0.075~s, so it added a positive term at short \chg{delays}.
 
