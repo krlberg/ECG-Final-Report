@@ -96,4 +96,8 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   (extra method, not in the course; 5c/5d use the Phase 2 xcorr maximum +0.41 s), "does not affect" instead of
   "cancels" for the ACF (no Wiener-Khinchin), no h[n]-symmetry wording in 3a, no K = 401 comparison in 3d,
   shorter 1a/3a/3c/3e/5b. 4a must stay at 3 sentences (manual: 2-3).
+  1a rework (16 Oct): method written as 4 steps (mean removed + DFT; P[k] with bin spacing f_s/N = 0.022 Hz and
+  Parseval; band split; 10 log10 ratio), band edges motivated, "Important points when calculating the SNR" with
+  Band / DC offset / Segment length. Fig. 1 is now `figures/snr_all.pdf` (2x2, all four signals, totals + SNR per
+  panel); `snr_F.pdf` removed. Report is 7 pages (no page limit).
 - Before submitting: check Canvas for a rubric or page limit (none found locally).
