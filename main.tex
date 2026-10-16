@@ -164,8 +164,8 @@ adds at most 0.2~dB, because the remaining noise lies mainly above 40~Hz.
 % signals too much. Clearly motivate the choices you made in the design of the filter.
 \paragraph{(a)} \chg{The low-pass filter is designed for the high-pass filtered sig-F. The cut-off
 is $f_c = 40$~Hz, between the ECG harmonics, which are clearly visible up to about 30~Hz, and the
-noise above it: the 50~Hz mains and broadband noise (e.g.\ muscle activity). As for the high-pass
-filter (Section~\ref{sec:hp}), a linear-phase FIR filter is used, because it delays all
+noise above it: the 50~Hz mains and broadband noise (e.g.\ muscle activity). The same linear-phase FIR filter is used as for the high-pass
+filter (Section~\ref{sec:hp}), because it delays all
 frequencies by the same $(K-1)/2$ samples, so the ECG keeps its shape and this delay is removed
 afterwards. The filter is designed with the window method and a Hamming window to reduce the
 ripple. The number of taps sets the steepness of the edge ($\Delta f = f_s/K$): with $K = 201$
