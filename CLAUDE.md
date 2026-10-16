@@ -25,7 +25,11 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 
 ## Repo
 - This repo (https://github.com/krlberg/ECG-Final-Report, private) is synced with Overleaf: `main.tex` at the root is the report.
-  After pushing, the user pulls in Overleaf via Menu > GitHub. Always check `latexmk -pdf main.tex` compiles before pushing.
+  Two remotes: `origin` (GitHub) and `overleaf` (Overleaf git, https://git.overleaf.com/6ac16274b1b29fb31b659c5c,
+  branch `main`; token in the macOS keychain, never write it into files). Local setup on the user's Mac: a
+  `.git/hooks/post-commit` hook pushes every commit to both remotes, and `git sync` pulls Overleaf + GitHub and pushes
+  to both. Run `git sync` BEFORE editing (the user may edit in Overleaf). No need for Overleaf's Menu > GitHub any more.
+  Cloud sessions have no Overleaf remote: push to GitHub only. Always check `latexmk -pdf main.tex` compiles first.
 - `code/` scripts write figures to `figures/`. Run from anywhere: `python3 code/q2_highpass.py` etc. Needs numpy, pandas, matplotlib, scipy.
 - `intermediate-report/`: the submitted Phase 2 report (do not change). Phase 2 numbers used for comparison come from it.
 
@@ -56,9 +60,11 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 - Figures: one style (blue = filtered, grey = unfiltered, no arrows, legend above the plot, only required annotations).
 
 ## Workflow and status
-- User rules (16 Oct 2026): commit AND push after every change (check `latexmk` first). Mark every text change
-  in main.tex with `\chg{...}` (blue, macro in the preamble) so it can be reviewed in Overleaf; before submission
-  switch the macro to `\newcommand{\chg}[1]{#1}` (or remove the wrappers).
+- User rules (16 Oct 2026), ALWAYS follow:
+  1. `git sync` before editing; commit after every change (the hook pushes to GitHub and Overleaf).
+  2. EVERYTHING Claude adds or changes in main.tex goes in blue: wrap it in `\chg{...}` (macro in the preamble),
+     including captions and table entries. Keep existing `\chg` marks until the user says the review is done.
+     Before submission switch the macro to `\newcommand{\chg}[1]{#1}` (or remove the wrappers).
 - One agent per question drafts code + figures + text; the main session merges into main.tex, checks the rendered PDF, pushes.
   A strict "TA" grader agent reviews; an editor agent checks for AI-like writing and unnecessary content.
 - Status: DONE (see the latest round below). Earlier independent grade (grader5): 9.5 / 9.5 / 9.0 / 9.5 / 9.0, predicted 9.3; its 3 must-fixes
