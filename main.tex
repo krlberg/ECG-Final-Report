@@ -99,11 +99,17 @@ The whole recording is therefore used.
 (Section~\ref{sec:snr})} and the heart rate is $f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed
 at $f_c = 0.5$~Hz, the lower edge of $B_s$. An FIR filter would need a resolution
 $\Delta f = f_s/K$ below 0.5~Hz, so $K > 2000$ taps. An IIR filter needs only a few
-coefficients and is used instead: \chg{a Butterworth filter designed with the bilinear
-transform, because its pass band is flat.} This gives
+coefficients and is used instead. \chg{A Butterworth filter is chosen, because its pass band is
+flat. The analogue second-order Butterworth high-pass filter with
+$\omega_c = 2\pi f_c = 3.14$~rad/s is
 \[
-  H(z) = 0.99783\,\frac{1 - 2z^{-1} + z^{-2}}{1 - 1.99566\,z^{-1} + 0.99567\,z^{-2}}.
+  H(s) = \frac{s^2}{s^2 + \sqrt{2}\,\omega_c s + \omega_c^2}.
 \]
+The bilinear transform $s = 2 f_s \frac{z-1}{z+1}$ maps it to the digital filter
+\[
+  H(z) = 0.99783\,\frac{1 - 2z^{-1} + z^{-2}}{1 - 1.99566\,z^{-1} + 0.99567\,z^{-2}},
+\]
+which needs only five coefficients.}
 The phase of an IIR filter is non-linear, but the shift becomes small well above $f_c$:
 $f_\mathrm{HR}$ is shifted by $30^\circ$ (60~ms) and 10~Hz by only $4^\circ$, so the QRS complex
 keeps its shape. A higher order gives a steeper edge but a larger phase shift, so order 2 is
