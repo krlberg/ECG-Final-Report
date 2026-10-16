@@ -95,31 +95,20 @@ The whole recording is therefore used.
 % =====================================================================
 % Manual 2.3.2a Design a high-pass filter to straighten the base line of the raw ECG signal
 % with the highest SNR. Clearly motivate the choices you made in the design of the filter.
-\paragraph{(a)} \chg{The baseline drift of sig-F lies mainly below 0.5~Hz
-(Section~\ref{sec:snr}) and the heart rate is $f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed
-at $f_c = 0.5$~Hz, the lower edge of $B_s$.
-
-A linear-phase FIR filter is used. An IIR filter, for example a second-order Butterworth filter
-designed with the bilinear transform, would need only five coefficients, but its phase is
-non-linear: it shifts the heart-rate component by 60~ms and lower frequencies even more. This
-would change the shape of the slow ECG waves and the delay between ECG and pulse measured in
-Section~\ref{sec:xcorr}. An FIR filter designed with the window method delays all frequencies by
-the same $(K-1)/2$ samples, and because the data is recorded and not filtered in real time, this
-delay can be removed. The filter is designed with a Hamming window, the same method as the
-low-pass filter in Section~\ref{sec:lp}.
-
-The number of taps (coefficients) $K$ sets the steepness of the edge, $\Delta f = f_s/K$. With
-$K = 2049$ ($\Delta f = 0.5$~Hz) the drift at 0.3~Hz is attenuated by only 10.5~dB; with
-$K = 4097$ ($\Delta f = 0.25$~Hz) by 17.6~dB, while $f_\mathrm{HR}$ passes unchanged. A longer
-filter hardly raises the SNR (see (e)), so $K = 4097$ is used: a filter of 4~s, short compared
-with the 45.5~s recording. Its length only costs computation time, which does not matter for
-recorded data.}
+\paragraph{(a)} \chg{The high-pass filter is designed for sig-F, the ECG signal with the highest SNR
+(Section~\ref{sec:snr}). The cut-off is $f_c = 0.5$~Hz, between the baseline drift below 0.5~Hz
+and the heart rate $f_\mathrm{HR} = 1.40$~Hz. A linear-phase FIR filter is used, because it delays
+all frequencies by the same $(K-1)/2$ samples, so the ECG keeps its shape; this delay is removed
+afterwards. An IIR filter would need fewer coefficients, but its non-linear phase would change
+the shape of the slow ECG waves. The filter is designed with the window method and a Hamming
+window. The number of taps sets the steepness of the edge ($\Delta f = f_s/K$): with $K = 4097$
+the drift at 0.3~Hz is attenuated by 17.6~dB while $f_\mathrm{HR}$ passes unchanged, whereas
+$K = 2049$ gives only 10.5~dB.}
 
 % Manual 2.3.2b Present the filter characteristics in an annotated graph in the frequency
 % domain.
-\paragraph{(b)} \chg{Figure~\ref{fig:hp-response} shows the magnitude response. The drift is
-attenuated by 50~dB at 0.1~Hz and 17.6~dB at 0.3~Hz, the response at $f_c$ is $-6$~dB, and
-$f_\mathrm{HR}$ passes unchanged. The delay is removed (see (c)), so the phase is zero.}
+\paragraph{(b)} \chg{Figure~\ref{fig:hp-response} shows the magnitude response: $-50$~dB at 0.1~Hz,
+$-17.6$~dB at 0.3~Hz, $-6$~dB at $f_c$ and 0~dB at $f_\mathrm{HR}$.}
 
 \begin{figure}[!htb]
   \centering
@@ -130,18 +119,15 @@ $f_\mathrm{HR}$ passes unchanged. The delay is removed (see (c)), so the phase i
 \end{figure}
 
 % Manual 2.3.2c Apply the filter on your selected ECG signal.
-\paragraph{(c)} \chg{The mean of sig-F is removed and the whole recording is convolved with
-$h[n]$. The result is shifted back by $(K-1)/2 = 2048$ samples, so it lines up with the input. In
-the first and last 2~s the filter does not fully overlap the signal (run-in); these parts lie
-outside the window used in Sections~\ref{sec:acf} and~\ref{sec:xcorr}.}
+\paragraph{(c)} \chg{The mean of sig-F is removed, the signal is convolved with $h[n]$ and the
+result is shifted back by $(K-1)/2 = 2048$ samples.}
 
 % Manual 2.3.2d Present the filtered signal in the time-domain as well as in the frequency
 % domain. Comment on the changes you observe with respect to unfiltered signal.
-\paragraph{(d)} In the time domain (Figure~\ref{fig:hp-time}) the raw baseline wanders by more
-than 200~$\mu$V within 10~s, while the filtered baseline stays around zero and the QRS complexes
-keep their shape and amplitude. In the spectrum (Figure~\ref{fig:hp-freq}) the drift power
-drops by \chg{about 40~dB below 0.2~Hz and by 14~dB between 0.2 and 0.5~Hz.} Above 1~Hz, including
-the heart-rate peaks and the 50~Hz line, the spectrum hardly changes.
+\paragraph{(d)} \chg{In the time domain (Figure~\ref{fig:hp-time}) the baseline wander of more than
+200~$\mu$V is removed, while the QRS complexes keep their shape and amplitude. In the spectrum
+(Figure~\ref{fig:hp-freq}) the drift below 0.5~Hz drops by 14 to 40~dB, while everything above
+1~Hz, including the heart-rate peaks and the 50~Hz line, is unchanged.}
 
 \begin{figure}[!htb]
   \centering
@@ -165,13 +151,10 @@ the heart-rate peaks and the 50~Hz line, the spectrum hardly changes.
 % Manual 2.3.2e Calculate the SNR of the filtered signal and append them to your previous SNR
 % table. How does the SNR change after filtering? Comment on the influence of filter parameters
 % to the changes in the SNR.
-\paragraph{(e)} \chg{High-pass filtering raises the SNR of sig-F from $-0.4$~dB to 10.6~dB
-(Table~\ref{tab:snr}), because the drift was most of the noise power. The cut-off has the largest
-influence: at 0.3~Hz the SNR is 9.0~dB, because the drift between 0.3 and 0.5~Hz stays in the
-noise. A shorter filter ($K = 2049$) gives 9.2~dB, because its less steep edge lets more drift
-through. A higher cut-off (0.7~Hz) or a longer filter ($K = 6145$) adds at most 0.2~dB, because
-95\% of the remaining noise lies above 40~Hz (50~Hz mains and high-frequency noise), where the
-high-pass filter has no effect.}
+\paragraph{(e)} \chg{The SNR of sig-F rises from $-0.4$~dB to 10.6~dB (Table~\ref{tab:snr}),
+because the drift was most of the noise power. A lower cut-off (0.3~Hz) or a shorter filter
+($K = 2049$) gives about 9~dB, because more drift passes. A higher cut-off or a longer filter
+adds at most 0.2~dB, because the remaining noise lies mainly above 40~Hz.}
 
 % =====================================================================
 \section{Design and application of low-pass filter}\label{sec:lp}
