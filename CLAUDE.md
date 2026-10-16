@@ -20,7 +20,7 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   so the pulse peak follows the ECG spike by ~0.4 s; 5b: the maximum at -0.25 s is the pulse of the previous beat.
 - "Visibility of peaks in acorr vs xcorr?" -> 5c: acorr peaks narrow and clear (sharp QRS), xcorr peaks broad and
   low (smooth pulse wave, different shape).
-- Same check applied elsewhere (TA-style review): drift source (2a), noise source above 40 Hz (3a), why the 11-13% lower
+- Same check applied elsewhere (TA-style review): drift source (1a band paragraph; 2a refers to Section 1), noise source above 40 Hz (3a), why the 11-13% lower
   R peak is accepted (3d), cause of the dips at +-0.075 s (4a), why the dips deepen after filtering (4b).
 
 ## Repo

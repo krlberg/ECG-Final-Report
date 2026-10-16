@@ -97,8 +97,8 @@ The whole recording is therefore used.}
 % =====================================================================
 % Manual 2.3.2a Design a high-pass filter to straighten the base line of the raw ECG signal
 % with the highest SNR. Clearly motivate the choices you made in the design of the filter.
-\paragraph{(a)} The baseline drift of sig-F, caused by breathing and electrode movement, lies
-mainly below 0.5~Hz and the heart rate is $f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed
+\paragraph{(a)} \chg{The baseline drift of sig-F lies mainly below 0.5~Hz
+(Section~\ref{sec:snr})} and the heart rate is $f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed
 at $f_c = 0.5$~Hz, the lower edge of $B_s$. An FIR filter would need a resolution
 $\Delta f = f_s/K$ below 0.5~Hz, so $K > 2000$ taps. An IIR filter needs only a few
 coefficients and is used instead: a Butterworth filter designed with the bilinear transform
