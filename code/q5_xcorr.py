@@ -48,7 +48,7 @@ i = i[lag[i] >= 0]
 print("ACF filtered sig-F:", ", ".join(f"{a[k]:.3f} at {lag[k]:.3f} s" for k in i))
 print(f"  mean period: {np.mean(np.diff(lag[i])):.3f} s")
 
-fig, ax = plt.subplots(figsize=(6.3, 3.0))
+fig, ax = plt.subplots(figsize=(6.3, 2.7))
 # same style as the auto-correlation figure: Phase 2 drawn on top (dashed)
 ax.plot(lag, r, color=ECG_COLOR, lw=1.0, label="filtered")
 ax.plot(lag, r_raw, color=RED, lw=0.8, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
