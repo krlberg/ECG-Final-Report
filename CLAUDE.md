@@ -91,5 +91,9 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   K = 401/45 Hz gives 10.6%; 5b/5c/5d rewritten for the HP phase shift). Earlier grades were for the zero-phase version.
   Grader on the merged version: 9.5 / 9.3 / 9.5 / 9.5 / 9.0 (~9.35); applied its must-fixes (2e +0.5 dB, 5b cause of
   lower maxima / deeper minimum = frequency-dependent HP phase changes the slow ECG shape) and optional 5c/5d/3d/2b wording.
-  Not done (optional): phase panel for the HP response, markers in Fig. 7.
+  Then added: phase panel in Fig. 2 (30 deg at f_HR, 4 deg at 10 Hz), dots on the quoted maxima/minimum in Fig. 7.
+  Reader-level audit (16 Oct): nothing clearly beyond the course. Applied its cuts: no beat-averaged pulse wave
+  (extra method, not in the course; 5c/5d use the Phase 2 xcorr maximum +0.41 s), "does not affect" instead of
+  "cancels" for the ACF (no Wiener-Khinchin), no h[n]-symmetry wording in 3a, no K = 401 comparison in 3d,
+  shorter 1a/3a/3c/3e/5b. 4a must stay at 3 sentences (manual: 2-3).
 - Before submitting: check Canvas for a rubric or page limit (none found locally).

@@ -52,6 +52,14 @@ fig, ax = plt.subplots(figsize=(4.2, 2.4))
 # same style as the auto-correlation figure: Phase 2 drawn on top (dashed)
 ax.plot(lag, r, color=ECG_COLOR, lw=1.0, label="filtered")
 ax.plot(lag, r_raw, color=INK, lw=0.6, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
+# mark the largest maximum at negative and at positive lag and the deepest minimum (quoted in 5b)
+i = maxima(lag, r)
+k_neg, k_pos = i[lag[i] < 0][np.argmax(r[i][lag[i] < 0])], i[lag[i] > 0][np.argmax(r[i][lag[i] > 0])]
+for k, xy, ha, va in [(k_neg, (-6, 4), "right", "bottom"), (k_pos, (6, 4), "left", "bottom"),
+                      (np.argmin(r), (6, -2), "left", "top")]:
+    ax.plot(lag[k], r[k], "o", ms=3.5, color=INK, zorder=3)
+    ax.annotate(f"{r[k]:.2f} at {lag[k]:+.2f} s", (lag[k], r[k]), xytext=xy, textcoords="offset points",
+                fontsize=7, color=INK, ha=ha, va=va)
 ax.set_xlim(lag[0], lag[-1])
 ax.set_ylim(-0.4, 0.3)
 ax.set_xlabel("lag [s]")

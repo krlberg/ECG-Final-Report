@@ -49,7 +49,7 @@ print(f"|H| at 0.1 Hz {at(0.1):.1f} dB, 0.2 Hz {at(0.2):.1f} dB, 0.3 Hz {at(0.3)
       f"({np.angle(h_hr) / (2 * np.pi * F_HR) * 1e3:.0f} ms), phase at 10 Hz "
       f"{np.degrees(np.angle(ss.freqz(HP_B, HP_A, worN=[10.0], fs=FS)[1][0])):.1f} deg")
 
-fig, ax = plt.subplots(figsize=(4.2, 2.4))
+fig, (ax, axp) = plt.subplots(2, 1, figsize=(4.2, 3.4), sharex=True, gridspec_kw={"height_ratios": [3, 2]})
 ax.semilogx(f, G, color=ECG_COLOR, lw=1.2)
 for f0, g0, text, xy, ha, va in [(HP_FC, at(HP_FC), rf"$f_c$ = {HP_FC} Hz, ${at(HP_FC):.0f}$ dB", (-6, 0), "right", "center"),
                                  (F_HR, G_hr, rf"$f_\mathrm{{HR}}$ = {F_HR:.2f} Hz, ${G_hr:.1f}$ dB", (4, -6),
@@ -59,8 +59,20 @@ for f0, g0, text, xy, ha, va in [(HP_FC, at(HP_FC), rf"$f_c$ = {HP_FC} Hz, ${at(
     ax.annotate(text, (f0, g0), xytext=xy, textcoords="offset points", fontsize=8, color=INK, ha=ha, va=va)
 ax.set_xlim(0.02, 50)
 ax.set_ylim(-60, 5)
-ax.set_xlabel("f [Hz]")
 ax.set_ylabel(r"$|H(f)|$ [dB]")
+
+# phase: non-linear, large near f_c, small well above it (quoted in 2a)
+phi = np.degrees(np.angle(h))
+axp.semilogx(f, phi, color=ECG_COLOR, lw=1.2)
+for f0 in (F_HR, 10.0):
+    p0 = np.degrees(np.angle(ss.freqz(HP_B, HP_A, worN=[f0], fs=FS)[1][0]))
+    axp.plot(f0, p0, "o", ms=3.5, color=INK, zorder=3)
+    axp.annotate(rf"${p0:.0f}^\circ$", (f0, p0), xytext=(4, 4), textcoords="offset points", fontsize=8,
+                 color=INK, ha="left", va="bottom")
+axp.set_ylim(0, 190)
+axp.set_yticks([0, 90, 180])
+axp.set_xlabel("f [Hz]")
+axp.set_ylabel(r"phase [$^\circ$]")
 fig.savefig(FIG_DIR / "hp_response.pdf")
 plt.close(fig)
 
