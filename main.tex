@@ -112,7 +112,7 @@ $-17.6$~dB at 0.3~Hz, $-6$~dB at $f_c$ and 0~dB at $f_\mathrm{HR}$.
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=0.65\textwidth]{hp_response}
+  \includegraphics[width=\textwidth]{hp_response}
   \caption{Magnitude response of the high-pass FIR filter (Hamming window, $K = 4097$,
   $f_c = 0.5$~Hz).}
   \label{fig:hp-response}
@@ -131,14 +131,15 @@ than 200~$\mu$V is removed, while \chg{the peaks of the heartbeats} keep their s
 
 \begin{figure}[!htb]
   \centering
-  \begin{subfigure}{0.49\textwidth}
+  \begin{subfigure}{\textwidth}
     \centering
     \includegraphics[width=\textwidth]{hp_time}
     \caption{Time domain, 35--45~s (raw: mean removed).}
     \label{fig:hp-time}
   \end{subfigure}
-  \hfill
-  \begin{subfigure}{0.49\textwidth}
+
+  \medskip
+  \begin{subfigure}{\textwidth}
     \centering
     \includegraphics[width=\textwidth]{hp_freq}
     \caption{Power per bin $P[k]$, whole recording.}
@@ -178,7 +179,7 @@ $-0.7$~dB at 35~Hz, $-6$~dB at $f_c = 40$~Hz and $-53.5$~dB at 50~Hz.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=0.65\textwidth]{lp_response}
+  \includegraphics[width=\textwidth]{lp_response}
   \caption{Magnitude response of the low-pass FIR filter (Hamming window, $K = 201$,
   $f_c = 40$~Hz).}
   \label{fig:lp-response}
@@ -203,13 +204,15 @@ also gone, the power below 0.5~Hz stays as low as after the high-pass filter.}
 
 \begin{figure}[!h]
   \centering
-  \begin{subfigure}{0.48\textwidth}
+  \begin{subfigure}{\textwidth}
     \centering
     \includegraphics[width=\linewidth]{lp_time}
     \caption{Time domain, 38--40.5~s (raw: mean removed).}
     \label{fig:lp-time}
-  \end{subfigure}\hfill
-  \begin{subfigure}{0.48\textwidth}
+  \end{subfigure}
+
+  \medskip
+  \begin{subfigure}{\textwidth}
     \centering
     \includegraphics[width=\linewidth]{lp_freq}
     \caption{Power per bin $P[k]$, whole recording.}
@@ -236,6 +239,7 @@ output and takes about the same number of multiplications.}
 $-0.4$~dB raw and 10.6~dB after the high-pass filter. The low-pass filter removes the 50~Hz mains
 and the noise above 40~Hz. The remaining noise is mainly drift between 0.2 and 0.5~Hz, in the
 edge of the high-pass filter.}
+\clearpage
 
 % =====================================================================
 \section{Auto-correlation}\label{sec:acf}
@@ -280,9 +284,9 @@ before the window is cut, so their run-in \chg{at the edges} falls outside the w
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=0.65\textwidth]{xcorr_filtered}
+  \includegraphics[width=\textwidth]{xcorr_filtered}
   \caption{Normalised cross-correlation between sig-P and the filtered sig-F (solid), with the
-  Phase 2 result for the raw sig-F (dashed), $t = 36.5$--41.5~s. A positive \chg{delay} means sig-P is
+  Phase 2 result for the raw sig-F \chg{(red, dashed)}, $t = 36.5$--41.5~s. A positive \chg{delay} means sig-P is
   delayed. Dots: the maxima and minimum quoted in (b).}
   \label{fig:xcorr-filt}
 \end{figure}

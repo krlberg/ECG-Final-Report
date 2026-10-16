@@ -44,7 +44,7 @@ at = lambda f0: 20 * np.log10(np.abs(ss.freqz(HP_H, 1, worN=[f0], fs=FS)[1][0]))
 print(f"K = {HP_K}: |H| at 0.1 Hz {at(0.1):.1f} dB, 0.2 Hz {at(0.2):.1f} dB, 0.3 Hz {at(0.3):.1f} dB, "
       f"f_c {at(HP_FC):.1f} dB, 0.8 Hz {at(0.8):.2f} dB, f_HR {at(F_HR):.2f} dB")
 
-fig, ax = plt.subplots(figsize=(4.2, 2.4))
+fig, ax = plt.subplots(figsize=(6.3, 3.0))
 ax.semilogx(f, G, color=ECG_COLOR, lw=1.2)
 for f0, text, xy, ha, va in [(HP_FC, rf"$f_c$ = {HP_FC} Hz, ${at(HP_FC):.0f}$ dB", (-6, 2), "right", "bottom"),
                              (F_HR, rf"$f_\mathrm{{HR}}$ = {F_HR:.2f} Hz, ${abs(at(F_HR)):.1f}$ dB", (4, -6), "left", "top"),
@@ -61,7 +61,7 @@ plt.close(fig)
 
 # ---- (d) time domain ------------------------------------------------------------------------
 win = (t >= T0) & (t < T1)
-fig, ax = plt.subplots(figsize=(3.1, 2.0))
+fig, ax = plt.subplots(figsize=(6.3, 2.6))
 ax.plot(t[win], raw[win] - raw[win].mean(), color=RAW_COLOR, lw=0.6, label="raw")
 ax.plot(t[win], hp[win], color=ECG_COLOR, lw=0.6, label="high-pass")
 ax.set_xlim(T0, T1)
@@ -74,7 +74,7 @@ plt.close(fig)
 # ---- (d) frequency domain -------------------------------------------------------------------
 fr, P_raw = power_spectrum(raw)
 _, P_hp = power_spectrum(hp)
-fig, ax = plt.subplots(figsize=(3.1, 2.0))
+fig, ax = plt.subplots(figsize=(6.3, 2.6))
 ax.loglog(fr[1:], P_raw[1:], color=RAW_COLOR, lw=0.5, label="raw")
 ax.loglog(fr[1:], P_hp[1:], color=ECG_COLOR, lw=0.5, label="high-pass")
 ax.set_xlim(fr[1], FS / 2)

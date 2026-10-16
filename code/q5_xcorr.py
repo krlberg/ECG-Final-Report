@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.signal as ss
 
-from ecg_data import ECG_COLOR, FIG_DIR, FS, INK, load, style
+from ecg_data import ECG_COLOR, FIG_DIR, FS, INK, RED, load, style
 from filters import filtered_F
 
 T0, T1 = 36.5, 41.5  # s, same window as Phase 2
@@ -48,10 +48,10 @@ i = i[lag[i] >= 0]
 print("ACF filtered sig-F:", ", ".join(f"{a[k]:.3f} at {lag[k]:.3f} s" for k in i))
 print(f"  mean period: {np.mean(np.diff(lag[i])):.3f} s")
 
-fig, ax = plt.subplots(figsize=(4.2, 2.4))
+fig, ax = plt.subplots(figsize=(6.3, 3.0))
 # same style as the auto-correlation figure: Phase 2 drawn on top (dashed)
 ax.plot(lag, r, color=ECG_COLOR, lw=1.0, label="filtered")
-ax.plot(lag, r_raw, color=INK, lw=0.6, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
+ax.plot(lag, r_raw, color=RED, lw=0.8, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
 # mark the largest maximum at negative and at positive lag and the deepest minimum (quoted in 5b)
 i = maxima(lag, r)
 k_neg, k_pos = i[lag[i] < 0][np.argmax(r[i][lag[i] < 0])], i[lag[i] > 0][np.argmax(r[i][lag[i] > 0])]

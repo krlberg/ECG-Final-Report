@@ -22,6 +22,7 @@ CHANNELS = {
 ECG_COLOR = "#2a78d6"
 PLETH_COLOR = "#eb6834"
 INK = "#0b0b0b"
+RED = "#d62728"  # Phase 2 (unfiltered) correlations, dashed
 INK_2 = "#52514e"
 GRID = "#d9d8d4"
 

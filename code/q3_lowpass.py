@@ -42,7 +42,7 @@ if __name__ == "__main__":
     print(f"|H| at 35 Hz: {at(35):.1f} dB, 40 Hz: {at(40):.1f} dB, 50 Hz: {at(50):.1f} dB, "
           f"100 Hz: {at(100):.1f} dB")
 
-    fig, ax = plt.subplots(figsize=(4.2, 2.4))
+    fig, ax = plt.subplots(figsize=(6.3, 3.0))
     ax.plot(f, H_dB, color=ECG_COLOR, lw=1.2)
     ax.set_xlim(0, 100)
     ax.set_ylim(-80, 5)
@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     # time domain: short stretch; raw with its window mean removed (large DC offset)
     win = (t >= T0) & (t < T1)
-    fig, ax = plt.subplots(figsize=(3.1, 2.0))
+    fig, ax = plt.subplots(figsize=(6.3, 2.6))
     ax.plot(t[win], raw[win] - raw[win].mean(), color=RAW_COLOR, lw=0.6, label="raw")
     ax.plot(t[win], hp[win], color=HP_COLOR, lw=0.6, label="HP")
     ax.plot(t[win], lp[win], color=ECG_COLOR, lw=0.9, label="HP + LP")
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     plt.close(fig)
 
     # frequency domain: power per bin P[k] (as in questions 1a and 2), whole recording
-    fig, ax = plt.subplots(figsize=(3.1, 2.0))
+    fig, ax = plt.subplots(figsize=(6.3, 2.6))
     for z, color, label in ((raw, RAW_COLOR, "raw"), (hp, HP_COLOR, "HP"), (lp, ECG_COLOR, "HP + LP")):
         fk, Pk = power_spectrum(z)
         ax.loglog(fk[1:], Pk[1:], color=color, lw=0.5, label=label)

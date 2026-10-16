@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.signal as ss
 
-from ecg_data import ECG_COLOR, FIG_DIR, FS, INK, style
+from ecg_data import ECG_COLOR, FIG_DIR, FS, INK, RED, style
 from filters import filtered_F
 
 T0, T1 = 36.5, 41.5  # s, same window as Phase 2
@@ -42,11 +42,11 @@ ratio = power["filtered"] / power["unfiltered"]
 print(f"power filtered/unfiltered: {ratio:.3f}; unfiltered first side peak / ratio: "
       f"{acf['unfiltered'][np.argmin(abs(lag - 0.72))] / ratio:.2f}")
 
-fig, (ax, az) = plt.subplots(1, 2, figsize=(6.4, 2.4), gridspec_kw={"width_ratios": [1.6, 1]})
+fig, (ax, az) = plt.subplots(1, 2, figsize=(6.4, 3.0), gridspec_kw={"width_ratios": [1.6, 1]})
 # R_xx is symmetric, so only positive delays are shown; Phase 2 drawn on top (dashed) so the difference stays visible
 for a in (ax, az):
     a.plot(lag, acf["filtered"], color=ECG_COLOR, lw=1.0, label="filtered")
-    a.plot(lag, acf["unfiltered"], color=INK, lw=0.6, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
+    a.plot(lag, acf["unfiltered"], color=RED, lw=0.8, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
     a.set_xlabel("delay [s]")
 ax.set_xlim(0, 5.0)
 ax.set_ylabel(r"$R_{x,x}[n]/R_{x,x}[0]$")
@@ -54,7 +54,7 @@ ax.set_ylabel(r"$R_{x,x}[n]/R_{x,x}[0]$")
 az.set_xlim(0, 0.9)
 az.set_ylim(-0.3, 1.02)
 az.set_title("zoom, 0–0.9 s", fontsize=8)
-for name, c in [("filtered", ECG_COLOR), ("unfiltered", INK)]:
+for name, c in [("filtered", ECG_COLOR), ("unfiltered", RED)]:
     r = acf[name]
     d = (lag > 0) & (lag < 0.3)
     i = np.flatnonzero(d)[np.argmin(r[d])]
