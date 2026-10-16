@@ -98,7 +98,7 @@ The whole recording is therefore used.
 \paragraph{(a)} \chg{The high-pass filter is designed for sig-F, the ECG signal with the highest SNR
 (Section~\ref{sec:snr}). The cut-off is $f_c = 0.5$~Hz, between the baseline drift below 0.5~Hz
 and the heart rate $f_\mathrm{HR} = 1.40$~Hz. A linear-phase FIR filter is used, because it delays
-all frequencies by the same $(K-1)/2$ samples, so the ECG keeps its shape; this delay is removed
+all frequencies by the same $(K-1)/2$ samples, so the ECG keeps its shape and this delay is removed
 afterwards. An IIR filter would need fewer coefficients, but its non-linear phase would change
 the shape of the slow ECG waves. The filter is designed with the window method and a Hamming
 window. The number of taps sets the steepness of the edge ($\Delta f = f_s/K$): with $K = 4097$
