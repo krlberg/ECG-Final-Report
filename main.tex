@@ -34,11 +34,10 @@
 \begin{enumerate}
   \item The mean is removed, so the DC offset does not count as noise. The DFT $X[k]$ then
         splits the recording into frequency bins: bin $k$ lies at $f = k f_s/N$, so the bins are
-        $f_s/N = 0.022$~Hz wide.
+        $f_s/N = 1024/46648 = 0.022$~Hz wide.
   \item The power in bin $k$ is $P[k] = 2|X[k]|^2/N^2$. Summed over all bins this gives the total
         power of the signal.
-  \item Bins inside the band $B_s$ = 0.5--40~Hz count as signal, all other bins as noise. The
-        noise is not extrapolated from a noise-only band, because it is not spread evenly over the
+  \item Bins inside the band $B_s$ = 0.5--40~Hz count as signal, all other bins as noise. The noise is not extrapolated from a noise-only band, because it is not spread evenly over the
         frequencies but is mainly drift below 0.5~Hz.
   \item The SNR is the ratio of the two sums in dB:
         \[
