@@ -1,7 +1,7 @@
 """Question 4a-b: auto-correlation of the filtered sig-F (high- + low-pass), compared with
 the unfiltered sig-F of Phase 2. Same 5 s window, mean removal and normalisation as Phase 2
 (intermediate-report, q3a_q4a_corr.py). The filters run on the whole recording, so the
-window is free of start-up transients."""
+window is free of the filter run-in."""
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.signal as ss

@@ -1,8 +1,8 @@
 """Checks behind the explanations in 1a, 5b and 5c (prints only, no figures).
 
 1a: sig-P has almost no power between 7 and 40 Hz, so the upper band edge does not affect its SNR.
-5b: the xcorr maxima are 0.67 s apart instead of one period, because the pulse wave also lines up
-    with the T wave; without the T-wave region of sig-F they lie about one period apart.
+5b: xcorr maxima with and without the T-wave region of sig-F (Phase 2 check; with the causal
+    high-pass filter the maxima are already one period apart, so the report no longer uses it).
 5c: timing of the pulse wave after the R peak (minimum, maximum), averaged over the window.
 """
 import numpy as np

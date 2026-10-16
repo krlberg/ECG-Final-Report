@@ -2,7 +2,7 @@
 (high- + low-pass), over the same 5 s window and with the same normalisation as Phase 2.
 
 sig-F is filtered over the whole recording first and then cut to the window, so the filter
-start-up transients fall outside it. Both filters have zero phase, so the lags are not shifted.
+run-in of the filters falls outside it.
 """
 import matplotlib.pyplot as plt
 import numpy as np
@@ -53,7 +53,7 @@ fig, ax = plt.subplots(figsize=(4.2, 2.4))
 ax.plot(lag, r, color=ECG_COLOR, lw=1.0, label="filtered")
 ax.plot(lag, r_raw, color=INK, lw=0.6, ls=(0, (3, 2)), label="unfiltered (Phase 2)")
 ax.set_xlim(lag[0], lag[-1])
-ax.set_ylim(-0.3, 0.3)
+ax.set_ylim(-0.4, 0.3)
 ax.set_xlabel("lag [s]")
 ax.set_ylabel(r"normalised $R_{PF}[n]$")
 leg = ax.legend(loc="lower left", bbox_to_anchor=(0, 1), ncol=2, fontsize=8, frameon=False,
