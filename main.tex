@@ -171,18 +171,18 @@ afterwards. The filter is designed with the window method and a Hamming window t
 ripple. The number of taps sets the steepness of the edge ($\Delta f = f_s/K$): with $K = 201$
 the 50~Hz line is attenuated by 53.5~dB while the ECG up to 32~Hz passes unchanged.}
 
-\begin{figure}[!htb]
+% Manual 2.3.3b Present the filter characteristics in an annotated graph in the frequency
+% domain.
+\paragraph{(b)} Figure~\ref{fig:lp-response} shows the magnitude response with 0~dB up to 32~Hz,
+$-0.7$~dB at 35~Hz, $-6$~dB at $f_c = 40$~Hz and $-53.5$~dB at 50~Hz.
+
+\begin{figure}[!h]
   \centering
   \includegraphics[width=0.65\textwidth]{lp_response}
   \caption{Magnitude response of the low-pass FIR filter (Hamming window, $K = 201$,
   $f_c = 40$~Hz).}
   \label{fig:lp-response}
 \end{figure}
-
-% Manual 2.3.3b Present the filter characteristics in an annotated graph in the frequency
-% domain.
-\paragraph{(b)} Figure~\ref{fig:lp-response} shows the magnitude response with 0~dB up to 32~Hz,
-$-0.7$~dB at 35~Hz, $-6$~dB at $f_c = 40$~Hz and $-53.5$~dB at 50~Hz.
 
 % Manual 2.3.3c Apply the filter on your high-pass filtered signal.
 \paragraph{(c)} The high-pass filtered sig-F is convolved with $h[n]$ and the result is shifted
@@ -200,7 +200,7 @@ cut-off would need a longer filter to still suppress the 50~Hz line. In the spec
 50~Hz line, the power drops by about 40~dB. The drift below 0.5~Hz is the same as after the
 high-pass filter.
 
-\begin{figure}[!htb]
+\begin{figure}[!h]
   \centering
   \begin{subfigure}{0.48\textwidth}
     \centering
@@ -217,6 +217,7 @@ high-pass filter.
   \caption{Raw, high-pass filtered (HP) and high- and low-pass filtered (HP + LP) sig-F.}
   \label{fig:lp-signal}
 \end{figure}
+\FloatBarrier
 
 % Manual 2.3.3e Why are you allowed to apply the high-pass filter and the low-pass filter in two
 % successive steps? Would a single band-pass filter give you advantage in performance?
