@@ -164,7 +164,7 @@ adds at most 0.2~dB, because the remaining noise lies mainly above 40~Hz.
 % signals too much. Clearly motivate the choices you made in the design of the filter.
 \paragraph{(a)} \chg{The low-pass filter is designed for the high-pass filtered sig-F. The cut-off
 is $f_c = 40$~Hz, between the ECG harmonics, which are clearly visible up to about 30~Hz, and the
-noise above it: the 50~Hz mains and broadband noise (e.g.\ muscle activity). The same linear-phase FIR filter is used as for the high-pass
+noise above it: the 50~Hz mains and broadband noise. The same linear-phase FIR filter is used as for the high-pass
 filter (Section~\ref{sec:hp}), because it delays all
 frequencies by the same $(K-1)/2$ samples, so the ECG keeps its shape and this delay is removed
 afterwards. The filter is designed with the window method and a Hamming window to reduce the
@@ -193,8 +193,9 @@ and (f).}
 % domain. Comment on the changes you observe with respect to unfiltered and high-pass filtered
 % signals.
 \paragraph{(d)} In the time domain (Figure~\ref{fig:lp-time}) the fast noise on the baseline is
-gone. The P, QRS and T waves keep their shape and timing, but the R peaks are about \chg{12\%} lower,
-because the QRS complex has some content above 40~Hz. This is accepted, because a higher
+gone. \chg{The ECG keeps its shape and timing, but the highest peaks of the heartbeats are about
+12\% lower, because these peaks are short and sharp and therefore contain frequencies above
+40~Hz.} This is accepted, because a higher
 cut-off would need a longer filter to still suppress the 50~Hz line. In the spectrum
 (Figure~\ref{fig:lp-freq}) nothing changes up to 32~Hz, and from 50~Hz upwards, including the
 50~Hz line, the power drops by about 40~dB. The drift below 0.5~Hz is the same as after the
