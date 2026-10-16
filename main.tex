@@ -50,20 +50,17 @@ P, QRS and T waves, are visible up to about 30~Hz. Above them lies mostly noise,
 so the same band can be used.}
 
 Table~\ref{tab:snr} gives the results. The highest SNR is that of sig-P, because the optical
-pulse signal has little drift (4\% of its power lies below 0.5~Hz, against 49\% for sig-F). Of the
-three ECG signals sig-F has the highest SNR, so it is used in the rest of this report.
+pulse signal has little drift (4\% of its power lies below 0.5~Hz, against 49\% for sig-F).
+\chg{The filters are designed for the ECG signal with the highest SNR. sig-P is the pulse-oxi
+signal and not an ECG lead; of the three ECG leads sig-F has the highest SNR, so it is used in the
+rest of this report.}
 
-\chg{Important points when calculating the SNR:
-\begin{itemize}
-  \item \textbf{Band.} The SNR depends on the chosen band, so all signals use the same one. It is
-        an estimate: noise inside the band counts as signal, and ECG content outside it (e.g.\
-        part of the QRS above 40~Hz) counts as noise.
-  \item \textbf{DC offset.} The mean (about 4700~$\mu$V in sig-F) is removed first, otherwise it
-        counts as noise.
-  \item \textbf{Segment length.} For 10~s windows of sig-F the SNR is 3.5--9.7~dB, because
-        removing the mean of a short window also removes part of the slow drift. The whole
-        recording is therefore used.
-\end{itemize}}
+\chg{Besides removing the mean (step 1), two points need attention. The SNR depends on the
+chosen band, so the same band is used for all signals, and it is only an estimate: noise inside
+the band counts as signal, and ECG content outside it (e.g.\ part of the QRS above 40~Hz) counts
+as noise. The SNR also depends on the length of the segment: for 10~s windows of sig-F it is
+3.5--9.7~dB, because removing the mean of a short window also removes part of the slow drift.
+The whole recording is therefore used.}
 
 \begin{figure}[!htb]
   \centering
