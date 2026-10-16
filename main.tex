@@ -46,8 +46,8 @@
 \end{enumerate}
 The band edges are chosen from the spectra. Below 0.5~Hz the power is mainly baseline drift,
 caused by breathing and electrode movement, while the heart rate lies at 1.40~Hz, so 0.5~Hz
-separates the drift from the heartbeat. The harmonics of the heart rate, which together form \chg{the
-shape of each heartbeat}, are visible up to about 30~Hz. Above them lies mostly noise, including the
+separates the drift from the heartbeat. The harmonics of the heart rate, which together form the
+shape of each heartbeat, are visible up to about 30~Hz. Above them lies mostly noise, including the
 50~Hz mains, so 40~Hz separates the ECG from the 50~Hz line. sig-P has almost no power above 7~Hz
 (Figure~\ref{fig:snr}), so the same band can be used.
 
@@ -84,8 +84,8 @@ The whole recording is therefore used.
     sig-L & $-5.6$ \\
     sig-F & $-0.4$ \\
     \midrule
-    sig-F, high-pass & \chg{10.6} \\
-    sig-F, high- + low-pass & \chg{22.5} \\
+    sig-F, high-pass & 10.6 \\
+    sig-F, high- + low-pass & 22.5 \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -125,7 +125,7 @@ result is shifted back by $(K-1)/2 = 2048$ samples. The results are shown in (d)
 % Manual 2.3.2d Present the filtered signal in the time-domain as well as in the frequency
 % domain. Comment on the changes you observe with respect to unfiltered signal.
 \paragraph{(d)} In the time domain (Figure~\ref{fig:hp-time}) the slow baseline drift of more
-than 200~$\mu$V is removed, while \chg{the peaks of the heartbeats} keep their shape and amplitude. In the spectrum
+than 200~$\mu$V is removed, while the peaks of the heartbeats keep their shape and amplitude. In the spectrum
 (Figure~\ref{fig:hp-freq}) the drift below 0.5~Hz drops by 14 to 40~dB, while everything above
 1~Hz, including the heart-rate peaks and the 50~Hz line, is unchanged.
 
@@ -163,14 +163,14 @@ adds at most 0.2~dB, because the remaining noise lies mainly above 40~Hz.
 % Manual 2.3.3a Design a low-pass filter to suppress the noise in the high-pass filtered signal.
 % Carefully choose your parameters in such a way as not to modify the shape of the relevant
 % signals too much. Clearly motivate the choices you made in the design of the filter.
-\paragraph{(a)} \chg{The low-pass filter is designed for the high-pass filtered sig-F. The cut-off
+\paragraph{(a)} The low-pass filter is designed for the high-pass filtered sig-F. The cut-off
 is $f_c = 40$~Hz, between the ECG harmonics, which are clearly visible up to about 30~Hz, and the
 noise above it: the 50~Hz mains and broadband noise. The same linear-phase FIR filter is used as for the high-pass
 filter (Section~\ref{sec:hp}), because it delays all
 frequencies by the same $(K-1)/2$ samples, so the ECG keeps its shape and this delay is removed
 afterwards. The filter is designed with the window method and a Hamming window to reduce the
 ripple. The number of taps sets the steepness of the edge ($\Delta f = f_s/K$): with $K = 201$
-the 50~Hz line is attenuated by 53.5~dB while the ECG up to 32~Hz passes unchanged.}
+the 50~Hz line is attenuated by 53.5~dB while the ECG up to 32~Hz passes unchanged.
 
 % Manual 2.3.3b Present the filter characteristics in an annotated graph in the frequency
 % domain.
@@ -187,20 +187,20 @@ $-0.7$~dB at 35~Hz, $-6$~dB at $f_c = 40$~Hz and $-53.5$~dB at 50~Hz.
 
 % Manual 2.3.3c Apply the filter on your high-pass filtered signal.
 \paragraph{(c)} The high-pass filtered sig-F is convolved with $h[n]$ and the result is shifted
-back by $(K-1)/2 = 100$ samples, so it lines up with the input. \chg{The results are shown in (d)
-and (f).}
+back by $(K-1)/2 = 100$ samples, so it lines up with the input. The results are shown in (d)
+and (f).
 
 % Manual 2.3.3d Present the filtered signal in the time-domain as well as in the frequency
 % domain. Comment on the changes you observe with respect to unfiltered and high-pass filtered
 % signals.
-\paragraph{(d)} \chg{Compared with the high-pass filtered signal,} the fast noise on the baseline is
-gone \chg{in the time domain} (Figure~\ref{fig:lp-time}). \chg{The ECG keeps its shape and timing, but the highest peaks of the heartbeats are about
+\paragraph{(d)} Compared with the high-pass filtered signal, the fast noise on the baseline is
+gone in the time domain (Figure~\ref{fig:lp-time}). The ECG keeps its shape and timing, but the highest peaks of the heartbeats are about
 12\% lower, because these peaks are short and sharp and therefore contain frequencies above
-40~Hz.} This is accepted, because a higher
+40~Hz. This is accepted, because a higher
 cut-off would need a longer filter to still suppress the 50~Hz line. In the spectrum
 (Figure~\ref{fig:lp-freq}) nothing changes up to 32~Hz, and from 50~Hz upwards, including the
-50~Hz line, the power drops by about 40~dB. \chg{Compared with the unfiltered signal, the baseline drift is
-also gone, the power below 0.5~Hz stays as low as after the high-pass filter.}
+50~Hz line, the power drops by about 40~dB. Compared with the unfiltered signal, the baseline drift is
+also gone, the power below 0.5~Hz stays as low as after the high-pass filter.
 
 \begin{figure}[!h]
   \centering
@@ -225,20 +225,20 @@ also gone, the power below 0.5~Hz stays as low as after the high-pass filter.}
 
 % Manual 2.3.3e Why are you allowed to apply the high-pass filter and the low-pass filter in two
 % successive steps? Would a single band-pass filter give you advantage in performance?
-\paragraph{(e)} \chg{The high-pass and the low-pass filter may be applied in two successive steps,
+\paragraph{(e)} The high-pass and the low-pass filter may be applied in two successive steps,
 because both filters are linear and time-invariant, and convolution is commutative and
 associative. The two steps therefore give the same output as one FIR band-pass filter with
 $h[n] = h_\mathrm{HP}[n] \otimes h_\mathrm{LP}[n]$ ($4097 + 201 - 1 = 4297$ taps), or
 $H(f) = H_\mathrm{HP}(f)\,H_\mathrm{LP}(f)$, and the order of the two steps does not matter.
 A single band-pass filter does not give an advantage in performance, because it gives the same
-output and takes about the same number of multiplications.}
+output and takes about the same number of multiplications.
 
 % Manual 2.3.3f Calculate the SNR of the low-pass filtered signal and append to your SNR table.
 % Compare your new SNR to the unfiltered and high-pass filtered SNR values.
-\paragraph{(f)} \chg{After both filters the SNR of sig-F is 22.5~dB (Table~\ref{tab:snr}), against
+\paragraph{(f)} After both filters the SNR of sig-F is 22.5~dB (Table~\ref{tab:snr}), against
 $-0.4$~dB raw and 10.6~dB after the high-pass filter. The low-pass filter removes the 50~Hz mains
 and the noise above 40~Hz. The remaining noise is mainly drift between 0.2 and 0.5~Hz, in the
-edge of the high-pass filter.}
+edge of the high-pass filter.
 \clearpage
 
 % =====================================================================
@@ -246,7 +246,7 @@ edge of the high-pass filter.}
 % =====================================================================
 % Manual 2.3.4a Calculate and plot the auto-correlations of the filtered signal. Comment on
 % your observations in 2-3 sentences.
-\paragraph{(a)} \chg{Figure~\ref{fig:acf-filt} shows the auto-correlation $R_{x,x}[n] = \sum_m x[m]\,x[m-n]$ of the filtered
+\paragraph{(a)} Figure~\ref{fig:acf-filt} shows the auto-correlation $R_{x,x}[n] = \sum_m x[m]\,x[m-n]$ of the filtered
 sig-F over $t = 36.5$--41.5~s (a 5~s part with little baseline drift ),
 divided by $R_{x,x}[0] = \sum_m x[m]^2$, the energy of the signal in the window, so that it is 1
 at zero delay. It has
@@ -254,13 +254,13 @@ narrow peaks at delays of whole heartbeat periods (0.72~s), because the sharp pe
 heartbeats only line up after a shift of a whole period, and these peaks drop from 0.73 to 0.28
 because fewer samples overlap at larger delays. The dips 0.075~s on both sides of each peak (down
 to $-0.17$ beside the peak at zero delay) appear where each heartbeat peak lines up with the
-negative dips just before and after it.}
+negative dips just before and after it.
 
 \begin{figure}[!htb]
   \centering
   \includegraphics[width=\textwidth]{acf_filtered}
   \caption{Normalised auto-correlation of the filtered and unfiltered sig-F,
-  $t = 36.5$--41.5~s. \chg{$R_{x,x}$ is symmetric, so only positive delays are shown. Right: zoom on the first period with the values quoted in Section~\ref{sec:acf}(b).}}
+  $t = 36.5$--41.5~s. $R_{x,x}$ is symmetric, so only positive delays are shown. Right: zoom on the first period with the values quoted in Section~\ref{sec:acf}(b).}
   \label{fig:acf-filt}
 \end{figure}
 
@@ -269,42 +269,42 @@ negative dips just before and after it.}
 because the window was chosen to have little drift. After filtering, the side peaks are
 higher (the first rises from 0.69 to 0.73) and the dips deeper ($-0.14$ to $-0.17$). The
 filters remove 6\% of the power in the window (drift and high-frequency noise). This noise is
-different in every beat, so removing it lowers \chg{$R_{x,x}[0]$} but not the side peaks, and the
+different in every beat, so removing it lowers $R_{x,x}[0]$ but not the side peaks, and the
 normalised side peaks rise ($0.69/0.94 = 0.73$). The dips deepen further because the drift was
-almost constant over 0.075~s, so it added a positive term at short \chg{delays}.
+almost constant over 0.075~s, so it added a positive term at short delays.
 
 % =====================================================================
 \section{Cross-correlation}\label{sec:xcorr}
 % =====================================================================
 % Manual 2.3.5a Calculate and plot the cross-correlation between sig-P and the filtered signal.
 \paragraph{(a)} Figure~\ref{fig:xcorr-filt} shows the normalised cross-correlation
-\chg{$R_{P,F}[n]/\sqrt{R_{P,P}[0]\,R_{F,F}[0]}$} between the unfiltered sig-P and the filtered sig-F,
+$R_{P,F}[n]/\sqrt{R_{P,P}[0]\,R_{F,F}[0]}$ between the unfiltered sig-P and the filtered sig-F,
 over $t = 36.5$--41.5~s with the mean removed. The filters are applied to the whole recording
-before the window is cut, so their run-in \chg{at the edges} falls outside the window.
+before the window is cut, so their run-in at the edges falls outside the window.
 
 \begin{figure}[!h]
   \centering
   \includegraphics[width=\textwidth]{xcorr_filtered}
   \caption{Normalised cross-correlation between sig-P and the filtered sig-F (solid), with the
-  Phase 2 result for the raw sig-F \chg{(red, dashed)}, $t = 36.5$--41.5~s. A positive \chg{delay} means sig-P is
+  Phase 2 result for the raw sig-F (red, dashed), $t = 36.5$--41.5~s. A positive delay means sig-P is
   delayed. Dots: the maxima and minimum quoted in (b).}
   \label{fig:xcorr-filt}
 \end{figure}
 \FloatBarrier
 
 % Manual 2.3.5b Compare your new correlation result with the unfiltered case in Phase 2.
-\paragraph{(b)} \chg{The result is close to that of Phase 2. The two largest maxima are 0.22 at
+\paragraph{(b)} The result is close to that of Phase 2. The two largest maxima are 0.22 at
 $-0.25$~s and 0.20 at $+0.42$~s (Phase 2: 0.22 at $-0.25$~s and 0.19 at $+0.41$~s). The maximum at
-negative \chg{delay} is the pulse of the previous beat, since a pulse cannot come before its own
-heartbeat. The \chg{delays} change by less than 0.01~s, because \chg{both filters delay all frequencies by the
-same $(K-1)/2$ samples and this delay is removed after filtering}. The heights
+negative delay is the pulse of the previous beat, since a pulse cannot come before its own
+heartbeat. The delays change by less than 0.01~s, because both filters delay all frequencies by the
+same $(K-1)/2$ samples and this delay is removed after filtering. The heights
 of these maxima change by less than 0.01, because filtering removes only 6\% of the power of sig-F
 in the window. Only the outer maxima and the minimum grow, by up to 0.03 (minimum $-0.25$ to
-$-0.28$ at $-0.46$~s), because the slow drift, which shifted the curve up or down, is removed.}
+$-0.28$ at $-0.46$~s), because the slow drift, which shifted the curve up or down, is removed.
 
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
-\paragraph{(c)} \chg{Like the auto-correlation (Section~\ref{sec:acf}), the cross-correlation
+\paragraph{(c)} Like the auto-correlation (Section~\ref{sec:acf}), the cross-correlation
 repeats every heartbeat period, but its largest peak is not at zero delay. A signal matches itself
 best without a shift, but the pulse needs time to travel from the heart to the finger, so the
 pulse peak follows the highest ECG peak by about 0.4~s. The auto-correlation peaks are narrow and
@@ -313,16 +313,16 @@ and much lower (0.22 against 0.73), because the smooth pulse signal (sig-P) has 
 Two observations are new compared to Phase 2. First, filtering raises the auto-correlation peak (0.69
 to 0.73) but not the cross-correlation maxima, so their low value comes from the different shapes
 and not from noise. Second, the delay of about 0.4~s stays the same after filtering, so it comes
-from the signals and not from the filters.}
+from the signals and not from the filters.
 
 % Manual 2.3.5d Conclude with a combined interpretation of the Fourier transform,
 % auto-correlation and cross-correlation results.
-\paragraph{(d)} \chg{The strong spectral peaks between 1 and 10~Hz (Figure~\ref{fig:hp-freq}) are
+\paragraph{(d)} The strong spectral peaks between 1 and 10~Hz (Figure~\ref{fig:hp-freq}) are
 the heart rate $f_\mathrm{HR} = 1.40$~Hz and its harmonics, which together form the repeating shape
 of each heartbeat. The filters remove most of the drift below 0.5~Hz, the 50~Hz line and the noise
 above 40~Hz (Figure~\ref{fig:lp-signal}), which raises the SNR of sig-F from $-0.4$ to 22.5~dB
 (Table~\ref{tab:snr}). The auto-correlation shows the same repetition in the time domain: its
 period of 0.72~s matches $1/f_\mathrm{HR}$. The cross-correlation has the same period and shows
-that the pulse peak follows the highest ECG peak by about 0.4~s, also after filtering.}
+that the pulse peak follows the highest ECG peak by about 0.4~s, also after filtering.
 
 \end{document}
