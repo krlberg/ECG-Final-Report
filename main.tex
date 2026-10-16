@@ -100,8 +100,8 @@ The whole recording is therefore used.}
 (Section~\ref{sec:snr})} and the heart rate is $f_\mathrm{HR} = 1.40$~Hz, so the cut-off is placed
 at $f_c = 0.5$~Hz, the lower edge of $B_s$. An FIR filter would need a resolution
 $\Delta f = f_s/K$ below 0.5~Hz, so $K > 2000$ taps. An IIR filter needs only a few
-coefficients and is used instead: a Butterworth filter designed with the bilinear transform
-(\texttt{scipy.signal.butter}), because its pass band is flat. This gives
+coefficients and is used instead: \chg{a Butterworth filter designed with the bilinear
+transform, because its pass band is flat.} This gives
 \[
   H(z) = 0.99783\,\frac{1 - 2z^{-1} + z^{-2}}{1 - 1.99566\,z^{-1} + 0.99567\,z^{-2}}.
 \]
@@ -125,8 +125,8 @@ $f_\mathrm{HR}$ passes with $-0.1$~dB.
 \end{figure}
 
 % Manual 2.3.2c Apply the filter on your selected ECG signal.
-\paragraph{(c)} The filter is applied once, as a causal difference equation
-(\texttt{scipy.signal.lfilter}), to the whole recording of sig-F. The mean is removed first,
+\paragraph{(c)} \chg{The filter is applied once, as a causal difference equation, to the whole
+recording of sig-F.} The mean is removed first,
 otherwise the DC offset gives a large transient at the start of the output.
 
 % Manual 2.3.2d Present the filtered signal in the time-domain as well as in the frequency
@@ -174,8 +174,8 @@ and high-frequency noise), where the high-pass filter has no effect.
 \paragraph{(a)} The ECG harmonics of sig-F are clearly visible up to about 30~Hz and the noise
 is the 50~Hz mains and broadband noise above it (e.g.\ muscle activity), so the cut-off is set
 to $f_c = 40$~Hz. To keep the shape of the ECG, a linear-phase FIR filter is used, which
-delays all frequencies by the same $(K-1)/2$ samples. It is designed with the
-window method (\texttt{scipy.signal.firwin}) and a Hamming window to reduce the ripple. The
+delays all frequencies by the same $(K-1)/2$ samples. \chg{It is designed with the
+window method and a Hamming window to reduce the ripple.} The
 number of taps sets the steepness ($\Delta f = f_s/K$); $K = 201$ gives $-53.5$~dB at the
 50~Hz line.
 
