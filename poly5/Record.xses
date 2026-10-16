@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eBiosig_Session_Record xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.eBiosig.com">
+  <Name>AT TN Module 5</Name>
+  <StartDateTime>2026-09-02T12:18:47.8358898+02:00</StartDateTime>
+  <UsedApplication>AT-TN_Mod5_1024Hz_Poly5_32Bit_v16.xmc (28-9-2016T10:26)</UsedApplication>
+  <RecordingFiles>
+    <StreamInfo>
+      <Path>20260902_121847.S00</Path>
+      <StreamAlias>TemporaryAlias</StreamAlias>
+      <Caption>TemporaryAlias (start 2-9-2026 12:18)</Caption>
+      <StreamType>
+        <StreamType>DiskFile</StreamType>
+        <StreamTypeName>Poly5</StreamTypeName>
+        <StreamTypeVersion>TMS32</StreamTypeVersion>
+      </StreamType>
+      <AppInfo>
+        <AppFileName>AT-TN_Mod5_1024Hz_Poly5_32Bit_v16.xmc</AppFileName>
+        <AppName>AT TN Module 5</AppName>
+        <AppVersion />
+        <AppTimeStamp>2016-09-28T10:26:26+02:00</AppTimeStamp>
+        <PlatformVersion>1.34.1.4456</PlatformVersion>
+      </AppInfo>
+      <ReferenceID />
+      <StreamID>5da254a7-1996-4f6f-be3f-06cb19915267</StreamID>
+      <SessionID>11227e6c-eb9b-43a9-814c-06815e6d47b5</SessionID>
+      <MeasurementInfo />
+      <SourceInfo />
+      <SoftwareInfo />
+      <UserNotes />
+      <FootPrint>"uV","uV","uV","",</FootPrint>
+      <FirstSampleNumber>24744</FirstSampleNumber>
+      <TotalNrOfSamples>46557</TotalNrOfSamples>
+      <SamplesPerBlock>1023</SamplesPerBlock>
+      <StartDateTime>2026-09-02T12:18:47.8406087+02:00</StartDateTime>
+    </StreamInfo>
+  </RecordingFiles>
+  <SessionVars />
+</eBiosig_Session_Record>
