@@ -47,13 +47,14 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
 - 1a SNR (`code/q1a_snr.py`): whole recording (N = 46648), mean removed, P[k] = 2|X[k]|^2/N^2; power in 0.5-40 Hz
   (all four signals) = signal, all other power = noise, SNR = 10 log10(P_s/P_n). Deviates from LT3's noise extrapolation
   because the noise is not white (mainly drift); the report does not discuss this (user's choice). Results: P 13.6 dB, R -1.3, L -5.6, F -0.4 -> sig-F is filtered.
-- Filters (`code/filters.py`, shared by Q2-Q5): HP = 2nd-order Butterworth IIR (bilinear transform), 0.5 Hz,
-  applied ONCE causally (lfilter) after removing the mean. No forward-backward/zero-phase filtering: the reader
-  (12.4) says the course does not use it (changed 16 Oct 2026). LP = Hamming-window FIR, K = 201, 40 Hz (-6 dB),
-  output shifted back by (K-1)/2 = 100 samples (centred convolution, reader eq. 12.8).
-  sig-F SNR: raw -0.4 dB, HP 10.0 dB, HP+LP 17.2 dB. The HP phase (30 deg = 60 ms at f_HR) shifts the xcorr maxima
-  to -0.21/+0.51 s (Phase 2: -0.25/+0.41 s), now one period apart, so the old T-wave explanation of the 0.67 s
-  spacing is dropped. The averaged pulse wave (max 0.41 s after R) confirms the true delay. ACF unaffected.
+- Filters (`code/filters.py`, shared by Q2-Q5), since 16 Oct 2026 BOTH linear-phase FIR, window method, Hamming:
+  HP K = 4097, f_c = 0.5 Hz (-6 dB): -50 dB at 0.1 Hz, -17.6 dB at 0.3 Hz, 0 dB at f_HR. LP K = 201, f_c = 40 Hz.
+  Both applied to the mean-removed signal as centred convolution (delay (K-1)/2 removed, reader eq. 12.8), so zero
+  phase. Why not IIR (argued in 2a): a 2nd-order Butterworth needs 5 coefficients but its non-linear phase shifts
+  the slow ECG parts (60 ms at f_HR) and moved the xcorr maxima to -0.21/+0.51 s. Why K = 4097: K = 2049 only
+  -10.5 dB at 0.3 Hz; K = 6145 adds only +0.1 dB SNR. No forward-backward filtering (reader 12.4: not in course).
+  sig-F SNR: raw -0.4, HP 10.6, HP+LP 22.5 dB. Xcorr maxima 0.22 at -0.25 s, 0.20 at +0.42 s (Phase 2: 0.22/0.19,
+  same lags), minimum -0.25 -> -0.28 at -0.46 s. ACF: 0.69 -> 0.73, dips -0.14 -> -0.17. R peaks ~12% lower.
 - Reader level: keep explanations to what the reader covers (no window side-lobe/transition formulas, no SOS,
   no impulse-response symmetry arguments, no zero-phase filtering).
 - Correlations (`code/q4_acf.py`, `code/q5_xcorr.py`): same window (36.5-41.5 s) and normalisation as Phase 2; sig-P unfiltered.
