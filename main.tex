@@ -48,11 +48,11 @@ The band edges are chosen from the spectra. Below 0.5~Hz the power is mainly bas
 caused by breathing and electrode movement, while the heart rate lies at 1.40~Hz, so 0.5~Hz
 separates the drift from the heartbeat. The harmonics of the heart rate, which together form the
 P, QRS and T waves, are visible up to about 30~Hz. Above them lies mostly noise, including the
-50~Hz mains, so 40~Hz separates the ECG from the 50~Hz line. For sig-P only 0.2\% of the power lies in 7--40~Hz,
-so the same band can be used.}
+50~Hz mains, so 40~Hz separates the ECG from the 50~Hz line. sig-P has almost no power above 7~Hz
+(Figure~\ref{fig:snr}), so the same band can be used.}
 
 Table~\ref{tab:snr} gives the results. The highest SNR is that of sig-P, because the optical
-pulse signal has little drift (4\% of its power lies below 0.5~Hz, against 49\% for sig-F).
+pulse signal has \chg{much less drift below 0.5~Hz than the ECG leads (Figure~\ref{fig:snr}).}
 \chg{The filters are designed for the ECG signal with the highest SNR. sig-P is the pulse-oxi
 signal and not an ECG lead; of the three ECG leads sig-F has the highest SNR, so it is used in the
 rest of this report.}
