@@ -304,28 +304,25 @@ $-0.28$ at $-0.46$~s), because the slow drift, which shifted the curve up or dow
 
 % Manual 2.3.5c Compare your cross-correlation observations to your auto-correlation
 % observations. What are your new observations beyond Phase 2?
-\paragraph{(c)} Like the auto-correlation (Section~\ref{sec:acf}), the cross-correlation
-repeats with the heartbeat, but its main peak is not at zero \chg{delay}. A signal matches itself best
-without a shift, while \chg{the pulse} of each beat needs time to travel from the heart to the
-finger, so the pulse peak follows \chg{the highest ECG peak} by about 0.4~s. The auto-correlation peaks are narrow, because the \chg{sharp ECG peaks} only line
-up at whole periods. The cross-correlation peaks are broader and much lower (\chg{0.22} against 0.73),
-because the smooth \chg{pulse signal (sig-P)} has a different shape from the ECG. Two observations are new
-beyond Phase 2. \chg{First, filtering raises the auto-correlation side peak (0.69 to 0.73) but
-leaves the main cross-correlation maxima unchanged, so their low value is caused by the different
-shapes and not by noise. Second, the \chg{delays} do not change, because the delay of $(K-1)/2$ samples of each filter is
-removed, so
-the delay of about 0.4~s between ECG and pulse comes from the signals and not from the
-processing.}
+\paragraph{(c)} \chg{Like the auto-correlation (Section~\ref{sec:acf}), the cross-correlation
+repeats every heartbeat period, but its largest peak is not at zero delay. A signal matches itself
+best without a shift, but the pulse needs time to travel from the heart to the finger, so the
+pulse peak follows the highest ECG peak by about 0.4~s. The auto-correlation peaks are narrow and
+high, because the sharp ECG peaks line up with themselves. The cross-correlation peaks are broader
+and much lower (0.22 against 0.73), because the smooth pulse signal (sig-P) has a different shape.
+Two observations are new beyond Phase 2. First, filtering raises the auto-correlation peak (0.69
+to 0.73) but not the cross-correlation maxima, so their low value comes from the different shapes
+and not from noise. Second, the delay of about 0.4~s stays the same after filtering, so it comes
+from the signals and not from the filters.}
 
 % Manual 2.3.5d Conclude with a combined interpretation of the Fourier transform,
 % auto-correlation and cross-correlation results.
-\paragraph{(d)} The strong spectral peaks between 1 and 10~Hz (Figure~\ref{fig:hp-freq}) are
-the heart rate $f_\mathrm{HR} = 1.40$~Hz and its harmonics, which together form the repeating \chg{shape of
-each heartbeat}. The filters remove most of the drift below 0.5~Hz, the 50~Hz line and the noise
-above 40~Hz (Figure~\ref{fig:lp-signal}), which raises the SNR of sig-F from $-0.4$ to \chg{22.5}~dB
-(Table~\ref{tab:snr}). The auto-correlation shows the same \chg{repetition} in the time domain, with a
-period of 0.72~s, which matches $f_\mathrm{HR}$. \chg{The cross-correlation has the same period and
-shows that the pulse peak follows the highest ECG peak by about 0.4~s. The filters do not change this
-delay, because their own delay of $(K-1)/2$ samples is removed.}
+\paragraph{(d)} \chg{The strong spectral peaks between 1 and 10~Hz (Figure~\ref{fig:hp-freq}) are
+the heart rate $f_\mathrm{HR} = 1.40$~Hz and its harmonics, which together form the repeating shape
+of each heartbeat. The filters remove most of the drift below 0.5~Hz, the 50~Hz line and the noise
+above 40~Hz (Figure~\ref{fig:lp-signal}), which raises the SNR of sig-F from $-0.4$ to 22.5~dB
+(Table~\ref{tab:snr}). The auto-correlation shows the same repetition in the time domain: its
+period of 0.72~s matches $1/f_\mathrm{HR}$. The cross-correlation has the same period and shows
+that the pulse peak follows the highest ECG peak by about 0.4~s, also after filtering.}
 
 \end{document}
