@@ -15,7 +15,9 @@
 The TA never deducted for numbers, only for observations stated without their meaning or cause.
 Always explain *why* / *what it represents*, not only *what* is seen. Do not remove these fixes:
 - "Strong peaks in range 1-10 Hz, what could it represent?" -> 5d: heart rate (1.40 Hz) and its harmonics,
-  which together form the P, QRS and T waves.
+  which together form the repeating shape of each heartbeat.
+- Only use terms from the reader or the manual (user, 16 Oct): no P/QRS/T waves, R peaks, muscle activity
+  (checked: none of these is in the reader, manual or learning tasks). Say "the (highest) peaks of the heartbeats".
 - "Why is the central (xcorr) peak shifted?" -> 5c: the pressure wave needs time to travel from heart to finger,
   so the pulse peak follows the ECG spike by ~0.4 s; 5b: the maximum at -0.25 s is the pulse of the previous beat.
 - "Visibility of peaks in acorr vs xcorr?" -> 5c: acorr peaks narrow and clear (sharp QRS), xcorr peaks broad and
