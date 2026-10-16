@@ -242,14 +242,12 @@ edge of the high-pass filter.}
 % =====================================================================
 % Manual 2.3.4a Calculate and plot the auto-correlations of the filtered signal. Comment on
 % your observations in 2-3 sentences.
-\paragraph{(a)} Figure~\ref{fig:acf-filt} shows the normalised auto-correlation
-$R_{xx}[n]/R_{xx}[0]$ of the filtered sig-F (high- and low-pass), calculated over
-$t = 36.5$--41.5~s with the mean removed. It has narrow peaks at multiples of the heartbeat
-period of 0.72~s, because the \chg{short, sharp peaks of the heartbeats} only line up at whole periods, and the peaks
-drop from 0.73 at 0.72~s to 0.28 at 3.58~s because fewer samples overlap. Each peak has dips
-about 0.075~s on both sides (down to $-0.17$ next to the zero-lag peak), where \chg{the highest peak of each heartbeat lines
-up with the negative dips just before and after it}; between the beats the curve stays
-close to zero.
+\paragraph{(a)} \chg{Figure~\ref{fig:acf-filt} shows the normalised auto-correlation
+$R_{xx}[n]/R_{xx}[0]$ of the filtered sig-F over $t = 36.5$--41.5~s. It has narrow peaks at
+multiples of the heartbeat period of 0.72~s, because the sharp peaks of the heartbeats only line
+up at whole periods, and these peaks drop from 0.73 to 0.28 because fewer samples overlap.
+The dips 0.075~s on both sides of each peak (down to $-0.17$ beside the zero-lag peak) appear where each
+heartbeat peak lines up with the negative dips just before and after it.}
 
 \begin{figure}[!htb]
   \centering
