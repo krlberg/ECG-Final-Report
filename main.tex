@@ -295,7 +295,8 @@ before the window is cut, so their run-in \chg{at the edges} falls outside the w
 \paragraph{(b)} \chg{The result is close to that of Phase 2. The two largest maxima are 0.22 at
 $-0.25$~s and 0.20 at $+0.42$~s (Phase 2: 0.22 at $-0.25$~s and 0.19 at $+0.41$~s). The maximum at
 negative \chg{delay} is the pulse of the previous beat, since a pulse cannot come before its own
-heartbeat. The \chg{delays} change by less than 0.01~s, because both filters have zero phase. The heights
+heartbeat. The \chg{delays} change by less than 0.01~s, because \chg{both filters delay all frequencies by the
+same $(K-1)/2$ samples and this delay is removed after filtering}. The heights
 of these maxima change by less than 0.01, because filtering removes only 6\% of the power of sig-F
 in the window. Only the outer maxima and the minimum grow, by up to 0.03 (minimum $-0.25$ to
 $-0.28$ at $-0.46$~s), because the slow drift, which shifted the curve up or down, is removed.}
@@ -304,13 +305,14 @@ $-0.28$ at $-0.46$~s), because the slow drift, which shifted the curve up or dow
 % observations. What are your new observations beyond Phase 2?
 \paragraph{(c)} Like the auto-correlation (Section~\ref{sec:acf}), the cross-correlation
 repeats with the heartbeat, but its main peak is not at zero \chg{delay}. A signal matches itself best
-without a shift, while the pressure wave of each beat needs time to travel from the heart to the
+without a shift, while \chg{the pulse} of each beat needs time to travel from the heart to the
 finger, so the pulse peak follows \chg{the highest ECG peak} by about 0.4~s. The auto-correlation peaks are narrow, because the \chg{sharp ECG peaks} only line
 up at whole periods. The cross-correlation peaks are broader and much lower (\chg{0.22} against 0.73),
 because the smooth \chg{pulse signal (sig-P)} has a different shape from the ECG. Two observations are new
 beyond Phase 2. \chg{First, filtering raises the auto-correlation side peak (0.69 to 0.73) but
 leaves the main cross-correlation maxima unchanged, so their low value is caused by the different
-shapes and not by noise. Second, the \chg{delays} do not change, because both filters have zero phase, so
+shapes and not by noise. Second, the \chg{delays} do not change, because the delay of $(K-1)/2$ samples of each filter is
+removed, so
 the delay of about 0.4~s between ECG and pulse comes from the signals and not from the
 processing.}
 
@@ -320,9 +322,9 @@ processing.}
 the heart rate $f_\mathrm{HR} = 1.40$~Hz and its harmonics, which together form the repeating \chg{shape of
 each heartbeat}. The filters remove most of the drift below 0.5~Hz, the 50~Hz line and the noise
 above 40~Hz (Figure~\ref{fig:lp-signal}), which raises the SNR of sig-F from $-0.4$ to \chg{22.5}~dB
-(Table~\ref{tab:snr}). The auto-correlation shows the same rhythm in the time domain, with a
+(Table~\ref{tab:snr}). The auto-correlation shows the same \chg{repetition} in the time domain, with a
 period of 0.72~s, which matches $f_\mathrm{HR}$. \chg{The cross-correlation has the same period and
 shows that the pulse peak follows the highest ECG peak by about 0.4~s. The filters do not change this
-delay, because both have zero phase.}
+delay, because their own delay of $(K-1)/2$ samples is removed.}
 
 \end{document}

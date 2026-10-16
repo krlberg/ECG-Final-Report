@@ -18,6 +18,8 @@ Always explain *why* / *what it represents*, not only *what* is seen. Do not rem
   which together form the repeating shape of each heartbeat.
 - Only use terms from the reader or the manual (user, 16 Oct): no P/QRS/T waves, R peaks, muscle activity
   (checked: none of these is in the reader, manual or learning tasks). Say "the (highest) peaks of the heartbeats".
+  Also no "zero phase" (reader 12.4 uses it only for forward-backward filtering, not in the course): say the
+  delay of (K-1)/2 samples is removed. No "pressure wave": say the pulse travels from the heart to the finger.
 - "Why is the central (xcorr) peak shifted?" -> 5c: the pressure wave needs time to travel from heart to finger,
   so the pulse peak follows the ECG spike by ~0.4 s; 5b: the maximum at -0.25 s is the pulse of the previous beat.
 - "Visibility of peaks in acorr vs xcorr?" -> 5c: acorr peaks narrow and clear (sharp QRS), xcorr peaks broad and
