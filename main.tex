@@ -244,7 +244,8 @@ edge of the high-pass filter.}
 % your observations in 2-3 sentences.
 \paragraph{(a)} \chg{Figure~\ref{fig:acf-filt} shows the auto-correlation $R_{x,x}[n]$ of the filtered
 sig-F over $t = 36.5$--41.5~s (a 5~s part with little baseline drift ),
-divided by $R_{x,x}[0]$ so that it is 1 at zero delay. It has
+divided by $R_{x,x}[0] = \sum_m x[m]^2$, the energy of the signal in the window, so that it is 1
+at zero delay. It has
 narrow peaks at delays of whole heartbeat periods (0.72~s), because the sharp peaks of the
 heartbeats only line up after a shift of a whole period, and these peaks drop from 0.73 to 0.28
 because fewer samples overlap at larger delays. The dips 0.075~s on both sides of each peak (down
@@ -264,7 +265,7 @@ negative dips just before and after it.}
 because the window was chosen to have little drift. After filtering, the side peaks are
 higher (the first rises from 0.69 to 0.73) and the dips deeper ($-0.14$ to $-0.17$). The
 filters remove 6\% of the power in the window (drift and high-frequency noise). This noise is
-different in every beat, so removing it lowers \chg{$R_{x,x}[0] = \sum_m x[m]^2$, the energy of the signal in the window,} but not the side peaks, and the
+different in every beat, so removing it lowers \chg{$R_{x,x}[0]$} but not the side peaks, and the
 normalised side peaks rise ($0.69/0.94 = 0.73$). The dips deepen further because the drift was
 almost constant over 0.075~s, so it added a positive term at short \chg{delays}.
 
