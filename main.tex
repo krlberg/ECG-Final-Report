@@ -223,7 +223,8 @@ high-pass filter.
 associative. \chg{The two steps are therefore equal to one FIR band-pass filter with
 $h[n] = h_\mathrm{HP}[n] \otimes h_\mathrm{LP}[n]$ ($4097 + 201 - 1 = 4297$ taps), or
 $H(f) = H_\mathrm{HP}(f)\,H_\mathrm{LP}(f)$, in either order. A single band-pass filter gives the
-same output, so it has no advantage in performance; it only saves one convolution.}
+same output and takes about the same number of multiplications, so it has no advantage in
+performance.}
 
 % Manual 2.3.3f Calculate the SNR of the low-pass filtered signal and append to your SNR table.
 % Compare your new SNR to the unfiltered and high-pass filtered SNR values.
