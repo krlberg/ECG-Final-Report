@@ -120,12 +120,12 @@ $-17.6$~dB at 0.3~Hz, $-6$~dB at $f_c$ and 0~dB at $f_\mathrm{HR}$.}
 
 % Manual 2.3.2c Apply the filter on your selected ECG signal.
 \paragraph{(c)} \chg{The mean of sig-F is removed, the signal is convolved with $h[n]$ and the
-result is shifted back by $(K-1)/2 = 2048$ samples.}
+result is shifted back by $(K-1)/2 = 2048$ samples. The results are shown in (d) and (e).}
 
 % Manual 2.3.2d Present the filtered signal in the time-domain as well as in the frequency
 % domain. Comment on the changes you observe with respect to unfiltered signal.
-\paragraph{(d)} \chg{In the time domain (Figure~\ref{fig:hp-time}) the baseline wander of more than
-200~$\mu$V is removed, while the QRS complexes keep their shape and amplitude. In the spectrum
+\paragraph{(d)} \chg{In the time domain (Figure~\ref{fig:hp-time}) the slow baseline drift of more
+than 200~$\mu$V is removed, while the QRS complexes keep their shape and amplitude. In the spectrum
 (Figure~\ref{fig:hp-freq}) the drift below 0.5~Hz drops by 14 to 40~dB, while everything above
 1~Hz, including the heart-rate peaks and the 50~Hz line, is unchanged.}
 
